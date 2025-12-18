@@ -2,97 +2,112 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Consulta NCM e CClassTrib - CE</title>
+  <title>Consulta NCM e CClassTrib – CE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
-    .card { background:#fff; max-width:800px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
-    h1 { font-size:22px; margin-bottom:10px; }
+    body { font-family: Arial, Helvetica, sans-serif; background:#f4f6f8; }
+    .box { max-width: 720px; margin: 30px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+    h2 { margin-top:0; }
     label { font-weight:bold; display:block; margin-top:12px; }
-    input, select, button { width:100%; padding:10px; margin-top:6px; }
-    button { background:#2563eb; color:#fff; border:none; border-radius:6px; margin-top:15px; cursor:pointer; font-size:16px; }
-    button:hover { background:#1e40af; }
-    .resultado { background:#eef6ff; padding:15px; margin-top:20px; border-radius:8px; display:none; }
-    .erro { background:#fee2e2; padding:15px; margin-top:20px; border-radius:8px; display:none; }
-    .small { font-size:12px; color:#555; }
+    input, button { width:100%; padding:10px; margin-top:6px; font-size:16px; }
+    button { background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+    button:hover { background:#1d4ed8; }
+    .resultado { background:#eef4ff; padding:15px; margin-top:20px; border-radius:6px; }
+    .erro { color:#b91c1c; margin-top:10px; }
   </style>
 </head>
 <body>
+  <div class="box">
+    <h2>Consulta NCM e CClassTrib – Ceará</h2>
 
-<div class="card">
-  <h1>Consulta NCM e CClassTrib</h1>
-  <p class="small">Estado do Ceará (CE) – busca inteligente por nome ou NCM</p>
+    <label>Digite o nome do produto</label>
+    <input id="produto" placeholder="Ex: água mineral, refrigerante, arroz" />
 
-  <label>Produto ou mercadoria</label>
-  <input type="text" id="busca" placeholder="Ex: coca cola, refrigerante, batata palha, mouse ou NCM" />
+    <label>OU informe o NCM</label>
+    <input id="ncm" placeholder="Ex: 22021000" />
 
-  <label>Regime Tributário</label>
-  <select id="regime">
-    <option value="SN">Simples Nacional</option>
-    <option value="LP">Lucro Presumido</option>
-    <option value="LR">Lucro Real</option>
-  </select>
+    <button onclick="consultar()">Consultar</button>
 
-  <button onclick="consultar()">Consultar</button>
-
-  <div id="resultado" class="resultado"></div>
-  <div id="erro" class="erro"></div>
-</div>
+    <div id="saida"></div>
+  </div>
 
 <script>
-const base = [
-  { termos: ["refrigerante","coca cola","guarana","fanta","bebida gaseificada"], ncm: "22021000", descricao: "Refrigerantes", cclass: "000002" },
-  { termos: ["agua","agua mineral"], ncm: "22011000", descricao: "Água mineral", cclass: "000001" },
-  { termos: ["batata palha","batata processada"], ncm: "20041000", descricao: "Batatas preparadas ou conservadas", cclass: "000001" },
-  { termos: ["arroz"], ncm: "10063021", descricao: "Arroz beneficiado", cclass: "000001" },
-  { termos: ["feijao","feijão"], ncm: "07133329", descricao: "Feijão", cclass: "000001" },
-  { termos: ["mouse"], ncm: "84716053", descricao: "Mouse", cclass: "000001" },
-  { termos: ["teclado"], ncm: "84716052", descricao: "Teclado", cclass: "000001" },
-  { termos: ["cabo usb","usb"], ncm: "85444200", descricao: "Cabo USB", cclass: "000001" }
+// BASE SIMPLIFICADA (exemplo – você pode ampliar depois)
+const baseProdutos = [
+  { termos:["agua","água","agua mineral"], ncm:"22011000", desc:"Água mineral", cclass:"000001" },
+  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", desc:"Refrigerante", cclass:"000001" },
+  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado", cclass:"000001" },
+  { termos:["batata palha"], ncm:"20041000", desc:"Batatas preparadas ou conservadas", cclass:"000001" }
 ];
 
-function normalizar(txt) {
-  return txt.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
-}
+// CCLASSTRIB (NÃO REMOVIDO – CORRIGIDO)
+const cclassTribMap = {
+  "000001":"Situações tributadas integralmente",
+  "000002":"Exploração de via",
+  "000003":"Regime automotivo – projetos incentivados",
+  "000004":"Regime automotivo – projetos incentivados"
+};
 
-function consultar() {
-  const termo = normalizar(document.getElementById('busca').value);
-  const regime = document.getElementById('regime').value;
-  const resultado = document.getElementById('resultado');
-  const erro = document.getElementById('erro');
+// CST PARA CCLASSTRIB (TABELA COMPLETA)
+const cstCClassTrib = {
+  "000":"Tributação integral",
+  "010":"Tributação com alíquotas uniformes",
+  "011":"Tributação com alíquotas uniformes reduzidas",
+  "200":"Alíquota reduzida",
+  "220":"Alíquota fixa",
+  "221":"Alíquota fixa proporcional",
+  "222":"Redução de base de cálculo",
+  "400":"Isenção",
+  "410":"Imunidade e não incidência",
+  "510":"Diferimento",
+  "515":"Diferimento com redução de alíquota",
+  "550":"Suspensão",
+  "620":"Tributação monofásica",
+  "800":"Transferência de crédito",
+  "810":"Ajuste de IBS na ZFM",
+  "811":"Ajustes",
+  "820":"Tributação em declaração de regime especial",
+  "830":"Exclusão de base de cálculo"
+};
 
-  resultado.style.display = 'none';
-  erro.style.display = 'none';
+function consultar(){
+  const prodInput = document.getElementById('produto');
+  const ncmInput = document.getElementById('ncm');
+  const saida = document.getElementById('saida');
+  saida.innerHTML = "";
 
-  if (!termo) {
-    erro.style.display = 'block';
-    erro.innerHTML = 'Informe um produto ou NCM.';
+  const termo = prodInput.value.trim().toLowerCase();
+  const ncmBusca = ncmInput.value.trim();
+
+  let item = null;
+
+  if(ncmBusca){
+    item = baseProdutos.find(p => p.ncm === ncmBusca);
+  } else if(termo){
+    item = baseProdutos.find(p => p.termos.some(t => termo.includes(t)));
+  }
+
+  // LIMPA O CAMPO NÃO USADO
+  if(ncmBusca) prodInput.value = "";
+  if(termo) ncmInput.value = "";
+
+  if(!item){
+    saida.innerHTML = '<div class="erro">Nenhum resultado encontrado.</div>';
     return;
   }
 
-  const ncmBusca = termo.replace(/\D/g, '');
+  // REGRA PADRÃO: CClassTrib 000001 => CST 000
+  let cstPadrao = "000";
 
-  let encontrado = base.find(p =>
-    (ncmBusca && p.ncm.startsWith(ncmBusca)) ||
-    p.termos.some(t => termo.includes(normalizar(t)))
-  );
-
-  if (!encontrado) {
-    erro.style.display = 'block';
-    erro.innerHTML = 'Nenhum resultado encontrado.';
-    return;
-  }
-
-  resultado.style.display = 'block';
-  resultado.innerHTML = `
-    <b>NCM:</b> ${encontrado.ncm}<br>
-    <b>Descrição:</b> ${encontrado.descricao}<br><br>
-    <b>CClassTrib (CE):</b> ${encontrado.cclass}<br>
-    <span class="small">Regime: ${regime}</span><br><br>
-    <span class="small">Resultado estimado. Confirme com contador.</span>
+  saida.innerHTML = `
+    <div class="resultado">
+      <strong>NCM:</strong> ${item.ncm}<br>
+      <strong>Descrição:</strong> ${item.desc}<br><br>
+      <strong>CClassTrib (CE):</strong> ${item.cclass} – ${cclassTribMap[item.cclass] || 'Descrição não cadastrada'}<br><br>
+      <strong>CST CClassTrib:</strong> ${cstPadrao} – ${cstCClassTrib[cstPadrao]}
+    </div>
   `;
 }
 </script>
-
 </body>
 </html>
