@@ -1,76 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM - Ceará</title>
-<style>
-body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
-.card { max-width:650px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
-input, button { width:100%; padding:12px; margin-top:10px; font-size:16px; }
-button { background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-button:hover { background:#1d4ed8; }
-.result { margin-top:20px; background:#f1f5f9; padding:15px; border-radius:5px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta NCM e CClassTrib - CE</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
+    .card { background:#fff; max-width:800px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+    h1 { font-size:22px; margin-bottom:10px; }
+    label { font-weight:bold; display:block; margin-top:12px; }
+    input, select, button { width:100%; padding:10px; margin-top:6px; }
+    button { background:#2563eb; color:#fff; border:none; border-radius:6px; margin-top:15px; cursor:pointer; font-size:16px; }
+    button:hover { background:#1e40af; }
+    .resultado { background:#eef6ff; padding:15px; margin-top:20px; border-radius:8px; display:none; }
+    .erro { background:#fee2e2; padding:15px; margin-top:20px; border-radius:8px; display:none; }
+    .small { font-size:12px; color:#555; }
+  </style>
 </head>
 <body>
 
 <div class="card">
-<h2>Consulta NCM e CClassTrib – CE</h2>
-<p>Digite o <b>nome do produto</b> ou o <b>NCM</b></p>
+  <h1>Consulta NCM e CClassTrib</h1>
+  <p class="small">Estado do Ceará (CE) – busca inteligente por nome ou NCM</p>
 
-<input id="busca" placeholder="Ex: arroz, batata palha, mouse, teclado, 20041000">
+  <label>Produto ou mercadoria</label>
+  <input type="text" id="busca" placeholder="Ex: coca cola, refrigerante, batata palha, mouse ou NCM" />
 
-<button onclick="consultar()">Consultar</button>
+  <label>Regime Tributário</label>
+  <select id="regime">
+    <option value="SN">Simples Nacional</option>
+    <option value="LP">Lucro Presumido</option>
+    <option value="LR">Lucro Real</option>
+  </select>
 
-<div id="resultado" class="result" style="display:none;"></div>
+  <button onclick="consultar()">Consultar</button>
+
+  <div id="resultado" class="resultado"></div>
+  <div id="erro" class="erro"></div>
 </div>
 
 <script>
 const base = [
- { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado", cst:"00", cclass:"000001" },
- { termos:["batata","batata palha","chips"], ncm:"20041000", desc:"Batatas preparadas ou conservadas", cst:"00", cclass:"000001" },
- { termos:["agua","água","agua mineral"], ncm:"22011000", desc:"Água mineral", cst:"00", cclass:"000001" },
- { termos:["mouse"], ncm:"84716053", desc:"Dispositivo apontador (mouse)", cst:"00", cclass:"000003" },
- { termos:["teclado"], ncm:"84716052", desc:"Teclado para máquina automática de dados", cst:"00", cclass:"000003" }
+  { termos: ["refrigerante","coca cola","guarana","fanta","bebida gaseificada"], ncm: "22021000", descricao: "Refrigerantes", cclass: "000002" },
+  { termos: ["agua","agua mineral"], ncm: "22011000", descricao: "Água mineral", cclass: "000001" },
+  { termos: ["batata palha","batata processada"], ncm: "20041000", descricao: "Batatas preparadas ou conservadas", cclass: "000001" },
+  { termos: ["arroz"], ncm: "10063021", descricao: "Arroz beneficiado", cclass: "000001" },
+  { termos: ["feijao","feijão"], ncm: "07133329", descricao: "Feijão", cclass: "000001" },
+  { termos: ["mouse"], ncm: "84716053", descricao: "Mouse", cclass: "000001" },
+  { termos: ["teclado"], ncm: "84716052", descricao: "Teclado", cclass: "000001" },
+  { termos: ["cabo usb","usb"], ncm: "85444200", descricao: "Cabo USB", cclass: "000001" }
 ];
 
-function normalizar(txt){
- return txt.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function normalizar(txt) {
+  return txt.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
 }
 
-function consultar(){
- const campo = document.getElementById("busca");
- const texto = normalizar(campo.value.trim());
- const res = document.getElementById("resultado");
+function consultar() {
+  const termo = normalizar(document.getElementById('busca').value);
+  const regime = document.getElementById('regime').value;
+  const resultado = document.getElementById('resultado');
+  const erro = document.getElementById('erro');
 
- res.style.display="none";
- res.innerHTML="";
+  resultado.style.display = 'none';
+  erro.style.display = 'none';
 
- if(!texto){
-   alert("Digite um produto ou NCM");
-   return;
- }
+  if (!termo) {
+    erro.style.display = 'block';
+    erro.innerHTML = 'Informe um produto ou NCM.';
+    return;
+  }
 
- let achou = base.find(p =>
-   p.ncm.includes(texto) ||
-   p.termos.some(t => normalizar(t).includes(texto) || texto.includes(normalizar(t)))
- );
+  const ncmBusca = termo.replace(/\D/g, '');
 
- if(!achou){
-   res.style.display="block";
-   res.innerHTML="Nenhum resultado encontrado.";
- } else {
-   res.style.display="block";
-   res.innerHTML = `
-     <b>NCM:</b> ${achou.ncm}<br>
-     <b>Descrição:</b> ${achou.desc}<br><br>
-     <b>CST ICMS:</b> ${achou.cst}<br>
-     <b>CClassTrib (CE):</b> ${achou.cclass}
-   `;
- }
+  let encontrado = base.find(p =>
+    (ncmBusca && p.ncm.startsWith(ncmBusca)) ||
+    p.termos.some(t => termo.includes(normalizar(t)))
+  );
 
- campo.value = "";
+  if (!encontrado) {
+    erro.style.display = 'block';
+    erro.innerHTML = 'Nenhum resultado encontrado.';
+    return;
+  }
+
+  resultado.style.display = 'block';
+  resultado.innerHTML = `
+    <b>NCM:</b> ${encontrado.ncm}<br>
+    <b>Descrição:</b> ${encontrado.descricao}<br><br>
+    <b>CClassTrib (CE):</b> ${encontrado.cclass}<br>
+    <span class="small">Regime: ${regime}</span><br><br>
+    <span class="small">Resultado estimado. Confirme com contador.</span>
+  `;
 }
 </script>
 
