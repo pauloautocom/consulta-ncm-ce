@@ -6,7 +6,7 @@
 <title>Consulta NCM - Ceará</title>
 <style>
 body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
-.card { max-width:600px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.card { max-width:650px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
 input, button { width:100%; padding:12px; margin-top:10px; font-size:16px; }
 button { background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
 button:hover { background:#1d4ed8; }
@@ -19,7 +19,7 @@ button:hover { background:#1d4ed8; }
 <h2>Consulta NCM e CClassTrib – CE</h2>
 <p>Digite o <b>nome do produto</b> ou o <b>NCM</b></p>
 
-<input id="busca" placeholder="Ex: arroz, batata palha, 20041000">
+<input id="busca" placeholder="Ex: arroz, batata palha, mouse, teclado, 20041000">
 
 <button onclick="consultar()">Consultar</button>
 
@@ -28,23 +28,33 @@ button:hover { background:#1d4ed8; }
 
 <script>
 const base = [
- { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado" },
- { termos:["batata","batata palha","chips"], ncm:"20041000", desc:"Batatas preparadas ou conservadas" },
- { termos:["agua","água","agua mineral"], ncm:"22011000", desc:"Água mineral" }
+ { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado", cst:"00", cclass:"000001" },
+ { termos:["batata","batata palha","chips"], ncm:"20041000", desc:"Batatas preparadas ou conservadas", cst:"00", cclass:"000001" },
+ { termos:["agua","água","agua mineral"], ncm:"22011000", desc:"Água mineral", cst:"00", cclass:"000001" },
+ { termos:["mouse"], ncm:"84716053", desc:"Dispositivo apontador (mouse)", cst:"00", cclass:"000003" },
+ { termos:["teclado"], ncm:"84716052", desc:"Teclado para máquina automática de dados", cst:"00", cclass:"000003" }
 ];
+
+function normalizar(txt){
+ return txt.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+}
 
 function consultar(){
  const campo = document.getElementById("busca");
- const texto = campo.value.toLowerCase().trim();
+ const texto = normalizar(campo.value.trim());
  const res = document.getElementById("resultado");
+
  res.style.display="none";
  res.innerHTML="";
 
- if(!texto){ alert("Digite um produto ou NCM"); return; }
+ if(!texto){
+   alert("Digite um produto ou NCM");
+   return;
+ }
 
  let achou = base.find(p =>
    p.ncm.includes(texto) ||
-   p.termos.some(t => t.includes(texto) || texto.includes(t))
+   p.termos.some(t => normalizar(t).includes(texto) || texto.includes(normalizar(t)))
  );
 
  if(!achou){
@@ -54,8 +64,9 @@ function consultar(){
    res.style.display="block";
    res.innerHTML = `
      <b>NCM:</b> ${achou.ncm}<br>
-     <b>Descrição:</b> ${achou.desc}<br>
-     <b>CClassTrib (CE):</b> 000001
+     <b>Descrição:</b> ${achou.desc}<br><br>
+     <b>CST ICMS:</b> ${achou.cst}<br>
+     <b>CClassTrib (CE):</b> ${achou.cclass}
    `;
  }
 
