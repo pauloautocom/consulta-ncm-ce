@@ -3,183 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM e CClassTrib – Ceará</title>
-
+<title>Consulta NCM - Ceará</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  padding:20px;
-}
-.card {
-  background:#fff;
-  max-width:720px;
-  margin:auto;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-h1 {
-  font-size:22px;
-}
-label {
-  font-weight:bold;
-  display:block;
-  margin-top:12px;
-}
-input, select, button {
-  width:100%;
-  padding:10px;
-  margin-top:6px;
-  font-size:15px;
-}
-button {
-  background:#2563eb;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  margin-top:18px;
-  cursor:pointer;
-}
-button:hover {
-  background:#1e40af;
-}
-.resultado {
-  background:#eef6ff;
-  padding:15px;
-  margin-top:20px;
-  border-radius:8px;
-  display:none;
-}
-.erro {
-  background:#fee2e2;
-  padding:15px;
-  margin-top:20px;
-  border-radius:8px;
-  display:none;
-}
-.small {
-  font-size:12px;
-  color:#555;
-}
+body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
+.card { max-width:600px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+input, button { width:100%; padding:12px; margin-top:10px; font-size:16px; }
+button { background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+button:hover { background:#1d4ed8; }
+.result { margin-top:20px; background:#f1f5f9; padding:15px; border-radius:5px; }
 </style>
 </head>
-
 <body>
 
 <div class="card">
-  <h1>Consulta NCM e CClassTrib</h1>
-  <p class="small">Estado do Ceará (CE) – busca simples tipo Google</p>
+<h2>Consulta NCM e CClassTrib – CE</h2>
+<p>Digite o <b>nome do produto</b> ou o <b>NCM</b></p>
 
-  <label>Digite o nome da mercadoria</label>
-  <input type="text" id="nome" placeholder="Ex: água mineral, arroz, refrigerante, mouse" />
+<input id="busca" placeholder="Ex: arroz, batata palha, 20041000">
 
-  <label>OU informe o NCM</label>
-  <input type="text" id="ncm" placeholder="Ex: 22011000" />
+<button onclick="consultar()">Consultar</button>
 
-  <label>Regime Tributário</label>
-  <select id="regime">
-    <option value="SN">Simples Nacional</option>
-    <option value="LP">Lucro Presumido</option>
-    <option value="LR">Lucro Real</option>
-  </select>
-
-  <label>CST ICMS</label>
-  <select id="cst">
-    <option value="00">00 – Tributada integralmente</option>
-    <option value="10">10 – Tributada com ST</option>
-    <option value="20">20 – Com redução de base</option>
-    <option value="40">40 – Isenta</option>
-    <option value="41">41 – Não tributada</option>
-    <option value="60">60 – ICMS ST</option>
-  </select>
-
-  <button onclick="consultar()">Consultar</button>
-
-  <div id="resultado" class="resultado"></div>
-  <div id="erro" class="erro"></div>
+<div id="resultado" class="result" style="display:none;"></div>
 </div>
 
 <script>
-// BASE DEMONSTRATIVA (exemplos comuns)
-// ⚠️ Para produção: integrar IBPT / Receita Federal
 const base = [
-  { termos:["agua","agua mineral","água","água mineral"], ncm:"22011000", desc:"Águas minerais naturais ou artificiais" },
-  { termos:["refrigerante"], ncm:"22021000", desc:"Refrigerantes e bebidas açucaradas" },
-  { termos:["cerveja"], ncm:"22030000", desc:"Cervejas de malte" },
-  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado" },
-  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão comum" },
-  { termos:["cafe","café"], ncm:"09012100", desc:"Café torrado" },
-  { termos:["leite"], ncm:"04012010", desc:"Leite UHT" },
-  { termos:["acucar","açúcar"], ncm:"17019900", desc:"Açúcar de cana" },
-  { termos:["mouse"], ncm:"84716053", desc:"Mouse para computador" },
-  { termos:["teclado"], ncm:"84716052", desc:"Teclado para computador" },
-  { termos:["cabo usb","usb"], ncm:"85444200", desc:"Cabos elétricos com conectores" },
-  { termos:["carregador"], ncm:"85044090", desc:"Fontes e carregadores" }
+ { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado" },
+ { termos:["batata","batata palha","chips"], ncm:"20041000", desc:"Batatas preparadas ou conservadas" },
+ { termos:["agua","água","agua mineral"], ncm:"22011000", desc:"Água mineral" }
 ];
 
-function normalizar(txt){
-  return txt.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .trim();
-}
-
-function calcularCClassTrib(cst){
-  switch(cst){
-    case "00": return "000001";
-    case "10": return "000002";
-    case "20": return "000003";
-    case "40":
-    case "41": return "000004";
-    case "60": return "000002";
-    default: return "000001";
-  }
-}
-
 function consultar(){
-  const nome = normalizar(document.getElementById("nome").value);
-  const ncmDigitado = document.getElementById("ncm").value.replace(/\D/g,"");
-  const regime = document.getElementById("regime").value;
-  const cst = document.getElementById("cst").value;
+ const campo = document.getElementById("busca");
+ const texto = campo.value.toLowerCase().trim();
+ const res = document.getElementById("resultado");
+ res.style.display="none";
+ res.innerHTML="";
 
-  const res = document.getElementById("resultado");
-  const err = document.getElementById("erro");
-  res.style.display="none";
-  err.style.display="none";
+ if(!texto){ alert("Digite um produto ou NCM"); return; }
 
-  let item = null;
+ let achou = base.find(p =>
+   p.ncm.includes(texto) ||
+   p.termos.some(t => t.includes(texto) || texto.includes(t))
+ );
 
-  if(ncmDigitado.length >= 6){
-    item = base.find(b => b.ncm.startsWith(ncmDigitado));
-  }
+ if(!achou){
+   res.style.display="block";
+   res.innerHTML="Nenhum resultado encontrado.";
+ } else {
+   res.style.display="block";
+   res.innerHTML = `
+     <b>NCM:</b> ${achou.ncm}<br>
+     <b>Descrição:</b> ${achou.desc}<br>
+     <b>CClassTrib (CE):</b> 000001
+   `;
+ }
 
-  if(!item && nome){
-    const palavras = nome.split(" ");
-    item = base.find(b =>
-      palavras.some(p =>
-        b.termos.some(t => normalizar(t).includes(p))
-      )
-    );
-  }
-
-  if(!item){
-    err.style.display="block";
-    err.innerHTML="<b>Nenhum resultado encontrado.</b><br>Tente palavras simples como água, arroz, refrigerante.";
-    return;
-  }
-
-  const cclass = calcularCClassTrib(cst);
-
-  res.style.display="block";
-  res.innerHTML = `
-    <b>NCM:</b> ${item.ncm}<br>
-    <b>Descrição:</b> ${item.desc}<br><br>
-    <b>CST:</b> ${cst}<br>
-    <b>CClassTrib (CE):</b> ${cclass}<br>
-    <span class="small">Regime: ${regime}</span><br><br>
-    <span class="small">⚠️ Resultado estimado. Sempre valide com contador/SEFAZ.</span>
-  `;
+ campo.value = "";
 }
 </script>
 
