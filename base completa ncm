@@ -1,0 +1,6626 @@
+[
+  {
+    "ncm":"10121000",
+    "descricao":"-- Reprodutores de raça pura"
+  },
+  {
+    "ncm":"10129000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"10130000",
+    "descricao":"- Asininos"
+  },
+  {
+    "ncm":"10190000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"10221100",
+    "descricao":"Prenhes ou com cria ao pé"
+  },
+  {
+    "ncm":"10221900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10229110",
+    "descricao":"Prenhes ou com cria ao pé"
+  },
+  {
+    "ncm":"10229190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10229900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10231100",
+    "descricao":"Prenhes ou com cria ao pé"
+  },
+  {
+    "ncm":"10231900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10239110",
+    "descricao":"Prenhes ou com cria ao pé"
+  },
+  {
+    "ncm":"10239190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10239900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10290000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"10310000",
+    "descricao":"- Reprodutores de raça pura"
+  },
+  {
+    "ncm":"10391000",
+    "descricao":"-- De peso inferior a 50 kg"
+  },
+  {
+    "ncm":"10392000",
+    "descricao":"-- De peso igual ou superior a 50 kg"
+  },
+  {
+    "ncm":"10410110",
+    "descricao":"Prenhes ou com cria ao pé"
+  },
+  {
+    "ncm":"10410190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10410900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10420100",
+    "descricao":"Reprodutores de raça pura"
+  },
+  {
+    "ncm":"10420900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10511100",
+    "descricao":"De linhas puras ou híbridas, para reprodução"
+  },
+  {
+    "ncm":"10511900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10512000",
+    "descricao":"-- Peruas e perus"
+  },
+  {
+    "ncm":"10513000",
+    "descricao":"-- Patos"
+  },
+  {
+    "ncm":"10514000",
+    "descricao":"-- Gansos"
+  },
+  {
+    "ncm":"10515000",
+    "descricao":"-- Galinhas-d'angola (pintadas)"
+  },
+  {
+    "ncm":"10594000",
+    "descricao":"-- Aves da espécie Gallus domesticus"
+  },
+  {
+    "ncm":"10599000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"10611000",
+    "descricao":"-- Primatas"
+  },
+  {
+    "ncm":"10612000",
+    "descricao":"-- Baleias, golfinhos e botos (mamíferos da ordem Cetacea); peixes-boi (manatins) e dugongos (mamíferos da ordem Sirenia); otárias e focas, leões-marinhos e morsas (mamíferos da subordem Pinnipedia)"
+  },
+  {
+    "ncm":"10613000",
+    "descricao":"-- Camelos e outros camelídeos (Camelidae)"
+  },
+  {
+    "ncm":"10614000",
+    "descricao":"-- Coelhos e lebres"
+  },
+  {
+    "ncm":"10619000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"10620000",
+    "descricao":"- Répteis (incluindo as serpentes e as tartarugas marinhas)"
+  },
+  {
+    "ncm":"10631000",
+    "descricao":"-- Aves de rapina"
+  },
+  {
+    "ncm":"10632000",
+    "descricao":"-- Psitaciformes (incluindo os papagaios, os periquitos, as araras e as catatuas)"
+  },
+  {
+    "ncm":"10633100",
+    "descricao":"Avestruzes (Struthio camelus), para reprodução"
+  },
+  {
+    "ncm":"10633900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10639000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"10641000",
+    "descricao":"-- Abelhas"
+  },
+  {
+    "ncm":"10649000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"10690000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"20110000",
+    "descricao":"- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20120100",
+    "descricao":"Quartos dianteiros"
+  },
+  {
+    "ncm":"20120200",
+    "descricao":"Quartos traseiros"
+  },
+  {
+    "ncm":"20120900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"20130000",
+    "descricao":"- Desossadas"
+  },
+  {
+    "ncm":"20210000",
+    "descricao":"- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20220100",
+    "descricao":"Quartos dianteiros"
+  },
+  {
+    "ncm":"20220200",
+    "descricao":"Quartos traseiros"
+  },
+  {
+    "ncm":"20220900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"20230000",
+    "descricao":"- Desossadas"
+  },
+  {
+    "ncm":"20311000",
+    "descricao":"-- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20312000",
+    "descricao":"-- Pernas, pás e respectivos pedaços, não desossados"
+  },
+  {
+    "ncm":"20319000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"20321000",
+    "descricao":"-- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20322000",
+    "descricao":"-- Pernas, pás e respectivos pedaços, não desossados"
+  },
+  {
+    "ncm":"20329000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"20410000",
+    "descricao":"- Carcaças e meias-carcaças de cordeiro, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20421000",
+    "descricao":"-- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20422000",
+    "descricao":"-- Outras peças não desossadas"
+  },
+  {
+    "ncm":"20423000",
+    "descricao":"-- Desossadas"
+  },
+  {
+    "ncm":"20430000",
+    "descricao":"- Carcaças e meias-carcaças de cordeiro, congeladas"
+  },
+  {
+    "ncm":"20441000",
+    "descricao":"-- Carcaças e meias-carcaças"
+  },
+  {
+    "ncm":"20442000",
+    "descricao":"-- Outras peças não desossadas"
+  },
+  {
+    "ncm":"20443000",
+    "descricao":"-- Desossadas"
+  },
+  {
+    "ncm":"20450000",
+    "descricao":"- Carnes de animais da espécie caprina"
+  },
+  {
+    "ncm":"20500000",
+    "descricao":"Carnes de animais das espécies cavalar, asinina e muar, frescas, refrigeradas ou congeladas."
+  },
+  {
+    "ncm":"20610000",
+    "descricao":"- Da espécie bovina, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20621000",
+    "descricao":"-- Línguas"
+  },
+  {
+    "ncm":"20622000",
+    "descricao":"-- Fígados"
+  },
+  {
+    "ncm":"20629100",
+    "descricao":"Rabos"
+  },
+  {
+    "ncm":"20629900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"20630000",
+    "descricao":"- Da espécie suína, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20641000",
+    "descricao":"-- Fígados"
+  },
+  {
+    "ncm":"20649000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"20680000",
+    "descricao":"- Outras, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20690000",
+    "descricao":"- Outras, congeladas"
+  },
+  {
+    "ncm":"20711000",
+    "descricao":"-- Não cortadas em pedaços, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20712100",
+    "descricao":"Com miudezas"
+  },
+  {
+    "ncm":"20712200",
+    "descricao":"Sem miudezas"
+  },
+  {
+    "ncm":"20713000",
+    "descricao":"-- Pedaços e miudezas, frescos ou refrigerados"
+  },
+  {
+    "ncm":"20714110",
+    "descricao":"Peitos"
+  },
+  {
+    "ncm":"20714120",
+    "descricao":"Coxas com sobrecoxas"
+  },
+  {
+    "ncm":"20714130",
+    "descricao":"Asas"
+  },
+  {
+    "ncm":"20714190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"20714210",
+    "descricao":"Peitos, coxas e sobrecoxas, formando uma só peça"
+  },
+  {
+    "ncm":"20714220",
+    "descricao":"Peitos"
+  },
+  {
+    "ncm":"20714230",
+    "descricao":"Coxas com sobrecoxas"
+  },
+  {
+    "ncm":"20714240",
+    "descricao":"Carne mecanicamente separada"
+  },
+  {
+    "ncm":"20714290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"20714310",
+    "descricao":"Fígados"
+  },
+  {
+    "ncm":"20714320",
+    "descricao":"Moelas"
+  },
+  {
+    "ncm":"20714330",
+    "descricao":"Corações"
+  },
+  {
+    "ncm":"20714340",
+    "descricao":"Pés e patas"
+  },
+  {
+    "ncm":"20714390",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"20724000",
+    "descricao":"-- Não cortadas em pedaços, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20725000",
+    "descricao":"-- Não cortadas em pedaços, congeladas"
+  },
+  {
+    "ncm":"20726000",
+    "descricao":"-- Pedaços e miudezas, frescos ou refrigerados"
+  },
+  {
+    "ncm":"20727000",
+    "descricao":"-- Pedaços e miudezas, congelados"
+  },
+  {
+    "ncm":"20741000",
+    "descricao":"-- Não cortadas em pedaços, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20742000",
+    "descricao":"-- Não cortadas em pedaços, congeladas"
+  },
+  {
+    "ncm":"20743000",
+    "descricao":"-- Fígados gordos (foies gras), frescos ou refrigerados"
+  },
+  {
+    "ncm":"20744000",
+    "descricao":"-- Outras, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20745000",
+    "descricao":"-- Outras, congeladas"
+  },
+  {
+    "ncm":"20751000",
+    "descricao":"-- Não cortadas em pedaços, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20752000",
+    "descricao":"-- Não cortadas em pedaços, congeladas"
+  },
+  {
+    "ncm":"20753000",
+    "descricao":"-- Fígados gordos (foies gras), frescos ou refrigerados"
+  },
+  {
+    "ncm":"20754000",
+    "descricao":"-- Outras, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"20755000",
+    "descricao":"-- Outras, congeladas"
+  },
+  {
+    "ncm":"20760000",
+    "descricao":"- De galinhas-d'angola (pintadas)"
+  },
+  {
+    "ncm":"20810000",
+    "descricao":"- De coelhos ou lebres"
+  },
+  {
+    "ncm":"20830000",
+    "descricao":"- De primatas"
+  },
+  {
+    "ncm":"20840000",
+    "descricao":"- De baleias, golfinhos e botos (mamíferos da ordem Cetacea); de peixes-boi (manatins) e dugongos (mamíferos da ordem Sirenia); de otárias e focas, leões-marinhos e morsas (mamíferos da subordem Pinnipedia)"
+  },
+  {
+    "ncm":"20850000",
+    "descricao":"- De répteis (incluindo as serpentes e as tartarugas marinhas)"
+  },
+  {
+    "ncm":"20860000",
+    "descricao":"- De camelos e outros camelídeos (Camelidae)"
+  },
+  {
+    "ncm":"20890000",
+    "descricao":"- Outras"
+  },
+  {
+    "ncm":"20910110",
+    "descricao":"Fresco, refrigerado ou congelado"
+  },
+  {
+    "ncm":"20910190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"20910210",
+    "descricao":"Fresca, refrigerada ou congelada"
+  },
+  {
+    "ncm":"20910290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"20990000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"21011000",
+    "descricao":"-- Pernas, pás e respectivos pedaços, não desossados"
+  },
+  {
+    "ncm":"21012000",
+    "descricao":"-- Toucinhos entremeados (Barrigas (entremeadas)*) e seus pedaços"
+  },
+  {
+    "ncm":"21019000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"21020000",
+    "descricao":"- Carnes da espécie bovina"
+  },
+  {
+    "ncm":"21091000",
+    "descricao":"-- De primatas"
+  },
+  {
+    "ncm":"21092000",
+    "descricao":"-- De baleias, golfinhos e botos (mamíferos da ordem Cetacea); de peixes-boi (manatins) e dugongos (mamíferos da ordem Sirenia); de otárias e focas, leões-marinhos e morsas (mamíferos da subordem Pinnipedia)"
+  },
+  {
+    "ncm":"21093000",
+    "descricao":"-- De répteis (incluindo as serpentes e as tartarugas marinhas)"
+  },
+  {
+    "ncm":"21099110",
+    "descricao":"De galos e de galinhas"
+  },
+  {
+    "ncm":"21099190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"21099200",
+    "descricao":"Carnes da espécie ovina"
+  },
+  {
+    "ncm":"21099300",
+    "descricao":"Carnes da espécie cavalar"
+  },
+  {
+    "ncm":"21099400",
+    "descricao":"Miudezas comestíveis"
+  },
+  {
+    "ncm":"21099900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30111100",
+    "descricao":"Aruanã (Osteoglossum bicirrhosum)"
+  },
+  {
+    "ncm":"30111900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30119000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30191100",
+    "descricao":"Para reprodução"
+  },
+  {
+    "ncm":"30191900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30192100",
+    "descricao":"Para reprodução"
+  },
+  {
+    "ncm":"30192900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30193100",
+    "descricao":"Para reprodução"
+  },
+  {
+    "ncm":"30193900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30194100",
+    "descricao":"Para reprodução"
+  },
+  {
+    "ncm":"30194900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30195100",
+    "descricao":"Para reprodução"
+  },
+  {
+    "ncm":"30195900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30199110",
+    "descricao":"Tilápias (Tilapia spp., Oreochromis spp., Sarotherodon spp., Danakilia spp.; seus híbridos)"
+  },
+  {
+    "ncm":"30199120",
+    "descricao":"Esturjões (Acipenser baerii, Acipenser gueldenstaedtii, Acipenser persicus, Acipenser stellatus)"
+  },
+  {
+    "ncm":"30199190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30199910",
+    "descricao":"Tilápias (Tilapia spp., Oreochromis spp., Sarotherodon spp., Danakilia spp.; seus híbridos)"
+  },
+  {
+    "ncm":"30199920",
+    "descricao":"Esturjões (Acipenser baerii, Acipenser gueldenstaedtii, Acipenser persicus, Acipenser stellatus)"
+  },
+  {
+    "ncm":"30199990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30211000",
+    "descricao":"-- Trutas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache e Oncorhynchus chrysogaster)"
+  },
+  {
+    "ncm":"30213000",
+    "descricao":"-- Salmões-do-pacífico (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou e Oncorhynchus rhodurus)"
+  },
+  {
+    "ncm":"30214000",
+    "descricao":"-- Salmão-do-atlântico (Salmo salar) e salmão-do-danúbio (Hucho hucho)"
+  },
+  {
+    "ncm":"30219000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30221000",
+    "descricao":"-- Linguados-gigantes (Alabotes*) (Reinhardtius hippoglossoides, Hippoglossus hippoglossus, Hippoglossus stenolepis)"
+  },
+  {
+    "ncm":"30222000",
+    "descricao":"-- Solha (Pleuronectes platessa)"
+  },
+  {
+    "ncm":"30223000",
+    "descricao":"-- Linguados (Solea spp.)"
+  },
+  {
+    "ncm":"30224000",
+    "descricao":"-- Pregado (Psetta maxima)"
+  },
+  {
+    "ncm":"30229000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30231000",
+    "descricao":"-- Albacora-branca (atum) (Thunnus alalunga)"
+  },
+  {
+    "ncm":"30232000",
+    "descricao":"-- Albacora-laje (atum) (Thunnus albacares)"
+  },
+  {
+    "ncm":"30233000",
+    "descricao":"-- Bonito-listrado (Gaiado*) (Katsuwonus pelamis)"
+  },
+  {
+    "ncm":"30234000",
+    "descricao":"-- Albacora-bandolim (atum) (Thunnus obesus)"
+  },
+  {
+    "ncm":"30235000",
+    "descricao":"-- Atuns-azuis (atuns) (Thunnus thynnus, Thunnus orientalis)"
+  },
+  {
+    "ncm":"30236000",
+    "descricao":"-- Atum-azul do sul (atum) (Thunnus maccoyii)"
+  },
+  {
+    "ncm":"30239000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30241000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii)"
+  },
+  {
+    "ncm":"30242100",
+    "descricao":"Anchoita (Engraulis anchoita)"
+  },
+  {
+    "ncm":"30242900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30243000",
+    "descricao":"-- Sardinhas (Sardina pilchardus, Sardinops spp., Sardinella spp.) (Sardinha (Sardina pilchardus) e sardinelas (Sardinops spp., Sardinella spp.)*), anchoveta (espadilha*) (Sprattus sprattus)"
+  },
+  {
+    "ncm":"30244000",
+    "descricao":"-- Cavalinhas (Sardas e cavalas*) (Scomber scombrus, Scomber australasicus, Scomber japonicus)"
+  },
+  {
+    "ncm":"30245000",
+    "descricao":"-- Carapaus (Trachurus spp.)"
+  },
+  {
+    "ncm":"30246000",
+    "descricao":"-- Bijupirá (Cobia*) (Rachycentron canadum)"
+  },
+  {
+    "ncm":"30247000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30249100",
+    "descricao":"Espadins, marlins, veleiros (Istiophoridae)"
+  },
+  {
+    "ncm":"30249900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30251000",
+    "descricao":"-- Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30252000",
+    "descricao":"-- Hadoque (Arinca*) (Melanogrammus aeglefinus)"
+  },
+  {
+    "ncm":"30253000",
+    "descricao":"-- Saithe (Escamudo*) (Pollachius virens)"
+  },
+  {
+    "ncm":"30254000",
+    "descricao":"-- Merluzas (Pescadas*) e abróteas (Merluccius spp., Urophycis spp.)"
+  },
+  {
+    "ncm":"30255000",
+    "descricao":"-- Polaca-do-alasca (Escamudo-do-alasca*) (Theragra chalcogramma)"
+  },
+  {
+    "ncm":"30256000",
+    "descricao":"-- Verdinhos (Micromesistius poutassou, Micromesistius australis)"
+  },
+  {
+    "ncm":"30259000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30271000",
+    "descricao":"-- Tilápias (Oreochromis spp.)"
+  },
+  {
+    "ncm":"30272100",
+    "descricao":"Bagre americano (Ictalurus punctatus)"
+  },
+  {
+    "ncm":"30272900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30273000",
+    "descricao":"-- Carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.)"
+  },
+  {
+    "ncm":"30274000",
+    "descricao":"-- Enguias (Anguilla spp.)"
+  },
+  {
+    "ncm":"30279000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30281000",
+    "descricao":"-- Cação e outros tubarões"
+  },
+  {
+    "ncm":"30282000",
+    "descricao":"-- Raias (Rajidae)"
+  },
+  {
+    "ncm":"30283100",
+    "descricao":"Merluza negra (Dissostichus eleginoides)"
+  },
+  {
+    "ncm":"30283200",
+    "descricao":"Merluza antártica (Dissostichus mawsoni)"
+  },
+  {
+    "ncm":"30284000",
+    "descricao":"-- Robalos (Dicentrarchus spp.)"
+  },
+  {
+    "ncm":"30285000",
+    "descricao":"-- Esparídeos (Sparidae)"
+  },
+  {
+    "ncm":"30289100",
+    "descricao":"Pargo (Lutjanus purpureus)"
+  },
+  {
+    "ncm":"30289210",
+    "descricao":"Cherne-poveiro (Polyprion americanus)"
+  },
+  {
+    "ncm":"30289220",
+    "descricao":"Garoupas (Acanthistius spp.)"
+  },
+  {
+    "ncm":"30289230",
+    "descricao":"Esturjão (Acipenser baerii)"
+  },
+  {
+    "ncm":"30289240",
+    "descricao":"Peixes-rei (Atherina spp.)"
+  },
+  {
+    "ncm":"30289310",
+    "descricao":"Curimatãs (Prochilodus spp.)"
+  },
+  {
+    "ncm":"30289320",
+    "descricao":"Tilápias (Tilapia spp., Sarotherodon spp., Danakilia spp.; seus híbridos)"
+  },
+  {
+    "ncm":"30289330",
+    "descricao":"Surubins (Pseudoplatystoma spp.)"
+  },
+  {
+    "ncm":"30289340",
+    "descricao":"Traíra (Hoplias malabaricus & H. cf. lacerdae)"
+  },
+  {
+    "ncm":"30289350",
+    "descricao":"Piaus (Leporinus spp.)"
+  },
+  {
+    "ncm":"30289360",
+    "descricao":"Tainhas (Mugil spp.)"
+  },
+  {
+    "ncm":"30289370",
+    "descricao":"Pirarucu (Arapaima gigas)"
+  },
+  {
+    "ncm":"30289380",
+    "descricao":"Pescadas (Cynoscion spp.)"
+  },
+  {
+    "ncm":"30289410",
+    "descricao":"Piramutaba (Brachyplatystoma vaillantii)"
+  },
+  {
+    "ncm":"30289420",
+    "descricao":"Dourada (Brachyplatystoma flavicans)"
+  },
+  {
+    "ncm":"30289430",
+    "descricao":"Pacu (Piaractus mesopotamicus)"
+  },
+  {
+    "ncm":"30289440",
+    "descricao":"Tambaqui (Colossoma macropomum)"
+  },
+  {
+    "ncm":"30289450",
+    "descricao":"Tambacu (híbrido de tambaqui e pacu)"
+  },
+  {
+    "ncm":"30289900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30291100",
+    "descricao":"Ovas de tainhas (Mugil spp.)"
+  },
+  {
+    "ncm":"30291900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30292000",
+    "descricao":"-- Barbatanas de tubarão"
+  },
+  {
+    "ncm":"30299000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30311000",
+    "descricao":"-- Salmão-do-pacífico (salmão-vermelho) (Oncorhynchus nerka)"
+  },
+  {
+    "ncm":"30312000",
+    "descricao":"-- Outros salmões-do-pacífico (Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou e Oncorhynchus rhodurus)"
+  },
+  {
+    "ncm":"30313000",
+    "descricao":"-- Salmão-do-atlântico (Salmo salar) e salmão-do-danúbio (Hucho hucho)"
+  },
+  {
+    "ncm":"30314000",
+    "descricao":"-- Trutas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache e Oncorhynchus chrysogaster)"
+  },
+  {
+    "ncm":"30319000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30323000",
+    "descricao":"-- Tilápias (Oreochromis spp.)"
+  },
+  {
+    "ncm":"30324100",
+    "descricao":"Bagre americano (Ictalurus punctatus)"
+  },
+  {
+    "ncm":"30324900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30325000",
+    "descricao":"-- Carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.)"
+  },
+  {
+    "ncm":"30326000",
+    "descricao":"-- Enguias (Anguilla spp.)"
+  },
+  {
+    "ncm":"30329000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30331000",
+    "descricao":"-- Linguados-gigantes (Alabotes*) (Reinhardtius hippoglossoides, Hippoglossus hippoglossus, Hippoglossus stenolepis)"
+  },
+  {
+    "ncm":"30332000",
+    "descricao":"-- Solha (Pleuronectes platessa)"
+  },
+  {
+    "ncm":"30333000",
+    "descricao":"-- Linguados (Solea spp.)"
+  },
+  {
+    "ncm":"30334000",
+    "descricao":"-- Pregado (Psetta maxima)"
+  },
+  {
+    "ncm":"30339000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30341000",
+    "descricao":"-- Albacora-branca (atum) (Thunnus alalunga)"
+  },
+  {
+    "ncm":"30342000",
+    "descricao":"-- Albacora-laje (atum) (Thunnus albacares)"
+  },
+  {
+    "ncm":"30343000",
+    "descricao":"-- Bonito-listrado (Gaiado*) (Katsuwonus pelamis)"
+  },
+  {
+    "ncm":"30344000",
+    "descricao":"-- Albacora-bandolim (atum) (Thunnus obesus)"
+  },
+  {
+    "ncm":"30345000",
+    "descricao":"-- Atuns-azuis (atuns) (Thunnus thynnus, Thunnus orientalis)"
+  },
+  {
+    "ncm":"30346000",
+    "descricao":"-- Atum-azul do sul (atum) (Thunnus maccoyii)"
+  },
+  {
+    "ncm":"30349000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30351000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii)"
+  },
+  {
+    "ncm":"30353000",
+    "descricao":"-- Sardinhas (Sardina pilchardus, Sardinops spp., Sardinella spp.) (Sardinha (Sardina pilchardus) e sardinelas (Sardinops spp., Sardinella spp.)*), anchoveta (espadilha*) (Sprattus sprattus)"
+  },
+  {
+    "ncm":"30354000",
+    "descricao":"-- Cavalinhas (Sardas e cavalas*) (Scomber scombrus, Scomber australasicus, Scomber japonicus)"
+  },
+  {
+    "ncm":"30355000",
+    "descricao":"-- Carapaus (Trachurus spp.)"
+  },
+  {
+    "ncm":"30356000",
+    "descricao":"-- Bijupirá (Cobia*) (Rachycentron canadum)"
+  },
+  {
+    "ncm":"30357000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30359100",
+    "descricao":"Espadins, marlins, veleiros (Istiophoridae)"
+  },
+  {
+    "ncm":"30359200",
+    "descricao":"Anchoita (Engraulis anchoita)"
+  },
+  {
+    "ncm":"30359900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30363000",
+    "descricao":"-- Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30364000",
+    "descricao":"-- Hadoque (Arinca*) (Melanogrammus aeglefinus)"
+  },
+  {
+    "ncm":"30365000",
+    "descricao":"-- Saithe (Escamudo*) (Pollachius virens)"
+  },
+  {
+    "ncm":"30366000",
+    "descricao":"-- Merluzas (Pescadas*) e abróteas (Merluccius spp., Urophycis spp.)"
+  },
+  {
+    "ncm":"30367000",
+    "descricao":"-- Polaca-do-alasca (Escamudo-do-alasca*) (Theragra chalcogramma)"
+  },
+  {
+    "ncm":"30368000",
+    "descricao":"-- Verdinhos (Micromesistius poutassou, Micromesistius australis)"
+  },
+  {
+    "ncm":"30369100",
+    "descricao":"Merluza rosada (Macruronus magellanicus)"
+  },
+  {
+    "ncm":"30369900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30381110",
+    "descricao":"Inteiro"
+  },
+  {
+    "ncm":"30381120",
+    "descricao":"Eviscerado, sem cabeça e sem barbatanas"
+  },
+  {
+    "ncm":"30381130",
+    "descricao":"Em pedaços, com pele"
+  },
+  {
+    "ncm":"30381140",
+    "descricao":"Em pedaços, sem pele"
+  },
+  {
+    "ncm":"30381190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30381900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30382000",
+    "descricao":"-- Raias (Rajidae)"
+  },
+  {
+    "ncm":"30383110",
+    "descricao":"Evisceradas, sem cabeça e sem cauda"
+  },
+  {
+    "ncm":"30383190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30383210",
+    "descricao":"Evisceradas, sem cabeça e sem cauda"
+  },
+  {
+    "ncm":"30383290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30384000",
+    "descricao":"-- Robalos (Dicentrarchus spp.)"
+  },
+  {
+    "ncm":"30389100",
+    "descricao":"Corvina (Micropogonias furnieri)"
+  },
+  {
+    "ncm":"30389200",
+    "descricao":"Pescadas (Cynoscion spp.)"
+  },
+  {
+    "ncm":"30389320",
+    "descricao":"Pargo (Lutjanus purpureus)"
+  },
+  {
+    "ncm":"30389330",
+    "descricao":"Peixe-sapo (Lophius gastrophysus)"
+  },
+  {
+    "ncm":"30389410",
+    "descricao":"Cherne-poveiro (Polyprion americanus)"
+  },
+  {
+    "ncm":"30389420",
+    "descricao":"Garoupas (Acanthistius spp.)"
+  },
+  {
+    "ncm":"30389430",
+    "descricao":"Tainhas (Mugil spp.)"
+  },
+  {
+    "ncm":"30389440",
+    "descricao":"Esturjões (Acipenser baerii, Acipenser gueldenstaedtii, Acipenser persicus, Acipenser stellatus)"
+  },
+  {
+    "ncm":"30389450",
+    "descricao":"Peixes-rei (Atherina spp.)"
+  },
+  {
+    "ncm":"30389460",
+    "descricao":"Nototenias (Patagonotothen spp.)"
+  },
+  {
+    "ncm":"30389510",
+    "descricao":"Curimatãs (Prochilodus spp.)"
+  },
+  {
+    "ncm":"30389520",
+    "descricao":"Tilápias (Tilapia spp., Sarotherodon spp., Danakilia spp.; seus híbridos)"
+  },
+  {
+    "ncm":"30389530",
+    "descricao":"Surubins (Pseudoplatystoma spp.)"
+  },
+  {
+    "ncm":"30389540",
+    "descricao":"Traíra (Hoplias malabaricus & H. cf. lacerdae)"
+  },
+  {
+    "ncm":"30389550",
+    "descricao":"Piaus (Leporinus spp.)"
+  },
+  {
+    "ncm":"30389560",
+    "descricao":"Pirarucu (Arapaima gigas)"
+  },
+  {
+    "ncm":"30389610",
+    "descricao":"Piramutaba (Brachyplatystoma vaillantii)"
+  },
+  {
+    "ncm":"30389620",
+    "descricao":"Dourada (Brachyplatystoma flavicans)"
+  },
+  {
+    "ncm":"30389630",
+    "descricao":"Pacu (Piaractus mesopotamicus)"
+  },
+  {
+    "ncm":"30389640",
+    "descricao":"Tambaqui (Colossoma macropomum)"
+  },
+  {
+    "ncm":"30389650",
+    "descricao":"Tambacu (híbrido de tambaqui e pacu)"
+  },
+  {
+    "ncm":"30389900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30391100",
+    "descricao":"Ovas de tainhas (Mugil spp.)"
+  },
+  {
+    "ncm":"30391900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30392000",
+    "descricao":"-- Barbatanas de tubarão"
+  },
+  {
+    "ncm":"30399100",
+    "descricao":"Cabeças de Merluza negra (Dissostichus eleginoides)"
+  },
+  {
+    "ncm":"30399200",
+    "descricao":"Cabeças de Merluza antártica (Dissostichus mawsoni)"
+  },
+  {
+    "ncm":"30399900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30431000",
+    "descricao":"-- Tilápias (Oreochromis spp.)"
+  },
+  {
+    "ncm":"30432100",
+    "descricao":"Bagre americano (Ictalurus punctatus)"
+  },
+  {
+    "ncm":"30432900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30433000",
+    "descricao":"-- Perca-do-nilo (Lates niloticus)"
+  },
+  {
+    "ncm":"30439000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30441000",
+    "descricao":"-- Salmões-do-pacífico (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou e Oncorhynchus rhodurus), salmão-do-atlântico (Salmo salar) e salmão-do-danúbio (Hucho hucho)"
+  },
+  {
+    "ncm":"30442000",
+    "descricao":"-- Trutas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache e Oncorhynchus chrysogaster)"
+  },
+  {
+    "ncm":"30443000",
+    "descricao":"-- Peixes chatos (Pleuronectidae, Bothidae, Cynoglossidae, Soleidae, Scophthalmidae e Citharidae)"
+  },
+  {
+    "ncm":"30444000",
+    "descricao":"-- Peixes das famílias Bregmacerotidae, Euclichthyidae, Gadidae, Macrouridae, Melanonidae, Merlucciidae, Moridae e Muraenolepididae"
+  },
+  {
+    "ncm":"30445000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30446000",
+    "descricao":"-- Merluza negra e merluza antártica (Marlongas*) (Dissostichus spp.)"
+  },
+  {
+    "ncm":"30447000",
+    "descricao":"-- Cação e outros tubarões"
+  },
+  {
+    "ncm":"30448000",
+    "descricao":"-- Raias (Rajidae)"
+  },
+  {
+    "ncm":"30449100",
+    "descricao":"Cherne-poveiro (Polyprion americanus)"
+  },
+  {
+    "ncm":"30449200",
+    "descricao":"Garoupas (Acanthistius spp.)"
+  },
+  {
+    "ncm":"30449900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30451000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30452000",
+    "descricao":"-- Salmonídeos"
+  },
+  {
+    "ncm":"30453000",
+    "descricao":"-- Peixes das famílias Bregmacerotidae, Euclichthyidae, Gadidae, Macrouridae, Melanonidae, Merlucciidae, Moridae e Muraenolepididae"
+  },
+  {
+    "ncm":"30454000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30455000",
+    "descricao":"-- Merluza negra e merluza antártica (Marlongas*) (Dissostichus spp.)"
+  },
+  {
+    "ncm":"30456000",
+    "descricao":"-- Cação e outros tubarões"
+  },
+  {
+    "ncm":"30457000",
+    "descricao":"-- Raias (Rajidae)"
+  },
+  {
+    "ncm":"30459000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30461000",
+    "descricao":"-- Tilápias (Oreochromis spp.)"
+  },
+  {
+    "ncm":"30462100",
+    "descricao":"Bagre americano (Ictalurus punctatus)"
+  },
+  {
+    "ncm":"30462900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30463000",
+    "descricao":"-- Perca-do-nilo (Lates niloticus)"
+  },
+  {
+    "ncm":"30469000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30471000",
+    "descricao":"-- Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30472000",
+    "descricao":"-- Hadoque (Arinca*) (Melanogrammus aeglefinus)"
+  },
+  {
+    "ncm":"30473000",
+    "descricao":"-- Saithe (Escamudo*) (Pollachius virens)"
+  },
+  {
+    "ncm":"30474000",
+    "descricao":"-- Merluzas (Pescadas*) e abróteas (Merluccius spp., Urophycis spp.)"
+  },
+  {
+    "ncm":"30475000",
+    "descricao":"-- Polaca-do-alasca (Escamudo-do-alasca*) (Theragra chalcogramma)"
+  },
+  {
+    "ncm":"30479000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30481000",
+    "descricao":"-- Salmões-do-pacífico (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou e Oncorhynchus rhodurus), salmão-do-atlântico (Salmo salar) e salmão-do-danúbio (Hucho hucho)"
+  },
+  {
+    "ncm":"30482000",
+    "descricao":"-- Trutas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache e Oncorhynchus chrysogaster)"
+  },
+  {
+    "ncm":"30483000",
+    "descricao":"-- Peixes chatos (Pleuronectidae, Bothidae, Cynoglossidae, Soleidae, Scophthalmidae e Citharidae)"
+  },
+  {
+    "ncm":"30484000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30485100",
+    "descricao":"Merluza negra (Dissostichus eleginoides)"
+  },
+  {
+    "ncm":"30485200",
+    "descricao":"Merluza antártica (Dissostichus mawsoni)"
+  },
+  {
+    "ncm":"30486000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii)"
+  },
+  {
+    "ncm":"30487000",
+    "descricao":"-- Atuns (do gênero Thunnus), bonito-listrado (gaiado*) (Katsuwonus pelamis)"
+  },
+  {
+    "ncm":"30488100",
+    "descricao":"Tubarão-azul (Prionace glauca)"
+  },
+  {
+    "ncm":"30488900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30489100",
+    "descricao":"Pargo (Lutjanus purpureus)"
+  },
+  {
+    "ncm":"30489200",
+    "descricao":"Cherne-poveiro (Polyprion americanus)"
+  },
+  {
+    "ncm":"30489300",
+    "descricao":"Garoupas (Acanthistius spp.)"
+  },
+  {
+    "ncm":"30489900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30491000",
+    "descricao":"-- Espadarte (Xiphias gladius)"
+  },
+  {
+    "ncm":"30492110",
+    "descricao":"Bochechas (cheeks)"
+  },
+  {
+    "ncm":"30492120",
+    "descricao":"Colares (collars)"
+  },
+  {
+    "ncm":"30492190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30492210",
+    "descricao":"Bochechas (cheeks)"
+  },
+  {
+    "ncm":"30492220",
+    "descricao":"Colares (collars)"
+  },
+  {
+    "ncm":"30492290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30493000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30494000",
+    "descricao":"-- Polaca-do-alasca (Escamudo-do-alasca*) (Theragra chalcogramma)"
+  },
+  {
+    "ncm":"30495000",
+    "descricao":"-- Peixes das famílias Bregmacerotidae, Euclichthyidae, Gadidae, Macrouridae, Melanonidae, Merlucciidae, Moridae e Muraenolepididae, exceto a polaca-do-alasca (escamudo-do-alasca*) (Theragra chalcogramma)"
+  },
+  {
+    "ncm":"30496000",
+    "descricao":"-- Cação e outros tubarões"
+  },
+  {
+    "ncm":"30497000",
+    "descricao":"-- Raias (Rajidae)"
+  },
+  {
+    "ncm":"30499000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30520100",
+    "descricao":"Ovas de tainhas (Mugil spp.)"
+  },
+  {
+    "ncm":"30520900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30531000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30532100",
+    "descricao":"Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30532200",
+    "descricao":"Saithe (Pollachius virens)"
+  },
+  {
+    "ncm":"30532300",
+    "descricao":"Ling (Molva molva) e zarbo (Brosme brosme)"
+  },
+  {
+    "ncm":"30532900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30539000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30541000",
+    "descricao":"-- Salmões-do-pacífico (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou e Oncorhynchus rhodurus), salmão-do-atlântico (Salmo salar) e salmão-do-danúbio (Hucho hucho)"
+  },
+  {
+    "ncm":"30542000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii)"
+  },
+  {
+    "ncm":"30543000",
+    "descricao":"-- Trutas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache e Oncorhynchus chrysogaster)"
+  },
+  {
+    "ncm":"30544000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30549100",
+    "descricao":"Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30549200",
+    "descricao":"Saithe (Pollachius virens), ling (Molva molva) e zarbo (Brosme brosme)"
+  },
+  {
+    "ncm":"30549900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30551000",
+    "descricao":"-- Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30552000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30553100",
+    "descricao":"Bacalhau polar (Boreogadus saida), saithe (Pollachius virens), ling (Molva molva), ling azul (Molva dypterygia), zarbo (Brosme brosme), abrotea-do-alto (Urophycis blennoides) e hadoque (Melanogrammus aeglefinus)"
+  },
+  {
+    "ncm":"30553900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30554000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii), anchovas (biqueirões*) (Engraulis spp.), sardinhas (Sardina pilchardus, Sardinops spp., Sardinella spp.) (sardinha (Sardina pilchardus) e sardinelas (Sardinops spp., Sardinella spp.)*), anchoveta (espadilha*) (Sprattus sprattus), cavalinhas (sardas e cavalas*) (Scomber scombrus, Scomber australasicus, Scomber japonicus), cavalas-do-índico (Rastrelliger spp.), serras (Scomberomorus spp.), carapaus (Trachurus spp.), xaréus (Caranx spp.), bijupirá (cobia*) (Rachycentron canadum), pampos-prateado (Pampus spp.), agulhão-do-japão (Cololabis saira), charros (Decapterus spp.), capelim (Mallotus villosus), espadarte (Xiphias gladius), merma-oriental (Euthynnus affinis), bonitos (Sarda spp.), espadins, marlins, veleiros (Istiophoridae)"
+  },
+  {
+    "ncm":"30559000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30561000",
+    "descricao":"-- Arenques (Clupea harengus, Clupea pallasii)"
+  },
+  {
+    "ncm":"30562000",
+    "descricao":"-- Bacalhau-do-atlântico (Gadus morhua), bacalhau-da-groelândia (Gadus ogac) e bacalhau-do-pacífico (Gadus macrocephalus)"
+  },
+  {
+    "ncm":"30563000",
+    "descricao":"-- Anchovas (Biqueirões*) (Engraulis spp.)"
+  },
+  {
+    "ncm":"30564000",
+    "descricao":"-- Tilápias (Oreochromis spp.), bagres (peixes-gato*) (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), enguias (Anguilla spp.), perca-do-nilo (Lates niloticus) e peixes cabeça-de-serpente (Channa spp.)"
+  },
+  {
+    "ncm":"30569100",
+    "descricao":"Saithe (Pollachius virens), ling (Molva molva) e zarbo (Brosme brosme)"
+  },
+  {
+    "ncm":"30569900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30571000",
+    "descricao":"-- Barbatanas de tubarão"
+  },
+  {
+    "ncm":"30572000",
+    "descricao":"-- Cabeças, caudas e bexigas-natatórias, de peixes"
+  },
+  {
+    "ncm":"30579000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30611100",
+    "descricao":"Inteiras"
+  },
+  {
+    "ncm":"30611900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"30612000",
+    "descricao":"-- Lavagantes (Homarus spp.)"
+  },
+  {
+    "ncm":"30614000",
+    "descricao":"-- Caranguejos"
+  },
+  {
+    "ncm":"30615000",
+    "descricao":"-- Lagosta norueguesa (Lagostim*) (Nephrops norvegicus)"
+  },
+  {
+    "ncm":"30616100",
+    "descricao":"Inteiros"
+  },
+  {
+    "ncm":"30616900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30617100",
+    "descricao":"Inteiros"
+  },
+  {
+    "ncm":"30617900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30619100",
+    "descricao":"Krill (Euphausia superba)"
+  },
+  {
+    "ncm":"30619900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30631000",
+    "descricao":"-- Lagostas (Palinurus spp., Panulirus spp., Jasus spp.)"
+  },
+  {
+    "ncm":"30632000",
+    "descricao":"-- Lavagantes (Homarus spp.)"
+  },
+  {
+    "ncm":"30633000",
+    "descricao":"-- Caranguejos"
+  },
+  {
+    "ncm":"30634000",
+    "descricao":"-- Lagosta norueguesa (Lagostim*) (Nephrops norvegicus)"
+  },
+  {
+    "ncm":"30635000",
+    "descricao":"-- Camarões de água fria (Pandalus spp., Crangon crangon)"
+  },
+  {
+    "ncm":"30636000",
+    "descricao":"-- Outros camarões"
+  },
+  {
+    "ncm":"30639100",
+    "descricao":"Lagosta de água doce (Cherax quadricarinatus)"
+  },
+  {
+    "ncm":"30639900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30691000",
+    "descricao":"-- Lagostas (Palinurus spp., Panulirus spp., Jasus spp.)"
+  },
+  {
+    "ncm":"30692000",
+    "descricao":"-- Lavagantes (Homarus spp.)"
+  },
+  {
+    "ncm":"30693000",
+    "descricao":"-- Caranguejos"
+  },
+  {
+    "ncm":"30694000",
+    "descricao":"-- Lagosta norueguesa (Lagostim*) (Nephrops norvegicus)"
+  },
+  {
+    "ncm":"30695000",
+    "descricao":"-- Camarões"
+  },
+  {
+    "ncm":"30699100",
+    "descricao":"Lagosta de água doce (Cherax quadricarinatus)"
+  },
+  {
+    "ncm":"30699900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30711000",
+    "descricao":"-- Vivas, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"30712000",
+    "descricao":"-- Congeladas"
+  },
+  {
+    "ncm":"30719000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"30721000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30722000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30729000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30731000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30732000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30739000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30742000",
+    "descricao":"-- Vivas, frescas ou refrigeradas"
+  },
+  {
+    "ncm":"30743100",
+    "descricao":"Lulas"
+  },
+  {
+    "ncm":"30743200",
+    "descricao":"Sépias"
+  },
+  {
+    "ncm":"30749000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"30751000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30752000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30759000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30760000",
+    "descricao":"- Caracóis, exceto os do mar"
+  },
+  {
+    "ncm":"30771000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30772000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30779000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30781000",
+    "descricao":"-- Abalones (Orelhas-do-mar*) (Haliotis spp.) vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30782000",
+    "descricao":"-- Estrombos (Strombus spp.) vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30783000",
+    "descricao":"-- Abalones (Orelhas-do-mar*) (Haliotis spp.) congelados"
+  },
+  {
+    "ncm":"30784000",
+    "descricao":"-- Estrombos (Strombus spp.) congelados"
+  },
+  {
+    "ncm":"30787000",
+    "descricao":"-- Outros abalones (orelhas-do-mar*) (Haliotis spp.)"
+  },
+  {
+    "ncm":"30788000",
+    "descricao":"-- Outros estrombos (Strombus spp.)"
+  },
+  {
+    "ncm":"30791000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30792000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30799000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30811000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30812000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30819000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30821000",
+    "descricao":"-- Vivos, frescos ou refrigerados"
+  },
+  {
+    "ncm":"30822000",
+    "descricao":"-- Congelados"
+  },
+  {
+    "ncm":"30829000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"30830000",
+    "descricao":"- Medusas (águas-vivas) (Rhopilema spp.)"
+  },
+  {
+    "ncm":"30890000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"30910000",
+    "descricao":"- De peixe"
+  },
+  {
+    "ncm":"30990000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"40110100",
+    "descricao":"Leite UHT (Ultra High Temperature)"
+  },
+  {
+    "ncm":"40110900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40120100",
+    "descricao":"Leite UHT (Ultra High Temperature)"
+  },
+  {
+    "ncm":"40120900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40140100",
+    "descricao":"Leite"
+  },
+  {
+    "ncm":"40140210",
+    "descricao":"UHT (Ultra High Temperature)"
+  },
+  {
+    "ncm":"40140290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40150100",
+    "descricao":"Leite"
+  },
+  {
+    "ncm":"40150210",
+    "descricao":"UHT (Ultra High Temperature)"
+  },
+  {
+    "ncm":"40150290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40210100",
+    "descricao":"Com um teor de arsênio, chumbo ou cobre, considerados isoladamente, inferior a 5 ppm"
+  },
+  {
+    "ncm":"40210900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40221100",
+    "descricao":"Leite integral"
+  },
+  {
+    "ncm":"40221200",
+    "descricao":"Leite parcialmente desnatado"
+  },
+  {
+    "ncm":"40221300",
+    "descricao":"Creme de leite (nata)"
+  },
+  {
+    "ncm":"40229100",
+    "descricao":"Leite integral"
+  },
+  {
+    "ncm":"40229200",
+    "descricao":"Leite parcialmente desnatado"
+  },
+  {
+    "ncm":"40229300",
+    "descricao":"Creme de leite (nata)"
+  },
+  {
+    "ncm":"40291000",
+    "descricao":"-- Sem adição de açúcar ou de outros edulcorantes"
+  },
+  {
+    "ncm":"40299000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"40320000",
+    "descricao":"- Iogurte"
+  },
+  {
+    "ncm":"40390000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"40410000",
+    "descricao":"- Soro de leite, modificado ou não, mesmo concentrado ou adicionado de açúcar ou de outros edulcorantes"
+  },
+  {
+    "ncm":"40490000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"40510000",
+    "descricao":"- Manteiga"
+  },
+  {
+    "ncm":"40520000",
+    "descricao":"- Pasta de espalhar (barrar) de produtos provenientes do leite"
+  },
+  {
+    "ncm":"40590100",
+    "descricao":"Óleo butírico de manteiga (butter oil)"
+  },
+  {
+    "ncm":"40590900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"40610100",
+    "descricao":"Mozarela"
+  },
+  {
+    "ncm":"40610900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40620000",
+    "descricao":"- Queijos ralados ou em pó, de qualquer tipo"
+  },
+  {
+    "ncm":"40630000",
+    "descricao":"- Queijos fundidos, exceto ralados ou em pó"
+  },
+  {
+    "ncm":"40640000",
+    "descricao":"- Queijos de pasta mofada (azul) e outros queijos que apresentem veios obtidos utilizando Penicillium roqueforti"
+  },
+  {
+    "ncm":"40690100",
+    "descricao":"Com um teor de umidade inferior a 36,0 %, em peso (massa dura)"
+  },
+  {
+    "ncm":"40690200",
+    "descricao":"Com um teor de umidade igual ou superior a 36,0 % e inferior a 46,0 %, em peso (massa semidura)"
+  },
+  {
+    "ncm":"40690300",
+    "descricao":"Com um teor de umidade igual ou superior a 46,0 % e inferior a 55,0 %, em peso (massa macia)"
+  },
+  {
+    "ncm":"40690900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"40711000",
+    "descricao":"-- De aves da espécie Gallus domesticus"
+  },
+  {
+    "ncm":"40719000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"40721000",
+    "descricao":"-- De aves da espécie Gallus domesticus"
+  },
+  {
+    "ncm":"40729000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"40790000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"40811000",
+    "descricao":"-- Secas"
+  },
+  {
+    "ncm":"40819000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"40891000",
+    "descricao":"-- Secos"
+  },
+  {
+    "ncm":"40899000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"40900000",
+    "descricao":"Mel natural."
+  },
+  {
+    "ncm":"41010000",
+    "descricao":"- Insetos"
+  },
+  {
+    "ncm":"41090000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"50100000",
+    "descricao":"Cabelo em bruto, mesmo lavado ou desengordurado; desperdícios de cabelo."
+  },
+  {
+    "ncm":"50210110",
+    "descricao":"Lavadas, alvejadas ou desengorduradas, mesmo tintas"
+  },
+  {
+    "ncm":"50210190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"50210900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"50290100",
+    "descricao":"Pelos"
+  },
+  {
+    "ncm":"50290200",
+    "descricao":"Desperdícios"
+  },
+  {
+    "ncm":"50400110",
+    "descricao":"De bovinos"
+  },
+  {
+    "ncm":"50400120",
+    "descricao":"De ovinos"
+  },
+  {
+    "ncm":"50400130",
+    "descricao":"De suínos"
+  },
+  {
+    "ncm":"50400190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"50400900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"50510000",
+    "descricao":"- Penas do tipo utilizado para enchimento ou estofamento; penugem"
+  },
+  {
+    "ncm":"50590000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"50610000",
+    "descricao":"- Osseína e ossos acidulados"
+  },
+  {
+    "ncm":"50690000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"50710000",
+    "descricao":"- Marfim; pó e desperdícios de marfim"
+  },
+  {
+    "ncm":"50790000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"50800000",
+    "descricao":"Coral e matérias semelhantes, em bruto ou simplesmente preparados, mas não trabalhados de outro modo; conchas e carapaças de moluscos, crustáceos ou de equinodermes e ossos de sépias (chocos*) (chocos e chopos*), em bruto ou simplesmente preparados, mas não cortados em forma determinada, seus pós e desperdícios."
+  },
+  {
+    "ncm":"51000100",
+    "descricao":"Pâncreas de bovino"
+  },
+  {
+    "ncm":"51000900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"51110000",
+    "descricao":"- Sêmen de bovino"
+  },
+  {
+    "ncm":"51191100",
+    "descricao":"Ovas de peixe fecundadas, para reprodução"
+  },
+  {
+    "ncm":"51191900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"51199100",
+    "descricao":"Embriões de animais"
+  },
+  {
+    "ncm":"51199200",
+    "descricao":"Sêmen animal"
+  },
+  {
+    "ncm":"51199300",
+    "descricao":"Ovos de bicho-da-seda"
+  },
+  {
+    "ncm":"51199910",
+    "descricao":"Crinas e seus desperdícios, mesmo em mantas, mesmo com suporte"
+  },
+  {
+    "ncm":"51199990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"60110000",
+    "descricao":"- Bulbos, tubérculos, raízes tuberosas, cormos, coroas e rizomas, em repouso vegetativo"
+  },
+  {
+    "ncm":"60120000",
+    "descricao":"- Bulbos, tubérculos, raízes tuberosas, cormos, coroas e rizomas, em vegetação ou em flor; mudas, plantas e raízes de chicória"
+  },
+  {
+    "ncm":"60210000",
+    "descricao":"- Estacas não enraizadas e enxertos"
+  },
+  {
+    "ncm":"60220000",
+    "descricao":"- Árvores, arbustos e silvados, de fruta, enxertados ou não"
+  },
+  {
+    "ncm":"60230000",
+    "descricao":"- Rododendros e azaleias, enxertados ou não"
+  },
+  {
+    "ncm":"60240000",
+    "descricao":"- Roseiras, enxertadas ou não"
+  },
+  {
+    "ncm":"60290100",
+    "descricao":"Micélios de cogumelos"
+  },
+  {
+    "ncm":"60290210",
+    "descricao":"De orquídea"
+  },
+  {
+    "ncm":"60290290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"60290810",
+    "descricao":"De cana-de-açúcar"
+  },
+  {
+    "ncm":"60290820",
+    "descricao":"De videira"
+  },
+  {
+    "ncm":"60290830",
+    "descricao":"De café"
+  },
+  {
+    "ncm":"60290890",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"60290900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"60311000",
+    "descricao":"-- Rosas"
+  },
+  {
+    "ncm":"60312000",
+    "descricao":"-- Cravos"
+  },
+  {
+    "ncm":"60313000",
+    "descricao":"-- Orquídeas"
+  },
+  {
+    "ncm":"60314000",
+    "descricao":"-- Crisântemos"
+  },
+  {
+    "ncm":"60315000",
+    "descricao":"-- Lírios (Lilium spp.)"
+  },
+  {
+    "ncm":"60319000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"60390000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"60420000",
+    "descricao":"- Frescos"
+  },
+  {
+    "ncm":"60490000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"70110000",
+    "descricao":"- Batata-semente"
+  },
+  {
+    "ncm":"70190000",
+    "descricao":"- Outras"
+  },
+  {
+    "ncm":"70200000",
+    "descricao":"Tomates, frescos ou refrigerados."
+  },
+  {
+    "ncm":"70310110",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"70310190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"70310210",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"70310290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"70320100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"70320900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"70390100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"70390900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"70410000",
+    "descricao":"- Couve-flor e brócolis"
+  },
+  {
+    "ncm":"70420000",
+    "descricao":"- Couve-de-bruxelas"
+  },
+  {
+    "ncm":"70490000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"70511000",
+    "descricao":"-- Repolhuda"
+  },
+  {
+    "ncm":"70519000",
+    "descricao":"-- Outra"
+  },
+  {
+    "ncm":"70521000",
+    "descricao":"-- Endívia (Cichorium intybus var. foliosum)"
+  },
+  {
+    "ncm":"70529000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"70610000",
+    "descricao":"- Cenouras e nabos"
+  },
+  {
+    "ncm":"70690000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"70700000",
+    "descricao":"Pepinos e pepininhos (cornichons), frescos ou refrigerados."
+  },
+  {
+    "ncm":"70810000",
+    "descricao":"- Ervilhas (Pisum sativum)"
+  },
+  {
+    "ncm":"70820000",
+    "descricao":"- Feijões (Vigna spp., Phaseolus spp.)"
+  },
+  {
+    "ncm":"70890000",
+    "descricao":"- Outros legumes de vagem"
+  },
+  {
+    "ncm":"70920000",
+    "descricao":"- Aspargos"
+  },
+  {
+    "ncm":"70930000",
+    "descricao":"- Berinjelas"
+  },
+  {
+    "ncm":"70940000",
+    "descricao":"- Aipo, exceto aipo-rábano"
+  },
+  {
+    "ncm":"70951000",
+    "descricao":"-- Cogumelos do gênero Agaricus"
+  },
+  {
+    "ncm":"70952000",
+    "descricao":"-- Cogumelos do gênero Boletus"
+  },
+  {
+    "ncm":"70953000",
+    "descricao":"-- Cogumelos do gênero Cantharellus"
+  },
+  {
+    "ncm":"70954000",
+    "descricao":"-- Shitake (Lentinus edodes)"
+  },
+  {
+    "ncm":"70955000",
+    "descricao":"-- Matsutake (Tricholoma matsutake, Tricholoma magnivelare, Tricholoma anatolicum, Tricholoma dulciolens, Tricholoma caligatum)"
+  },
+  {
+    "ncm":"70956000",
+    "descricao":"-- Trufas (Tuber spp.)"
+  },
+  {
+    "ncm":"70959000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"70960000",
+    "descricao":"- Pimentões (pimentos) e pimentas do gênero Capsicum ou do gênero Pimenta"
+  },
+  {
+    "ncm":"70970000",
+    "descricao":"- Espinafres, espinafres-da-nova-zelândia e espinafres gigantes"
+  },
+  {
+    "ncm":"70991000",
+    "descricao":"-- Alcachofras"
+  },
+  {
+    "ncm":"70992000",
+    "descricao":"-- Azeitonas"
+  },
+  {
+    "ncm":"70993000",
+    "descricao":"-- Abóboras, abobrinhas (curgetes*) e cabaças (Cucurbita spp.)"
+  },
+  {
+    "ncm":"70999110",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"70999190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"70999900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71010000",
+    "descricao":"- Batatas"
+  },
+  {
+    "ncm":"71021000",
+    "descricao":"-- Ervilhas (Pisum sativum)"
+  },
+  {
+    "ncm":"71022000",
+    "descricao":"-- Feijões (Vigna spp., Phaseolus spp.)"
+  },
+  {
+    "ncm":"71029000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"71030000",
+    "descricao":"- Espinafres, espinafres-da-nova-zelândia e espinafres gigantes"
+  },
+  {
+    "ncm":"71040000",
+    "descricao":"- Milho doce"
+  },
+  {
+    "ncm":"71080000",
+    "descricao":"- Outros produtos hortícolas"
+  },
+  {
+    "ncm":"71090000",
+    "descricao":"- Misturas de produtos hortícolas"
+  },
+  {
+    "ncm":"71120100",
+    "descricao":"Com água salgada"
+  },
+  {
+    "ncm":"71120200",
+    "descricao":"Com água sulfurada ou adicionada de outras substâncias"
+  },
+  {
+    "ncm":"71120900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"71140000",
+    "descricao":"- Pepinos e pepininhos (cornichons)"
+  },
+  {
+    "ncm":"71151000",
+    "descricao":"-- Cogumelos do gênero Agaricus"
+  },
+  {
+    "ncm":"71159000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"71190000",
+    "descricao":"- Outros produtos hortícolas; misturas de produtos hortícolas"
+  },
+  {
+    "ncm":"71220000",
+    "descricao":"- Cebolas"
+  },
+  {
+    "ncm":"71231000",
+    "descricao":"-- Cogumelos do gênero Agaricus"
+  },
+  {
+    "ncm":"71232000",
+    "descricao":"-- Orelhas-de-judas (Auricularia spp.)"
+  },
+  {
+    "ncm":"71233000",
+    "descricao":"-- Tremelas (Tremella spp.)"
+  },
+  {
+    "ncm":"71234000",
+    "descricao":"-- Shitake (Lentinus edodes)"
+  },
+  {
+    "ncm":"71239000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"71290200",
+    "descricao":"Alho"
+  },
+  {
+    "ncm":"71290900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71310100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71310900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"71320100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71320900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71331100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71331900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71332100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71332900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71333110",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71333190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71333210",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71333290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71333910",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71333990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71334100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71334900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71335100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71335900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71339100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71339900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71340100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71340900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"71350100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71350900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"71360100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71360900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71390100",
+    "descricao":"Para semeadura (sementeira)"
+  },
+  {
+    "ncm":"71390900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"71410000",
+    "descricao":"- Raízes de mandioca"
+  },
+  {
+    "ncm":"71420000",
+    "descricao":"- Batatas-doces"
+  },
+  {
+    "ncm":"71430000",
+    "descricao":"- Inhames (Dioscorea spp.)"
+  },
+  {
+    "ncm":"71440000",
+    "descricao":"- Taros (inhames-brancos) (Colocasia spp.)"
+  },
+  {
+    "ncm":"71450000",
+    "descricao":"- Mangaritos (Orelhas-de-elefante*) (Xanthosoma spp.)"
+  },
+  {
+    "ncm":"71490000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"80111000",
+    "descricao":"-- Dessecados"
+  },
+  {
+    "ncm":"80112000",
+    "descricao":"-- Na casca interna (endocarpo)"
+  },
+  {
+    "ncm":"80119000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"80121000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80122000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80131000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80132000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80211000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80212000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80221000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80222000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80231000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80232000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80241000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80242000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80251000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80252000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80261000",
+    "descricao":"-- Com casca"
+  },
+  {
+    "ncm":"80262000",
+    "descricao":"-- Sem casca"
+  },
+  {
+    "ncm":"80270000",
+    "descricao":"- Nozes-de-cola (Cola spp.)"
+  },
+  {
+    "ncm":"80280000",
+    "descricao":"- Nozes-de-areca (nozes de bétele)"
+  },
+  {
+    "ncm":"80291000",
+    "descricao":"-- Pinhões, com casca"
+  },
+  {
+    "ncm":"80292000",
+    "descricao":"-- Pinhões, sem casca"
+  },
+  {
+    "ncm":"80299000",
+    "descricao":"-- Outra"
+  },
+  {
+    "ncm":"80310000",
+    "descricao":"- Bananas-da-terra (Bananas-pão*) (Plátanos*)"
+  },
+  {
+    "ncm":"80390000",
+    "descricao":"- Outras"
+  },
+  {
+    "ncm":"80410100",
+    "descricao":"Frescas"
+  },
+  {
+    "ncm":"80410200",
+    "descricao":"Secas"
+  },
+  {
+    "ncm":"80420100",
+    "descricao":"Frescos"
+  },
+  {
+    "ncm":"80420200",
+    "descricao":"Secos"
+  },
+  {
+    "ncm":"80430000",
+    "descricao":"- Abacaxis (ananases)"
+  },
+  {
+    "ncm":"80440000",
+    "descricao":"- Abacates"
+  },
+  {
+    "ncm":"80450100",
+    "descricao":"Goiabas"
+  },
+  {
+    "ncm":"80450200",
+    "descricao":"Mangas"
+  },
+  {
+    "ncm":"80450300",
+    "descricao":"Mangostões"
+  },
+  {
+    "ncm":"80510000",
+    "descricao":"- Laranjas"
+  },
+  {
+    "ncm":"80521000",
+    "descricao":"-- Mandarinas (incluindo as tangerinas e as satsumas)"
+  },
+  {
+    "ncm":"80522000",
+    "descricao":"-- Clementinas"
+  },
+  {
+    "ncm":"80529000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"80540000",
+    "descricao":"- Toranjas e pomelos"
+  },
+  {
+    "ncm":"80550000",
+    "descricao":"- Limões (Citrus limon, Citrus limonum) e limas (Citrus aurantifolia, Citrus latifolia)"
+  },
+  {
+    "ncm":"80590000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"80610000",
+    "descricao":"- Frescas"
+  },
+  {
+    "ncm":"80620000",
+    "descricao":"- Secas (passas)"
+  },
+  {
+    "ncm":"80711000",
+    "descricao":"-- Melancias"
+  },
+  {
+    "ncm":"80719000",
+    "descricao":"-- Outros"
+  },
+  {
+    "ncm":"80720000",
+    "descricao":"- Mamões (papaias)"
+  },
+  {
+    "ncm":"80810000",
+    "descricao":"- Maçãs"
+  },
+  {
+    "ncm":"80830000",
+    "descricao":"- Peras"
+  },
+  {
+    "ncm":"80840000",
+    "descricao":"- Marmelos"
+  },
+  {
+    "ncm":"80910000",
+    "descricao":"- Damascos"
+  },
+  {
+    "ncm":"80921000",
+    "descricao":"-- Ginjas (Prunus cerasus)"
+  },
+  {
+    "ncm":"80929000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"80930100",
+    "descricao":"Pêssegos, excluindo as nectarinas"
+  },
+  {
+    "ncm":"80930200",
+    "descricao":"Nectarinas"
+  },
+  {
+    "ncm":"80940000",
+    "descricao":"- Ameixas e abrunhos"
+  },
+  {
+    "ncm":"81010000",
+    "descricao":"- Morangos"
+  },
+  {
+    "ncm":"81020000",
+    "descricao":"- Framboesas, amoras, incluindo as silvestres, e amoras-framboesas"
+  },
+  {
+    "ncm":"81030000",
+    "descricao":"- Groselhas, incluindo o cassis"
+  },
+  {
+    "ncm":"81040000",
+    "descricao":"- Airelas, mirtilos e outra fruta do gênero Vaccinium"
+  },
+  {
+    "ncm":"81050000",
+    "descricao":"- Kiwis (quivis)"
+  },
+  {
+    "ncm":"81060000",
+    "descricao":"- Duriões (duriangos)"
+  },
+  {
+    "ncm":"81070000",
+    "descricao":"- Caquis (dióspiros)"
+  },
+  {
+    "ncm":"81090110",
+    "descricao":"Carambolas (Averrhoa carambola)"
+  },
+  {
+    "ncm":"81090120",
+    "descricao":"Anonas e outras frutas do gênero Annona"
+  },
+  {
+    "ncm":"81090130",
+    "descricao":"Jacas (Artocarpus heterophyllus)"
+  },
+  {
+    "ncm":"81090140",
+    "descricao":"Lechias (Litchi chinensis)"
+  },
+  {
+    "ncm":"81090150",
+    "descricao":"Maracujás (Passiflora edulis)"
+  },
+  {
+    "ncm":"81090160",
+    "descricao":"Pitaias (Hylocereus spp., Selenicereus undatus)"
+  },
+  {
+    "ncm":"81090170",
+    "descricao":"Tamarindos (Tamarindus indica)"
+  },
+  {
+    "ncm":"81090900",
+    "descricao":"Outra"
+  },
+  {
+    "ncm":"81110000",
+    "descricao":"- Morangos"
+  },
+  {
+    "ncm":"81120000",
+    "descricao":"- Framboesas, amoras, incluindo as silvestres, amoras-framboesas e groselhas"
+  },
+  {
+    "ncm":"81190000",
+    "descricao":"- Outra"
+  },
+  {
+    "ncm":"81210000",
+    "descricao":"- Cerejas"
+  },
+  {
+    "ncm":"81290000",
+    "descricao":"- Outra"
+  },
+  {
+    "ncm":"81310000",
+    "descricao":"- Damascos"
+  },
+  {
+    "ncm":"81320100",
+    "descricao":"Com caroço"
+  },
+  {
+    "ncm":"81320200",
+    "descricao":"Sem caroço"
+  },
+  {
+    "ncm":"81330000",
+    "descricao":"- Maçãs"
+  },
+  {
+    "ncm":"81340100",
+    "descricao":"Peras"
+  },
+  {
+    "ncm":"81340900",
+    "descricao":"Outra"
+  },
+  {
+    "ncm":"81350000",
+    "descricao":"- Misturas de fruta seca ou de fruta de casca rija, do presente Capítulo"
+  },
+  {
+    "ncm":"81400000",
+    "descricao":"Cascas de citros (citrinos), de melões ou de melancias, frescas, secas, congeladas ou apresentadas em água salgada, sulfurada ou adicionada de outras substâncias destinadas a assegurar transitoriamente a sua conservação."
+  },
+  {
+    "ncm":"90111100",
+    "descricao":"Em grão"
+  },
+  {
+    "ncm":"90111900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90112000",
+    "descricao":"-- Descafeinado"
+  },
+  {
+    "ncm":"90121000",
+    "descricao":"-- Não descafeinado"
+  },
+  {
+    "ncm":"90122000",
+    "descricao":"-- Descafeinado"
+  },
+  {
+    "ncm":"90190000",
+    "descricao":"- Outros"
+  },
+  {
+    "ncm":"90210000",
+    "descricao":"- Chá verde (não fermentado) em embalagens imediatas de conteúdo não superior a 3 kg"
+  },
+  {
+    "ncm":"90220000",
+    "descricao":"- Chá verde (não fermentado) apresentado de qualquer outra forma"
+  },
+  {
+    "ncm":"90230000",
+    "descricao":"- Chá preto (fermentado) e chá parcialmente fermentado, em embalagens imediatas de conteúdo não superior a 3 kg"
+  },
+  {
+    "ncm":"90240000",
+    "descricao":"- Chá preto (fermentado) e chá parcialmente fermentado, apresentados de qualquer outra forma"
+  },
+  {
+    "ncm":"90300100",
+    "descricao":"Simplesmente cancheado"
+  },
+  {
+    "ncm":"90300900",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90411000",
+    "descricao":"-- Não triturada nem em pó"
+  },
+  {
+    "ncm":"90412000",
+    "descricao":"-- Triturada ou em pó"
+  },
+  {
+    "ncm":"90421000",
+    "descricao":"-- Secos, não triturados nem em pó"
+  },
+  {
+    "ncm":"90422000",
+    "descricao":"-- Triturados ou em pó"
+  },
+  {
+    "ncm":"90510000",
+    "descricao":"- Não triturada nem em pó"
+  },
+  {
+    "ncm":"90520000",
+    "descricao":"- Triturada ou em pó"
+  },
+  {
+    "ncm":"90611000",
+    "descricao":"-- Canela (Cinnamomum zeylanicum blume)"
+  },
+  {
+    "ncm":"90619000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"90620000",
+    "descricao":"- Trituradas ou em pó"
+  },
+  {
+    "ncm":"90710000",
+    "descricao":"- Não triturado nem em pó"
+  },
+  {
+    "ncm":"90720000",
+    "descricao":"- Triturado ou em pó"
+  },
+  {
+    "ncm":"90811000",
+    "descricao":"-- Não triturada nem em pó"
+  },
+  {
+    "ncm":"90812000",
+    "descricao":"-- Triturada ou em pó"
+  },
+  {
+    "ncm":"90821000",
+    "descricao":"-- Não triturado nem em pó"
+  },
+  {
+    "ncm":"90822000",
+    "descricao":"-- Triturado ou em pó"
+  },
+  {
+    "ncm":"90831000",
+    "descricao":"-- Não triturados nem em pó"
+  },
+  {
+    "ncm":"90832000",
+    "descricao":"-- Triturados ou em pó"
+  },
+  {
+    "ncm":"90921000",
+    "descricao":"-- Não trituradas nem em pó"
+  },
+  {
+    "ncm":"90922000",
+    "descricao":"-- Trituradas ou em pó"
+  },
+  {
+    "ncm":"90931000",
+    "descricao":"-- Não trituradas nem em pó"
+  },
+  {
+    "ncm":"90932000",
+    "descricao":"-- Trituradas ou em pó"
+  },
+  {
+    "ncm":"90961100",
+    "descricao":"De anis (erva-doce)"
+  },
+  {
+    "ncm":"90961200",
+    "descricao":"De badiana (anis-estrelado)"
+  },
+  {
+    "ncm":"90961900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"90962100",
+    "descricao":"De anis (erva-doce)"
+  },
+  {
+    "ncm":"90962200",
+    "descricao":"De badiana (anis-estrelado)"
+  },
+  {
+    "ncm":"90962900",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"91011000",
+    "descricao":"-- Não triturado nem em pó"
+  },
+  {
+    "ncm":"91012000",
+    "descricao":"-- Triturado ou em pó"
+  },
+  {
+    "ncm":"91020000",
+    "descricao":"- Açafrão"
+  },
+  {
+    "ncm":"91030000",
+    "descricao":"- Cúrcuma"
+  },
+  {
+    "ncm":"91091000",
+    "descricao":"-- Misturas mencionadas na Nota 1 b) do presente Capítulo"
+  },
+  {
+    "ncm":"91099000",
+    "descricao":"-- Outras"
+  },
+  {
+    "ncm":"10061090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"10063010",
+    "descricao":"Parboilizado"
+  },
+  {
+    "ncm":"10063020",
+    "descricao":"Não parboilizado"
+  },
+  {
+    "ncm":"13021990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"13023210",
+    "descricao":"De alfarroba ou de suas sementes"
+  },
+  {
+    "ncm":"15021010",
+    "descricao":"Bovino"
+  },
+  {
+    "ncm":"15041010",
+    "descricao":"De bacalhau"
+  },
+  {
+    "ncm":"15079010",
+    "descricao":"Refinado"
+  },
+  {
+    "ncm":"15121910",
+    "descricao":"De girassol"
+  },
+  {
+    "ncm":"15132110",
+    "descricao":"De amêndoa de palma (palmiste) (coconote)"
+  },
+  {
+    "ncm":"15132910",
+    "descricao":"De amêndoa de palma (palmiste) (coconote)"
+  },
+  {
+    "ncm":"15159020",
+    "descricao":"Óleo de tungue"
+  },
+  {
+    "ncm":"15219010",
+    "descricao":"Cera de abelha"
+  },
+  {
+    "ncm":"17023010",
+    "descricao":"Glicose"
+  },
+  {
+    "ncm":"20079920",
+    "descricao":"Purês"
+  },
+  {
+    "ncm":"20098910",
+    "descricao":"Suco (sumo) de pêssego, de acerola (Malpighia spp.) e de maracujá (Passiflora edulis)"
+  },
+  {
+    "ncm":"20098920",
+    "descricao":"Água de coco (Cocos nucifera)"
+  },
+  {
+    "ncm":"21033020",
+    "descricao":"Mostarda preparada"
+  },
+  {
+    "ncm":"21039010",
+    "descricao":"Maionese"
+  },
+  {
+    "ncm":"21039020",
+    "descricao":"Condimentos e temperos, compostos"
+  },
+  {
+    "ncm":"21039090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"21041010",
+    "descricao":"Preparações para caldos e sopas"
+  },
+  {
+    "ncm":"21041020",
+    "descricao":"Caldos e sopas preparados"
+  },
+  {
+    "ncm":"21069020",
+    "descricao":"Pós, inclusive com adição de açúcar ou outro edulcorante, para a fabricação de pudins, cremes, sorvetes, flans, gelatinas ou preparações semelhantes"
+  },
+  {
+    "ncm":"22042210",
+    "descricao":"Vinhos"
+  },
+  {
+    "ncm":"22072010",
+    "descricao":"Álcool etílico"
+  },
+  {
+    "ncm":"25010010",
+    "descricao":"Sal a granel, sem agregados"
+  },
+  {
+    "ncm":"25201010",
+    "descricao":"Gipsita"
+  },
+  {
+    "ncm":"26060010",
+    "descricao":"Bauxita"
+  },
+  {
+    "ncm":"27040010",
+    "descricao":"Coques"
+  },
+  {
+    "ncm":"27101220",
+    "descricao":"Misturas de alquilidenos"
+  },
+  {
+    "ncm":"27101240",
+    "descricao":"Naftas"
+  },
+  {
+    "ncm":"27101250",
+    "descricao":"Gasolinas"
+  },
+  {
+    "ncm":"27101910",
+    "descricao":"Querosenes"
+  },
+  {
+    "ncm":"27101920",
+    "descricao":"Outros óleos combustíveis"
+  },
+  {
+    "ncm":"27101930",
+    "descricao":"Óleos lubrificantes"
+  },
+  {
+    "ncm":"27101990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"28030010",
+    "descricao":"Negros de fumo"
+  },
+  {
+    "ncm":"28092010",
+    "descricao":"Ácido fosfórico"
+  },
+  {
+    "ncm":"28121910",
+    "descricao":"Cloretos"
+  },
+  {
+    "ncm":"28211010",
+    "descricao":"Óxido férrico"
+  },
+  {
+    "ncm":"28273930",
+    "descricao":"De zinco"
+  },
+  {
+    "ncm":"28273990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"28274910",
+    "descricao":"Oxicloretos"
+  },
+  {
+    "ncm":"28274920",
+    "descricao":"Hidroxicloretos"
+  },
+  {
+    "ncm":"28276010",
+    "descricao":"Iodetos"
+  },
+  {
+    "ncm":"28276020",
+    "descricao":"Oxiodetos"
+  },
+  {
+    "ncm":"28289010",
+    "descricao":"Hipocloritos"
+  },
+  {
+    "ncm":"28299010",
+    "descricao":"Bromatos"
+  },
+  {
+    "ncm":"28299020",
+    "descricao":"Perbromatos"
+  },
+  {
+    "ncm":"28299030",
+    "descricao":"Iodatos"
+  },
+  {
+    "ncm":"28309010",
+    "descricao":"Sulfetos"
+  },
+  {
+    "ncm":"28311010",
+    "descricao":"Ditionitos (hidrossulfitos)"
+  },
+  {
+    "ncm":"28311020",
+    "descricao":"Sulfoxilatos"
+  },
+  {
+    "ncm":"28351010",
+    "descricao":"Fosfinatos (hipofosfitos)"
+  },
+  {
+    "ncm":"28351020",
+    "descricao":"Fosfonatos (fosfitos)"
+  },
+  {
+    "ncm":"28369910",
+    "descricao":"Carbonatos"
+  },
+  {
+    "ncm":"28371910",
+    "descricao":"Cianetos"
+  },
+  {
+    "ncm":"28372010",
+    "descricao":"Ferrocianetos"
+  },
+  {
+    "ncm":"28372020",
+    "descricao":"Ferricianetos"
+  },
+  {
+    "ncm":"28415010",
+    "descricao":"Cromatos e dicromatos"
+  },
+  {
+    "ncm":"28419010",
+    "descricao":"Titanatos"
+  },
+  {
+    "ncm":"28419020",
+    "descricao":"Ferritos e ferratos"
+  },
+  {
+    "ncm":"28419040",
+    "descricao":"Estanatos"
+  },
+  {
+    "ncm":"28419080",
+    "descricao":"Aluminatos"
+  },
+  {
+    "ncm":"28439010",
+    "descricao":"Dexormaplatina; enloplatina; iproplatina; lobaplatina; miboplatina; ormaplatina; sebriplatina e zeniplatina"
+  },
+  {
+    "ncm":"28521010",
+    "descricao":"Compostos inorgânicos"
+  },
+  {
+    "ncm":"28521020",
+    "descricao":"Compostos orgânicos"
+  },
+  {
+    "ncm":"28539010",
+    "descricao":"Fosfetos, de constituição química definida ou não"
+  },
+  {
+    "ncm":"29037710",
+    "descricao":"Derivados peralogenados do metano, unicamente com flúor e cloro"
+  },
+  {
+    "ncm":"29037720",
+    "descricao":"Derivados peralogenados do etano, unicamente com flúor e cloro"
+  },
+  {
+    "ncm":"29037730",
+    "descricao":"Derivados peralogenados do propano, unicamente com flúor e cloro"
+  },
+  {
+    "ncm":"29037910",
+    "descricao":"Derivados do metano, etano ou propano, halogenados unicamente com flúor e cloro"
+  },
+  {
+    "ncm":"29037930",
+    "descricao":"Bromoclorotrifluoroetanos"
+  },
+  {
+    "ncm":"29039910",
+    "descricao":"Derivados halogenados, unicamente com cloro"
+  },
+  {
+    "ncm":"29039920",
+    "descricao":"Derivados halogenados, unicamente com bromo"
+  },
+  {
+    "ncm":"29039930",
+    "descricao":"Derivados halogenados, unicamente com flúor e cloro"
+  },
+  {
+    "ncm":"29041010",
+    "descricao":"Ácido metanossulfônico e seus sais"
+  },
+  {
+    "ncm":"29041050",
+    "descricao":"Ácidos naftalenossulfônicos, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29042040",
+    "descricao":"Trinitrotoluenos"
+  },
+  {
+    "ncm":"29042050",
+    "descricao":"Derivados nitrados do benzeno"
+  },
+  {
+    "ncm":"29049910",
+    "descricao":"Derivados nitroalogenados"
+  },
+  {
+    "ncm":"29049920",
+    "descricao":"Derivados nitrossulfonados"
+  },
+  {
+    "ncm":"29051910",
+    "descricao":"Decanóis"
+  },
+  {
+    "ncm":"29051920",
+    "descricao":"Alcoolatos metálicos"
+  },
+  {
+    "ncm":"29051990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29081910",
+    "descricao":"Derivados halogenados unicamente com cloro"
+  },
+  {
+    "ncm":"29081920",
+    "descricao":"Derivados halogenados unicamente com bromo"
+  },
+  {
+    "ncm":"29089910",
+    "descricao":"Derivados apenas nitrados e seus sais"
+  },
+  {
+    "ncm":"29089920",
+    "descricao":"Derivados nitroalogenados"
+  },
+  {
+    "ncm":"29093010",
+    "descricao":"Éteres aromáticos"
+  },
+  {
+    "ncm":"29093020",
+    "descricao":"Derivados halogenados, sulfonados, nitrados ou nitrosados"
+  },
+  {
+    "ncm":"29094410",
+    "descricao":"Do etilenoglicol"
+  },
+  {
+    "ncm":"29094420",
+    "descricao":"Do dietilenoglicol"
+  },
+  {
+    "ncm":"29094920",
+    "descricao":"Etilenoglicóis e seus éteres"
+  },
+  {
+    "ncm":"29094930",
+    "descricao":"Propilenoglicóis e seus éteres"
+  },
+  {
+    "ncm":"29094940",
+    "descricao":"Butilenoglicóis e seus éteres"
+  },
+  {
+    "ncm":"29095010",
+    "descricao":"Éteres-fenóis"
+  },
+  {
+    "ncm":"29096010",
+    "descricao":"Hidroperóxidos"
+  },
+  {
+    "ncm":"29121910",
+    "descricao":"Dialdeídos"
+  },
+  {
+    "ncm":"29121920",
+    "descricao":"Monoaldeídos não saturados"
+  },
+  {
+    "ncm":"29121990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29124940",
+    "descricao":"Aldeídos-álcoois"
+  },
+  {
+    "ncm":"29141920",
+    "descricao":"Dicetonas"
+  },
+  {
+    "ncm":"29144090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"29147910",
+    "descricao":"Derivados halogenados"
+  },
+  {
+    "ncm":"29147920",
+    "descricao":"Derivados sulfonados"
+  },
+  {
+    "ncm":"29153920",
+    "descricao":"Acetatos de glicerila"
+  },
+  {
+    "ncm":"29153930",
+    "descricao":"Acetatos de monoálcoois acíclicos saturados de até 8 átomos de carbono, inclusive"
+  },
+  {
+    "ncm":"29153940",
+    "descricao":"Acetatos de decila ou de hexenila"
+  },
+  {
+    "ncm":"29153950",
+    "descricao":"Acetatos de benzestrol, de dienoestrol, de hexestrol, de mestilbol ou de estilbestrol"
+  },
+  {
+    "ncm":"29153960",
+    "descricao":"Acetatos de tricloro-alfa-feniletila, de triclorometilfenilcarbinila ou diacetato de etilenoglicol (diacetato de etileno)"
+  },
+  {
+    "ncm":"29153990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29156010",
+    "descricao":"Ácidos butanoicos, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29156020",
+    "descricao":"Ácidos pentanoicos, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29157010",
+    "descricao":"Ácido palmítico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29157030",
+    "descricao":"Sais do ácido esteárico"
+  },
+  {
+    "ncm":"29159020",
+    "descricao":"Ácido 2-etilexanoico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29159030",
+    "descricao":"Ácido mirístico; ácido caprílico; seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29159040",
+    "descricao":"Ácido láurico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29161510",
+    "descricao":"Ácido oleico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29161910",
+    "descricao":"Ácido sórbico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29161920",
+    "descricao":"Ácido undecilênico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29162010",
+    "descricao":"Derivados do ácido ciclopropanocarboxílico"
+  },
+  {
+    "ncm":"29163120",
+    "descricao":"Sais"
+  },
+  {
+    "ncm":"29163130",
+    "descricao":"Ésteres"
+  },
+  {
+    "ncm":"29171320",
+    "descricao":"Ácido sebácico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29171920",
+    "descricao":"Ácido maleico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29173910",
+    "descricao":"Ácido m-ftálico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29173930",
+    "descricao":"Outros ésteres do ácido tereftálico"
+  },
+  {
+    "ncm":"29181920",
+    "descricao":"Ácidos biliares, seus sais e seus ésteres; derivados destes produtos"
+  },
+  {
+    "ncm":"29181940",
+    "descricao":"Sais e ésteres do ácido 2,2-difenil-2-hidroxiacético (ácido benzílico)"
+  },
+  {
+    "ncm":"29182210",
+    "descricao":"Ácido o-acetilsalicílico e seus sais"
+  },
+  {
+    "ncm":"29182920",
+    "descricao":"Ácido p-hidroxibenzoico, seus sais e seus ésteres"
+  },
+  {
+    "ncm":"29183030",
+    "descricao":"Ácido deidrocólico e seus sais"
+  },
+  {
+    "ncm":"29189910",
+    "descricao":"Ácido fenoxiacético, seus sais e seus ésteres; derivados destes produtos"
+  },
+  {
+    "ncm":"29189920",
+    "descricao":"Ácidos fenoxibutanoicos, seus sais e seus ésteres; derivados destes produtos"
+  },
+  {
+    "ncm":"29189990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29209020",
+    "descricao":"Sulfitos"
+  },
+  {
+    "ncm":"29209030",
+    "descricao":"Nitratos"
+  },
+  {
+    "ncm":"29209040",
+    "descricao":"Sulfatos"
+  },
+  {
+    "ncm":"29209050",
+    "descricao":"Silicatos"
+  },
+  {
+    "ncm":"29211110",
+    "descricao":"Monometilamina e seus sais"
+  },
+  {
+    "ncm":"29211120",
+    "descricao":"Dimetilamina e seus sais"
+  },
+  {
+    "ncm":"29211130",
+    "descricao":"Trimetilamina e seus sais"
+  },
+  {
+    "ncm":"29211910",
+    "descricao":"Etilaminas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29211920",
+    "descricao":"n-Propilaminas e isopropilaminas; sais destes produtos"
+  },
+  {
+    "ncm":"29211930",
+    "descricao":"Butilaminas e seus sais"
+  },
+  {
+    "ncm":"29211940",
+    "descricao":"Monoalquilaminas, metildialquilaminas e dialquilaminas, com grupos alquila de C10 a C18"
+  },
+  {
+    "ncm":"29211990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29213010",
+    "descricao":"Cicloexilaminas e seus sais"
+  },
+  {
+    "ncm":"29214210",
+    "descricao":"Ácidos aminobenzenossulfônicos e seus sais"
+  },
+  {
+    "ncm":"29214220",
+    "descricao":"Cloroanilinas e seus sais"
+  },
+  {
+    "ncm":"29214230",
+    "descricao":"Nitroanilinas e seus sais"
+  },
+  {
+    "ncm":"29214240",
+    "descricao":"Cloronitroanilinas e seus sais"
+  },
+  {
+    "ncm":"29214310",
+    "descricao":"Toluidinas e seus sais"
+  },
+  {
+    "ncm":"29214320",
+    "descricao":"Derivados das toluidinas; sais destes produtos"
+  },
+  {
+    "ncm":"29214420",
+    "descricao":"Derivados da difenilamina; sais destes produtos"
+  },
+  {
+    "ncm":"29214920",
+    "descricao":"Xilidinas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29214930",
+    "descricao":"Tranilcipromina e seus sais"
+  },
+  {
+    "ncm":"29215110",
+    "descricao":"o-, m-, p-Fenilenodiamina; diaminotoluenos; sais destes produtos"
+  },
+  {
+    "ncm":"29215130",
+    "descricao":"Outros derivados das fenilenodiaminas; sais destes produtos"
+  },
+  {
+    "ncm":"29215910",
+    "descricao":"Benzidina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29215920",
+    "descricao":"Diaminodifenilmetanos"
+  },
+  {
+    "ncm":"29215930",
+    "descricao":"Diaminodifenilaminas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29221910",
+    "descricao":"Propanolaminas e seus sais; derivados destes produtos"
+  },
+  {
+    "ncm":"29221920",
+    "descricao":"Orfenadrina e seus sais"
+  },
+  {
+    "ncm":"29221930",
+    "descricao":"Ambroxol e seus sais"
+  },
+  {
+    "ncm":"29221940",
+    "descricao":"Clobutinol e seus sais"
+  },
+  {
+    "ncm":"29221950",
+    "descricao":"N,N-Dialquil-2-aminoetanol, com grupos alquila de C1 a C3, e seus sais protonados"
+  },
+  {
+    "ncm":"29221970",
+    "descricao":"Propafenona e seus sais"
+  },
+  {
+    "ncm":"29221980",
+    "descricao":"Metoprolol e seus sais"
+  },
+  {
+    "ncm":"29221990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29222910",
+    "descricao":"o-, m-, p-Aminofenóis, e seus sais"
+  },
+  {
+    "ncm":"29223110",
+    "descricao":"Anfepramona e seus sais"
+  },
+  {
+    "ncm":"29223920",
+    "descricao":"Ketamina e seus sais"
+  },
+  {
+    "ncm":"29224930",
+    "descricao":"Ácido iminodiacético e seus sais"
+  },
+  {
+    "ncm":"29224950",
+    "descricao":"alfa-Fenilglicina e seus sais; derivados destes produtos"
+  },
+  {
+    "ncm":"29224960",
+    "descricao":"Diclofenaco e seus sais; derivados destes produtos"
+  },
+  {
+    "ncm":"29225010",
+    "descricao":"Fenilefrina e seus sais"
+  },
+  {
+    "ncm":"29225030",
+    "descricao":"Tirosina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29225090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29241910",
+    "descricao":"Acetoacetamida e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29241920",
+    "descricao":"Formamidas; acetamidas"
+  },
+  {
+    "ncm":"29241930",
+    "descricao":"Acrilamidas e seus derivados"
+  },
+  {
+    "ncm":"29241940",
+    "descricao":"Crotonamidas e seus derivados"
+  },
+  {
+    "ncm":"29241990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29242110",
+    "descricao":"Carbanilida e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29242910",
+    "descricao":"Acetanilida e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29242930",
+    "descricao":"Carbamatos"
+  },
+  {
+    "ncm":"29242940",
+    "descricao":"Acetamidas e seus derivados"
+  },
+  {
+    "ncm":"29242950",
+    "descricao":"Metoxibenzamidas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29242960",
+    "descricao":"Propanamidas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29242990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29252910",
+    "descricao":"Arginina e seus sais"
+  },
+  {
+    "ncm":"29252920",
+    "descricao":"Guanidina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29263010",
+    "descricao":"Fenproporex e seus sais"
+  },
+  {
+    "ncm":"29269010",
+    "descricao":"Verapamil e seus sais"
+  },
+  {
+    "ncm":"29269020",
+    "descricao":"Álcool alfa-ciano-3-fenoxibenzílico e seus derivados; ésteres destes produtos"
+  },
+  {
+    "ncm":"29269090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29270020",
+    "descricao":"Compostos azoicos"
+  },
+  {
+    "ncm":"29280010",
+    "descricao":"Acetoxima e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29280040",
+    "descricao":"Fenilidrazina e seus derivados"
+  },
+  {
+    "ncm":"29291020",
+    "descricao":"Di-isocianatos de tolueno"
+  },
+  {
+    "ncm":"29299010",
+    "descricao":"Ácido ciclâmico e seus sais"
+  },
+  {
+    "ncm":"29299030",
+    "descricao":"Dialogenetos de N,N-dialquilfosforoamidatos, com grupos alquila de C1 a C3"
+  },
+  {
+    "ncm":"29302010",
+    "descricao":"Tiocarbamatos"
+  },
+  {
+    "ncm":"29302020",
+    "descricao":"Ditiocarbamatos"
+  },
+  {
+    "ncm":"29303010",
+    "descricao":"Monossulfetos"
+  },
+  {
+    "ncm":"29303020",
+    "descricao":"Dissulfetos"
+  },
+  {
+    "ncm":"29309010",
+    "descricao":"Tióis e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29309020",
+    "descricao":"Tioamidas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29309030",
+    "descricao":"Tioéteres, tioésteres e seus derivados, exceto os produtos do item 2930.90.8; sais destes produtos"
+  },
+  {
+    "ncm":"29309040",
+    "descricao":"Fosforotioatos e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29309050",
+    "descricao":"Fosforoditioatos e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29309060",
+    "descricao":"Fosforoamidotioatos e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29309070",
+    "descricao":"Sulfonas"
+  },
+  {
+    "ncm":"29309080",
+    "descricao":"Sulfeto de 2-cloroetila e de clorometila; sulfeto de bis(2-cloroetila); bis(2-cloroetiltio)metano; 1,2-bis(2-cloroetiltio)etano; 1,3-bis(2-cloroetiltio)-n-propano; 1,4-bis(2-cloroetiltio)-n-butano; 1,5-bis(2-cloroetiltio)-n-pentano; óxido de bis(2-cloroetiltiometila); óxido de bis(2-cloroetiltioetila)"
+  },
+  {
+    "ncm":"29309090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29314910",
+    "descricao":"Ácido fosfonometiliminodiacético; ácido aminotrimetilenofosfônico; difenilfosfonato(4,4'-bis((dimetoxifosfinil)metil)difenila); etidronato dissódico; glifosato e seu sal de monoisopropilamina; glufosinato de amônio; hidrogenofosfonato de bis(2-etilexilo)"
+  },
+  {
+    "ncm":"29314930",
+    "descricao":"Outros compostos que contenham um átomo de fósforo ligado a um grupo alquila (de C1 a C3) mas sem outros átomos de carbono"
+  },
+  {
+    "ncm":"29315910",
+    "descricao":"Ácido clodrônico e seu sal dissódico; etefon; fotemustina"
+  },
+  {
+    "ncm":"29315990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29319020",
+    "descricao":"Compostos organossilícicos"
+  },
+  {
+    "ncm":"29319040",
+    "descricao":"Compostos organometálicos do estanho"
+  },
+  {
+    "ncm":"29319050",
+    "descricao":"Compostos organoarseniais"
+  },
+  {
+    "ncm":"29319060",
+    "descricao":"Compostos organoalumínicos"
+  },
+  {
+    "ncm":"29329910",
+    "descricao":"Eucaliptol; quercetina; dinitrato de isossorbida"
+  },
+  {
+    "ncm":"29329990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29331110",
+    "descricao":"Ácido 1-fenil-2,3-dimetil-5-pirazolona-4-metilaminometanossulfônico e seus sais"
+  },
+  {
+    "ncm":"29331910",
+    "descricao":"Fenilbutazona e seus sais"
+  },
+  {
+    "ncm":"29332120",
+    "descricao":"Fenitoína e seus sais"
+  },
+  {
+    "ncm":"29332910",
+    "descricao":"Cuja estrutura contém um ciclo nitroimidazol"
+  },
+  {
+    "ncm":"29332920",
+    "descricao":"Cuja estrutura contém um ciclo benzeno clorado, exceto os que contenham um ciclo nitroimidazol"
+  },
+  {
+    "ncm":"29332990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29333310",
+    "descricao":"Alfentanila e anileridina; sais destes produtos"
+  },
+  {
+    "ncm":"29333320",
+    "descricao":"Bezitramida e bromazepam; sais destes produtos"
+  },
+  {
+    "ncm":"29333330",
+    "descricao":"Carfentanila e cetobemidona; sais destes produtos"
+  },
+  {
+    "ncm":"29333340",
+    "descricao":"Difenoxilato e seus sais"
+  },
+  {
+    "ncm":"29333350",
+    "descricao":"Difenoxina e dipipanona; sais destes produtos"
+  },
+  {
+    "ncm":"29333360",
+    "descricao":"Fenciclidina, fenoperidina e fentanila; sais destes produtos"
+  },
+  {
+    "ncm":"29333370",
+    "descricao":"Metilfenidato e pentazocina; sais destes produtos"
+  },
+  {
+    "ncm":"29333380",
+    "descricao":"Petidina, intermediário A da petidina e pipradrol; sais destes produtos"
+  },
+  {
+    "ncm":"29333390",
+    "descricao":"Piritramida, propiram, remifentanila e trimeperidina; sais destes produtos"
+  },
+  {
+    "ncm":"29333910",
+    "descricao":"Cuja estrutura contém flúor, bromo ou ambos, em ligação covalente"
+  },
+  {
+    "ncm":"29333920",
+    "descricao":"Cuja estrutura contém cloro, mas não contém flúor nem bromo, em ligação covalente"
+  },
+  {
+    "ncm":"29333930",
+    "descricao":"Cuja estrutura contém funções álcool, ácido carboxílico ou ambas, mas não contém halogênios em ligação covalente"
+  },
+  {
+    "ncm":"29333940",
+    "descricao":"Cuja estrutura contém funções éter, éster ou ambas, mas não contém funções álcool ou ácido carboxílico nem halogênios em ligação covalente"
+  },
+  {
+    "ncm":"29333980",
+    "descricao":"Outros, cuja estrutura contém um ciclo piridina (hidrogenado ou não) N-substituído com radicais alquila ou arila"
+  },
+  {
+    "ncm":"29333990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29334910",
+    "descricao":"Derivados do ácido quinolinocarboxílico"
+  },
+  {
+    "ncm":"29335310",
+    "descricao":"Alobarbital e amobarbital; sais destes produtos"
+  },
+  {
+    "ncm":"29335320",
+    "descricao":"Barbital, butalbital e butobarbital; sais destes produtos"
+  },
+  {
+    "ncm":"29335370",
+    "descricao":"Secbutabarbital e secobarbital; sais destes produtos"
+  },
+  {
+    "ncm":"29335910",
+    "descricao":"Cuja estrutura contém um ciclo piperazina"
+  },
+  {
+    "ncm":"29335920",
+    "descricao":"Cuja estrutura contém um ciclo pirimidina (hidrogenado ou não) e halogênios em ligação covalente"
+  },
+  {
+    "ncm":"29335930",
+    "descricao":"Cuja estrutura contém um ciclo pirimidina (hidrogenado ou não) e enxofre, mas não contém halogênios em ligação covalente"
+  },
+  {
+    "ncm":"29335940",
+    "descricao":"Cuja estrutura contém um ciclo pirimidina (hidrogenado ou não) e funções álcool, éter ou ambas, mas não contém halogênios em ligação covalente nem enxofre"
+  },
+  {
+    "ncm":"29335990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29336910",
+    "descricao":"Cuja estrutura contém cloro em ligação covalente"
+  },
+  {
+    "ncm":"29336920",
+    "descricao":"Cuja estrutura contém funções oxigenadas, mas não contém cloro em ligação covalente"
+  },
+  {
+    "ncm":"29336990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29339110",
+    "descricao":"Alprazolam, camazepam, clonazepam, clorazepato e clorodiazepóxido; sais destes produtos"
+  },
+  {
+    "ncm":"29339120",
+    "descricao":"Delorazepam, diazepam e estazolam; sais destes produtos"
+  },
+  {
+    "ncm":"29339130",
+    "descricao":"Fludiazepam, flunitrazepam, flurazepam e halazepam; sais destes produtos"
+  },
+  {
+    "ncm":"29339140",
+    "descricao":"Loflazepato de etila, lorazepam e lormetazepam; sais destes produtos"
+  },
+  {
+    "ncm":"29339150",
+    "descricao":"Mazindol, medazepam e midazolam; sais destes produtos"
+  },
+  {
+    "ncm":"29339160",
+    "descricao":"Nimetazepam, nitrazepam, nordazepam e oxazepam; sais destes produtos"
+  },
+  {
+    "ncm":"29339170",
+    "descricao":"Pinazepam, pirovalerona e prazepam; sais destes produtos"
+  },
+  {
+    "ncm":"29339180",
+    "descricao":"Temazepam, tetrazepam e triazolam; sais destes produtos"
+  },
+  {
+    "ncm":"29339910",
+    "descricao":"Cuja estrutura contém um ciclo pirazina não condensado ou ciclos indol (hidrogenados ou não) sem outras condensações"
+  },
+  {
+    "ncm":"29339930",
+    "descricao":"Cuja estrutura contém um ciclo azepina (hidrogenado ou não)"
+  },
+  {
+    "ncm":"29339940",
+    "descricao":"Cuja estrutura contém um ciclo pirrol (hidrogenado ou não)"
+  },
+  {
+    "ncm":"29339950",
+    "descricao":"Cuja estrutura contém um ciclo imidazol (hidrogenados ou não)"
+  },
+  {
+    "ncm":"29339960",
+    "descricao":"Cuja estrutura contém um ciclo triazol (hidrogenado ou não), não condensado"
+  },
+  {
+    "ncm":"29339990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29342030",
+    "descricao":"Benzotiazol sulfenamidas"
+  },
+  {
+    "ncm":"29349110",
+    "descricao":"Aminorex e brotizolan; sais destes produtos"
+  },
+  {
+    "ncm":"29349120",
+    "descricao":"Clotiazepam, cloxazolam e dextromoramida; sais destes produtos"
+  },
+  {
+    "ncm":"29349130",
+    "descricao":"Fendimetrazina, fenmetrazina e haloxazolam; sais destes produtos"
+  },
+  {
+    "ncm":"29349140",
+    "descricao":"Ketazolam e mesocarbo; sais destes produtos"
+  },
+  {
+    "ncm":"29349910",
+    "descricao":"Cuja estrutura contém um ciclo oxazina (hidrogenado ou não), exceto os que contenham heteroátomo(s) de enxofre"
+  },
+  {
+    "ncm":"29349920",
+    "descricao":"Cuja estrutura contém exclusivamente 3 heteroátomos de nitrogênio (azoto) e oxigênio em conjunto, exceto os ácidos nucleicos e seus sais e os produtos compreendidos no item 2934.99.1"
+  },
+  {
+    "ncm":"29349930",
+    "descricao":"Outros, cuja estrutura contém exclusivamente heteroátomos de nitrogênio (azoto) e oxigênio"
+  },
+  {
+    "ncm":"29349940",
+    "descricao":"Cuja estrutura contém exclusivamente até 2 heteroátomos de enxofre ou um de enxofre e um de nitrogênio (azoto)"
+  },
+  {
+    "ncm":"29349950",
+    "descricao":"Cuja estrutura contém exclusivamente 3 heteroátomos de enxofre e nitrogênio (azoto) em conjunto"
+  },
+  {
+    "ncm":"29349960",
+    "descricao":"Outros, cuja estrutura contém exclusivamente heteroátomos de enxofre ou de enxofre e nitrogênio (azoto)"
+  },
+  {
+    "ncm":"29349990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29359010",
+    "descricao":"Cuja estrutura contém exclusivamente heterociclo(s) com heteroátomo(s) de nitrogênio (azoto)"
+  },
+  {
+    "ncm":"29359020",
+    "descricao":"Cuja estrutura contém outro(s) heterociclo(s)"
+  },
+  {
+    "ncm":"29359090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"29362110",
+    "descricao":"Vitamina A1 álcool (retinol) e seus derivados"
+  },
+  {
+    "ncm":"29362810",
+    "descricao":"D- ou DL-alfa-Tocoferol e seus derivados"
+  },
+  {
+    "ncm":"29362910",
+    "descricao":"Vitamina B9 (ácido fólico) e seus derivados"
+  },
+  {
+    "ncm":"29362920",
+    "descricao":"Vitaminas D e seus derivados"
+  },
+  {
+    "ncm":"29362930",
+    "descricao":"Vitamina H (biotina) e seus derivados"
+  },
+  {
+    "ncm":"29362950",
+    "descricao":"Ácido nicotínico e seus derivados"
+  },
+  {
+    "ncm":"29372220",
+    "descricao":"Triancinolona e seus derivados"
+  },
+  {
+    "ncm":"29372230",
+    "descricao":"Fluocortolona e seus derivados"
+  },
+  {
+    "ncm":"29372320",
+    "descricao":"Norgestrel e seus derivados"
+  },
+  {
+    "ncm":"29372330",
+    "descricao":"Estriol, seus ésteres e seus sais"
+  },
+  {
+    "ncm":"29372340",
+    "descricao":"Estradiol, seus ésteres e seus sais; derivados destes produtos"
+  },
+  {
+    "ncm":"29372350",
+    "descricao":"Alilestrenol, seus ésteres e seus sais"
+  },
+  {
+    "ncm":"29372390",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29372930",
+    "descricao":"Ciproterona e seus derivados"
+  },
+  {
+    "ncm":"29391120",
+    "descricao":"Buprenorfina, codeína e di-hidrocodeína; sais destes produtos"
+  },
+  {
+    "ncm":"29391130",
+    "descricao":"Etilmorfina e etorfina; sais destes produtos"
+  },
+  {
+    "ncm":"29391150",
+    "descricao":"Heroína, hidrocodona e hidromorfona; sais destes produtos"
+  },
+  {
+    "ncm":"29391160",
+    "descricao":"Morfina e seus sais"
+  },
+  {
+    "ncm":"29391180",
+    "descricao":"Oxicodona e oximorfona; sais destes produtos"
+  },
+  {
+    "ncm":"29391190",
+    "descricao":"Tebacona e tebaína; sais destes produtos"
+  },
+  {
+    "ncm":"29396910",
+    "descricao":"Derivados da ergometrina e seus sais"
+  },
+  {
+    "ncm":"29396920",
+    "descricao":"Derivados da ergotamina e seus sais"
+  },
+  {
+    "ncm":"29396930",
+    "descricao":"Ergocornina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29396940",
+    "descricao":"Ergocriptina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29396950",
+    "descricao":"Ergocristina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29397910",
+    "descricao":"Escopolamina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29397930",
+    "descricao":"Pilocarpina e seus sais"
+  },
+  {
+    "ncm":"29400010",
+    "descricao":"Açúcares quimicamente puros"
+  },
+  {
+    "ncm":"29400020",
+    "descricao":"Ácido lactobiônico, seus sais e seus ésteres; derivados halogenados, sulfonados, nitrados ou nitrosados destes produtos"
+  },
+  {
+    "ncm":"29400090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"29411030",
+    "descricao":"Penicilina V e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29411040",
+    "descricao":"Penicilina G e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29413030",
+    "descricao":"Minociclina e seus sais"
+  },
+  {
+    "ncm":"29414010",
+    "descricao":"Cloranfenicol e seus ésteres"
+  },
+  {
+    "ncm":"29419010",
+    "descricao":"Rifamicinas e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29419020",
+    "descricao":"Lincomicina e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29419030",
+    "descricao":"Cefalosporinas e cefamicinas, e seus derivados; sais destes produtos"
+  },
+  {
+    "ncm":"29419040",
+    "descricao":"Aminoglucosídios e seus sais"
+  },
+  {
+    "ncm":"29419050",
+    "descricao":"Macrolídios e seus sais"
+  },
+  {
+    "ncm":"29419060",
+    "descricao":"Polienos e seus sais"
+  },
+  {
+    "ncm":"29419070",
+    "descricao":"Poliéteres e seus sais"
+  },
+  {
+    "ncm":"29419080",
+    "descricao":"Polipeptídios e seus sais"
+  },
+  {
+    "ncm":"29419090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30019030",
+    "descricao":"Glândulas e outros órgãos, dessecados, mesmo em pó"
+  },
+  {
+    "ncm":"30021210",
+    "descricao":"Antissoros específicos de animais ou de pessoas imunizados"
+  },
+  {
+    "ncm":"30021220",
+    "descricao":"Outras frações do sangue, exceto as preparadas como medicamentos"
+  },
+  {
+    "ncm":"30021230",
+    "descricao":"Outras frações do sangue, preparadas como medicamentos"
+  },
+  {
+    "ncm":"30024110",
+    "descricao":"Não apresentadas em doses, nem acondicionadas para venda a retalho"
+  },
+  {
+    "ncm":"30024120",
+    "descricao":"Apresentadas em doses ou acondicionadas para venda a retalho"
+  },
+  {
+    "ncm":"30024990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30031010",
+    "descricao":"Que contenham penicilinas ou seus derivados, com a estrutura do ácido penicilânico"
+  },
+  {
+    "ncm":"30032010",
+    "descricao":"Que contenham anfenicóis ou seus derivados"
+  },
+  {
+    "ncm":"30032020",
+    "descricao":"Que contenham macrolídios ou seus derivados"
+  },
+  {
+    "ncm":"30032030",
+    "descricao":"Que contenham ansamicinas ou seus derivados"
+  },
+  {
+    "ncm":"30032040",
+    "descricao":"Que contenham lincosamidas ou seus derivados"
+  },
+  {
+    "ncm":"30032050",
+    "descricao":"Que contenham cefalosporinas, cefamicinas ou derivados destes produtos"
+  },
+  {
+    "ncm":"30032060",
+    "descricao":"Que contenham aminoglucosídios ou seus derivados"
+  },
+  {
+    "ncm":"30032070",
+    "descricao":"Que contenham polipeptídios ou seus derivados"
+  },
+  {
+    "ncm":"30032090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30033910",
+    "descricao":"Que contenham os seguintes hormônios polipeptídicos ou proteicos: buserelina ou seu acetato; corticotropina (ACTH); gonadotropina coriônica (hCG); gonadotropina sérica (PMSG); leuprolida ou seu acetato; menotropinas; somatostatina ou seus sais; somatotropina; triptorelina ou seus sais"
+  },
+  {
+    "ncm":"30033920",
+    "descricao":"Que contenham outros hormônios polipeptídicos ou proteicos, seus derivados ou análogos estruturais, mas que não contenham produtos do item 3003.39.1"
+  },
+  {
+    "ncm":"30033930",
+    "descricao":"Que contenham estrogênios ou progestogênios, seus derivados ou análogos estruturais"
+  },
+  {
+    "ncm":"30033980",
+    "descricao":"Levotiroxina sódica; liotironina sódica"
+  },
+  {
+    "ncm":"30033990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30039010",
+    "descricao":"Que contenham vitaminas ou outros produtos da posição 29.36"
+  },
+  {
+    "ncm":"30039020",
+    "descricao":"Que contenham enzimas mas que não contenham vitaminas nem outros produtos da posição 29.36"
+  },
+  {
+    "ncm":"30039030",
+    "descricao":"Que contenham produtos das posições 29.16 a 29.20, mas que não contenham produtos dos itens 3003.90.1 e 3003.90.2"
+  },
+  {
+    "ncm":"30039040",
+    "descricao":"Que contenham produtos das posições 29.21 e 29.22, mas que não contenham produtos dos itens 3003.90.1 a 3003.90.3"
+  },
+  {
+    "ncm":"30039050",
+    "descricao":"Que contenham produtos das posições 29.24 a 29.26, mas que não contenham produtos dos itens 3003.90.1 a 3003.90.4"
+  },
+  {
+    "ncm":"30039060",
+    "descricao":"Que contenham produtos das posições 29.30 a 29.32, mas que não contenham produtos dos itens 3003.90.1 a 3003.90.5"
+  },
+  {
+    "ncm":"30039070",
+    "descricao":"Que contenham produtos da posição 29.33, mas que não contenham produtos dos itens 3003.90.1 a 3003.90.6"
+  },
+  {
+    "ncm":"30039080",
+    "descricao":"Que contenham produtos das posições 29.34, 29.35 e 29.38, mas que não contenham produtos dos itens 3003.90.1 a 3003.90.7"
+  },
+  {
+    "ncm":"30039090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30041010",
+    "descricao":"Que contenham penicilinas ou seus derivados, com estrutura do ácido penicilânico"
+  },
+  {
+    "ncm":"30042010",
+    "descricao":"Que contenham anfenicóis ou seus sais"
+  },
+  {
+    "ncm":"30042020",
+    "descricao":"Que contenham macrolídios ou seus derivados"
+  },
+  {
+    "ncm":"30042030",
+    "descricao":"Que contenham ansamicinas ou seus derivados"
+  },
+  {
+    "ncm":"30042040",
+    "descricao":"Que contenham lincosamidas ou seus derivados"
+  },
+  {
+    "ncm":"30042050",
+    "descricao":"Que contenham cefalosporinas, cefamicinas ou derivados destes produtos"
+  },
+  {
+    "ncm":"30042060",
+    "descricao":"Que contenham aminoglucosídios ou seus derivados"
+  },
+  {
+    "ncm":"30042070",
+    "descricao":"Que contenham polipeptídios ou seus derivados"
+  },
+  {
+    "ncm":"30042090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30043910",
+    "descricao":"Que contenham os seguintes hormônios polipeptídicos ou proteicos: buserelina ou seu acetato; corticotropina (ACTH); gonadotropina coriônica (hCG); gonadotropina sérica (PMSG); leuprolida ou seu acetato; menotropinas; somatostatina ou seus sais; somatotropina; triptorelina ou seus sais"
+  },
+  {
+    "ncm":"30043920",
+    "descricao":"Que contenham outros hormônios polipeptídicos ou proteicos, seus derivados ou análogos estruturais, mas que não contenham produtos do item 3004.39.1"
+  },
+  {
+    "ncm":"30043930",
+    "descricao":"Que contenham estrogênios ou progestogênios, seus derivados ou análogos estruturais"
+  },
+  {
+    "ncm":"30043980",
+    "descricao":"Levotiroxina sódica; liotironina sódica"
+  },
+  {
+    "ncm":"30043990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30049010",
+    "descricao":"Que contenham enzimas"
+  },
+  {
+    "ncm":"30049020",
+    "descricao":"Que contenham produtos das posições 29.16 a 29.20, mas que não contenham produtos do item 3004.90.1"
+  },
+  {
+    "ncm":"30049030",
+    "descricao":"Que contenham produtos das posições 29.21 e 29.22, mas que não contenham produtos dos itens 3004.90.1 e 3004.90.2"
+  },
+  {
+    "ncm":"30049040",
+    "descricao":"Que contenham produtos das posições 29.24 a 29.26, mas que não contenham produtos dos itens 3004.90.1 a 3004.90.3"
+  },
+  {
+    "ncm":"30049050",
+    "descricao":"Que contenham produtos das posições 29.30 a 29.32, mas que não contenham produtos dos itens 3004.90.1 a 3004.90.4"
+  },
+  {
+    "ncm":"30049060",
+    "descricao":"Que contenham produtos da posição 29.33, mas que não contenham produtos dos itens 3004.90.1 a 3004.90.5"
+  },
+  {
+    "ncm":"30049070",
+    "descricao":"Que contenham produtos das posições 29.34, 29.35 e 29.38, mas que não contenham produtos dos itens 3004.90.1 a 3004.90.6"
+  },
+  {
+    "ncm":"30049090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"30059010",
+    "descricao":"Curativos (pensos) reabsorvíveis"
+  },
+  {
+    "ncm":"30063010",
+    "descricao":"Preparações opacificantes para exames radiográficos"
+  },
+  {
+    "ncm":"30063020",
+    "descricao":"Reagentes de diagnóstico concebidos para serem administrados ao paciente"
+  },
+  {
+    "ncm":"30064010",
+    "descricao":"Cimentos e outros produtos para obturação dentária"
+  },
+  {
+    "ncm":"31025010",
+    "descricao":"Natural"
+  },
+  {
+    "ncm":"31039010",
+    "descricao":"Hidrogeno-ortofosfato de cálcio"
+  },
+  {
+    "ncm":"31059010",
+    "descricao":"Nitrato de sódio potássico"
+  },
+  {
+    "ncm":"32019010",
+    "descricao":"Extratos"
+  },
+  {
+    "ncm":"32029010",
+    "descricao":"Produtos tanantes inorgânicos"
+  },
+  {
+    "ncm":"32029020",
+    "descricao":"Preparações tanantes"
+  },
+  {
+    "ncm":"32030010",
+    "descricao":"Matérias corantes de origem vegetal"
+  },
+  {
+    "ncm":"32030020",
+    "descricao":"Matérias corantes de origem animal"
+  },
+  {
+    "ncm":"32042010",
+    "descricao":"Derivados do estilbeno"
+  },
+  {
+    "ncm":"32065010",
+    "descricao":"Com substâncias radioativas de radioatividade específica inferior ou igual a 74 Bq\/g (0,002 µCi\/g)"
+  },
+  {
+    "ncm":"32065020",
+    "descricao":"Sem substâncias radioativas"
+  },
+  {
+    "ncm":"32072090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"32082010",
+    "descricao":"Tintas"
+  },
+  {
+    "ncm":"32089020",
+    "descricao":"Vernizes"
+  },
+  {
+    "ncm":"32089030",
+    "descricao":"Soluções definidas na Nota 4 do presente Capítulo"
+  },
+  {
+    "ncm":"32099010",
+    "descricao":"Tintas"
+  },
+  {
+    "ncm":"33012910",
+    "descricao":"De citronela; de cedro; de pau-santo (Bulnesia sarmientoi); de lemongrass; de pau-rosa; de palma rosa; de coriandro; de cabreúva; de eucalipto"
+  },
+  {
+    "ncm":"33012920",
+    "descricao":"De alfazema ou lavanda; de vetiver"
+  },
+  {
+    "ncm":"33029010",
+    "descricao":"Para perfumaria"
+  },
+  {
+    "ncm":"33029090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"34029010",
+    "descricao":"Misturas entre si de agentes orgânicos de superfície"
+  },
+  {
+    "ncm":"34029020",
+    "descricao":"Soluções ou emulsões de produtos tensoativos das subposições 3402.31 a 3402.49, e outras preparações tensoativas propriamente ditas"
+  },
+  {
+    "ncm":"34029030",
+    "descricao":"Preparações para lavagem (detergentes)"
+  },
+  {
+    "ncm":"34049010",
+    "descricao":"Ceras artificiais"
+  },
+  {
+    "ncm":"34049020",
+    "descricao":"Ceras preparadas"
+  },
+  {
+    "ncm":"35019010",
+    "descricao":"Caseinatos e outros derivados das caseínas"
+  },
+  {
+    "ncm":"35030010",
+    "descricao":"Gelatinas e seus derivados"
+  },
+  {
+    "ncm":"35040010",
+    "descricao":"Peptonas e seus derivados"
+  },
+  {
+    "ncm":"35079010",
+    "descricao":"Amilases e seus concentrados"
+  },
+  {
+    "ncm":"35079020",
+    "descricao":"Proteases e seus concentrados"
+  },
+  {
+    "ncm":"35079030",
+    "descricao":"Outras enzimas e seus concentrados"
+  },
+  {
+    "ncm":"35079040",
+    "descricao":"Enzimas preparadas"
+  },
+  {
+    "ncm":"37011020",
+    "descricao":"Sensibilizados nas duas faces"
+  },
+  {
+    "ncm":"37013020",
+    "descricao":"Chapas sensibilizadas com polímeros fotossensíveis"
+  },
+  {
+    "ncm":"37013030",
+    "descricao":"Chapas sensibilizadas por outros procedimentos"
+  },
+  {
+    "ncm":"37024420",
+    "descricao":"Para fotografia monocromática"
+  },
+  {
+    "ncm":"37025410",
+    "descricao":"De largura igual a 35 mm"
+  },
+  {
+    "ncm":"37025490",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"37031020",
+    "descricao":"Para fotografia monocromática"
+  },
+  {
+    "ncm":"37079020",
+    "descricao":"Reveladores"
+  },
+  {
+    "ncm":"38040010",
+    "descricao":"Lixívias residuais da fabricação de pastas de celulose"
+  },
+  {
+    "ncm":"38069010",
+    "descricao":"Outros derivados de colofônias ou de ácidos resínicos"
+  },
+  {
+    "ncm":"38085920",
+    "descricao":"Apresentadas de outro modo"
+  },
+  {
+    "ncm":"38089110",
+    "descricao":"Apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"38089210",
+    "descricao":"Apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"38089310",
+    "descricao":"Herbicidas apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089320",
+    "descricao":"Herbicidas apresentados de outro modo"
+  },
+  {
+    "ncm":"38089330",
+    "descricao":"Inibidores de germinação"
+  },
+  {
+    "ncm":"38089340",
+    "descricao":"Reguladores de crescimento das plantas apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089350",
+    "descricao":"Reguladores de crescimento das plantas, apresentados de outro modo"
+  },
+  {
+    "ncm":"38089410",
+    "descricao":"Apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089420",
+    "descricao":"Apresentados de outro modo"
+  },
+  {
+    "ncm":"38089910",
+    "descricao":"Apresentados em formas ou embalagens exclusivamente para uso direto em aplicações domissanitárias"
+  },
+  {
+    "ncm":"38089990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"38099140",
+    "descricao":"Impermeabilizantes"
+  },
+  {
+    "ncm":"38099210",
+    "descricao":"Impermeabilizantes"
+  },
+  {
+    "ncm":"38099310",
+    "descricao":"Impermeabilizantes"
+  },
+  {
+    "ncm":"38123910",
+    "descricao":"Para borracha"
+  },
+  {
+    "ncm":"38123920",
+    "descricao":"Para plástico"
+  },
+  {
+    "ncm":"38159090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"38160010",
+    "descricao":"Cimentos e argamassas"
+  },
+  {
+    "ncm":"38160020",
+    "descricao":"Outras preparações à base de cromo-magnesita, de zircônio, de silimanita, de cianita, de andaluzita, de coríndon ou de diaspório"
+  },
+  {
+    "ncm":"38249910",
+    "descricao":"Produtos intermediários da fabricação de antibióticos ou de vitaminas ou de outros produtos da posição 29.36"
+  },
+  {
+    "ncm":"38249920",
+    "descricao":"Derivados de ácidos graxos (gordos) industriais; misturas e preparações que contenham álcoois graxos (gordos) ou ácidos carboxílicos ou derivados destes produtos"
+  },
+  {
+    "ncm":"38249930",
+    "descricao":"Misturas e preparações para borracha ou plástico e outras misturas e preparações para endurecer resinas sintéticas, colas, pinturas ou usos semelhantes"
+  },
+  {
+    "ncm":"38249940",
+    "descricao":"Misturas e preparações desincrustantes, anticorrosivas ou antioxidantes; fluidos para a transferência de calor"
+  },
+  {
+    "ncm":"38249950",
+    "descricao":"Polietilenoglicóis e suas misturas; polipropilenoglicóis e suas misturas; misturas e preparações que contenham ésteres de ácidos inorgânicos e seus derivados"
+  },
+  {
+    "ncm":"38249960",
+    "descricao":"Contrastes para exames de diagnóstico por imagens de ressonância magnética ou de ecografia"
+  },
+  {
+    "ncm":"38249970",
+    "descricao":"Produtos e preparações à base de elementos químicos ou de seus compostos inorgânicos, não especificados nem compreendidos noutras posições"
+  },
+  {
+    "ncm":"38249980",
+    "descricao":"Produtos e preparações à base de compostos orgânicos, não especificados nem compreendidos noutras posições"
+  },
+  {
+    "ncm":"39012010",
+    "descricao":"Com carga"
+  },
+  {
+    "ncm":"39012020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39069010",
+    "descricao":"Nas formas previstas na Nota 6 a) deste Capítulo, em água"
+  },
+  {
+    "ncm":"39069020",
+    "descricao":"Nas formas previstas na Nota 6 a) deste Capítulo, em solventes orgânicos"
+  },
+  {
+    "ncm":"39069030",
+    "descricao":"Nas formas previstas na Nota 6 a) deste Capítulo, em outros solventes ou sem solvente"
+  },
+  {
+    "ncm":"39069050",
+    "descricao":"Nas formas previstas na Nota 6 b) deste Capítulo, exceto copolímeros"
+  },
+  {
+    "ncm":"39069060",
+    "descricao":"Copolímeros nas formas previstas na Nota 6 b) deste Capítulo"
+  },
+  {
+    "ncm":"39071030",
+    "descricao":"Sem carga, nas formas previstas na Nota 6 a) deste Capítulo"
+  },
+  {
+    "ncm":"39071040",
+    "descricao":"Sem carga, nas formas previstas na Nota 6 b) deste Capítulo, não estabilizados"
+  },
+  {
+    "ncm":"39071090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"39072910",
+    "descricao":"Poli(óxido de fenileno), mesmo modificado com estireno ou estireno-acrilonitrila"
+  },
+  {
+    "ncm":"39072930",
+    "descricao":"Polieterpolióis"
+  },
+  {
+    "ncm":"39072940",
+    "descricao":"Poli(epicloridrina) (PECH) e seus copolímeros"
+  },
+  {
+    "ncm":"39072990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"39073010",
+    "descricao":"Com carga"
+  },
+  {
+    "ncm":"39073020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39079910",
+    "descricao":"Poli(tereftalato de butileno)"
+  },
+  {
+    "ncm":"39079990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"39081010",
+    "descricao":"Nas formas previstas na Nota 6 a) deste Capítulo"
+  },
+  {
+    "ncm":"39081020",
+    "descricao":"Nas formas previstas na Nota 6 b) deste Capítulo"
+  },
+  {
+    "ncm":"39092010",
+    "descricao":"Com carga"
+  },
+  {
+    "ncm":"39092020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39094010",
+    "descricao":"Lipossolúveis, puras ou modificadas"
+  },
+  {
+    "ncm":"39094090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"39095010",
+    "descricao":"Nas formas previstas na Nota 6 a) deste Capítulo"
+  },
+  {
+    "ncm":"39095020",
+    "descricao":"Nas formas previstas na Nota 6 b) deste Capítulo"
+  },
+  {
+    "ncm":"39100010",
+    "descricao":"Óleos"
+  },
+  {
+    "ncm":"39100020",
+    "descricao":"Elastômeros"
+  },
+  {
+    "ncm":"39111020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39119010",
+    "descricao":"Com carga"
+  },
+  {
+    "ncm":"39119020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39122020",
+    "descricao":"Sem carga"
+  },
+  {
+    "ncm":"39123110",
+    "descricao":"Carboximetilcelulose"
+  },
+  {
+    "ncm":"39123120",
+    "descricao":"Sais"
+  },
+  {
+    "ncm":"39129030",
+    "descricao":"Celulose microcristalina"
+  },
+  {
+    "ncm":"39139010",
+    "descricao":"Derivados químicos da borracha natural"
+  },
+  {
+    "ncm":"39140010",
+    "descricao":"De poliestireno e seus copolímeros"
+  },
+  {
+    "ncm":"39171020",
+    "descricao":"De plástico celulósico"
+  },
+  {
+    "ncm":"39173220",
+    "descricao":"De polipropileno"
+  },
+  {
+    "ncm":"39173250",
+    "descricao":"De celulose regenerada"
+  },
+  {
+    "ncm":"39201090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"39202010",
+    "descricao":"Biaxialmente orientados"
+  },
+  {
+    "ncm":"39206210",
+    "descricao":"De espessura inferior ou igual a 40 micrômetros (mícrons)"
+  },
+  {
+    "ncm":"39206290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"39219010",
+    "descricao":"Estratificadas, reforçadas ou com suporte"
+  },
+  {
+    "ncm":"39269020",
+    "descricao":"Correias de transmissão e correias transportadoras"
+  },
+  {
+    "ncm":"39269060",
+    "descricao":"Anéis de seção transversal circular (O-rings)"
+  },
+  {
+    "ncm":"40021910",
+    "descricao":"De estireno-butadieno (SBR)"
+  },
+  {
+    "ncm":"40022090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"40070010",
+    "descricao":"Fios"
+  },
+  {
+    "ncm":"41041110",
+    "descricao":"Plena flor, não divididos"
+  },
+  {
+    "ncm":"41041120",
+    "descricao":"Divididos, com o lado flor"
+  },
+  {
+    "ncm":"41051020",
+    "descricao":"Pré-curtidas de outro modo"
+  },
+  {
+    "ncm":"41062120",
+    "descricao":"Pré-curtidos de outro modo"
+  },
+  {
+    "ncm":"44081090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"44083990",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"44101120",
+    "descricao":"Recobertos na superfície com papel impregnado de melamina"
+  },
+  {
+    "ncm":"44101910",
+    "descricao":"Painéis denominados waferboard"
+  },
+  {
+    "ncm":"44101990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"44111390",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48025490",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48025590",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48025690",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48025790",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48025890",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48026190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48026290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48026990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48101380",
+    "descricao":"Outros, de peso superior a 150 g\/m2"
+  },
+  {
+    "ncm":"48101390",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48101480",
+    "descricao":"Outros, de peso superior a 150 g\/m2"
+  },
+  {
+    "ncm":"48101980",
+    "descricao":"Outros, de peso superior a 150 g\/m2"
+  },
+  {
+    "ncm":"48101990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48115120",
+    "descricao":"Outros, recobertos ou revestidos"
+  },
+  {
+    "ncm":"48115920",
+    "descricao":"Outros, recobertos ou revestidos"
+  },
+  {
+    "ncm":"48119010",
+    "descricao":"Em tiras ou rolos de largura não superior a 15 cm ou em folhas em que nenhum lado exceda 360 mm, quando não dobradas"
+  },
+  {
+    "ncm":"48232090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"48239090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"51052990",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"51071010",
+    "descricao":"Retorcidos ou retorcidos múltiplos"
+  },
+  {
+    "ncm":"51130010",
+    "descricao":"De pelos grosseiros"
+  },
+  {
+    "ncm":"52041110",
+    "descricao":"De algodão cru, de título inferior ou igual a 5.000 decitex por fio simples"
+  },
+  {
+    "ncm":"52041130",
+    "descricao":"De algodão branqueado ou colorido, de título inferior ou igual a 5.000 decitex por fio simples"
+  },
+  {
+    "ncm":"52041910",
+    "descricao":"De algodão cru, de título inferior ou igual a 5.000 decitex por fio simples"
+  },
+  {
+    "ncm":"52041930",
+    "descricao":"De algodão branqueado ou colorido, de título inferior ou igual a 5.000 decitex por fio simples"
+  },
+  {
+    "ncm":"54011010",
+    "descricao":"De poliéster"
+  },
+  {
+    "ncm":"54012010",
+    "descricao":"De raiom viscose, de alta tenacidade"
+  },
+  {
+    "ncm":"54023110",
+    "descricao":"De náilon"
+  },
+  {
+    "ncm":"54023210",
+    "descricao":"De náilon"
+  },
+  {
+    "ncm":"54041910",
+    "descricao":"Imitações de categute"
+  },
+  {
+    "ncm":"54071010",
+    "descricao":"Sem fios de borracha"
+  },
+  {
+    "ncm":"54071020",
+    "descricao":"Com fios de borracha"
+  },
+  {
+    "ncm":"55101110",
+    "descricao":"Obtidos a partir de fibras de celulose"
+  },
+  {
+    "ncm":"55101210",
+    "descricao":"Obtidos a partir de fibras de celulose"
+  },
+  {
+    "ncm":"55102010",
+    "descricao":"Obtidos a partir de fibras de celulose"
+  },
+  {
+    "ncm":"55103010",
+    "descricao":"Obtidos a partir de fibras de celulose"
+  },
+  {
+    "ncm":"55109010",
+    "descricao":"Obtidos a partir de fibras de celulose"
+  },
+  {
+    "ncm":"55133910",
+    "descricao":"De fibras descontínuas de poliéster"
+  },
+  {
+    "ncm":"55134910",
+    "descricao":"De fibras descontínuas de poliéster"
+  },
+  {
+    "ncm":"55143010",
+    "descricao":"De fibras descontínuas de poliéster"
+  },
+  {
+    "ncm":"56012210",
+    "descricao":"Pastas (ouates)"
+  },
+  {
+    "ncm":"56012290",
+    "descricao":"Outros artigos de pastas ( ouates)"
+  },
+  {
+    "ncm":"56049020",
+    "descricao":"Fios de alta tenacidade, de poliésteres, náilon ou de outras poliamidas, ou de raiom viscose, impregnados ou revestidos"
+  },
+  {
+    "ncm":"56075010",
+    "descricao":"De poliamidas"
+  },
+  {
+    "ncm":"57011010",
+    "descricao":"De lã"
+  },
+  {
+    "ncm":"60041010",
+    "descricao":"De algodão"
+  },
+  {
+    "ncm":"60041030",
+    "descricao":"De fibras sintéticas"
+  },
+  {
+    "ncm":"60041040",
+    "descricao":"De fibras artificiais"
+  },
+  {
+    "ncm":"60041090",
+    "descricao":"De outras matérias têxteis"
+  },
+  {
+    "ncm":"61151010",
+    "descricao":"Meias-calças"
+  },
+  {
+    "ncm":"61151020",
+    "descricao":"Meias acima do joelho e meias até o joelho, de uso feminino, de título inferior a 67 decitex por fio simples"
+  },
+  {
+    "ncm":"61151090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"65050010",
+    "descricao":"Bonés"
+  },
+  {
+    "ncm":"65050020",
+    "descricao":"Gorros"
+  },
+  {
+    "ncm":"65050030",
+    "descricao":"Chapéus"
+  },
+  {
+    "ncm":"68042110",
+    "descricao":"De diâmetro inferior a 53,34 cm"
+  },
+  {
+    "ncm":"68042210",
+    "descricao":"De diâmetro inferior a 53,34 cm"
+  },
+  {
+    "ncm":"68159910",
+    "descricao":"Eletrofundidas"
+  },
+  {
+    "ncm":"69021010",
+    "descricao":"Magnesianos ou à base de óxido de cromo"
+  },
+  {
+    "ncm":"69022090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"69031010",
+    "descricao":"Cadinhos"
+  },
+  {
+    "ncm":"69039010",
+    "descricao":"Tubos"
+  },
+  {
+    "ncm":"69039090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"70109010",
+    "descricao":"De capacidade superior a 1 l"
+  },
+  {
+    "ncm":"70109020",
+    "descricao":"De capacidade superior a 0,33 l, mas não superior a 1 l"
+  },
+  {
+    "ncm":"70111020",
+    "descricao":"Para lâmpadas de incandescência"
+  },
+  {
+    "ncm":"70151090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"72106910",
+    "descricao":"Revestidos de ligas de aluminiossilício"
+  },
+  {
+    "ncm":"72124020",
+    "descricao":"Revestidos de plástico"
+  },
+  {
+    "ncm":"72171010",
+    "descricao":"Com um teor de carbono igual ou superior a 0,6 %, em peso"
+  },
+  {
+    "ncm":"73042930",
+    "descricao":"De outras ligas de aço não revestidos"
+  },
+  {
+    "ncm":"73045110",
+    "descricao":"Tubos de diâmetro exterior inferior ou igual a 229 mm"
+  },
+  {
+    "ncm":"73049010",
+    "descricao":"De diâmetro exterior inferior ou igual a 229 mm"
+  },
+  {
+    "ncm":"74071020",
+    "descricao":"Perfis"
+  },
+  {
+    "ncm":"74072920",
+    "descricao":"Perfis"
+  },
+  {
+    "ncm":"74082910",
+    "descricao":"À base de cobre-estanho (bronze)"
+  },
+  {
+    "ncm":"74093110",
+    "descricao":"Revestidas de plástico"
+  },
+  {
+    "ncm":"74094010",
+    "descricao":"Em rolos"
+  },
+  {
+    "ncm":"74101110",
+    "descricao":"Folha de espessura inferior ou igual a 0,07 mm e com pureza igual ou superior a 99,85 %, em peso"
+  },
+  {
+    "ncm":"75051120",
+    "descricao":"Perfis"
+  },
+  {
+    "ncm":"75051220",
+    "descricao":"Perfis"
+  },
+  {
+    "ncm":"76041020",
+    "descricao":"Perfis"
+  },
+  {
+    "ncm":"76042910",
+    "descricao":"Barras"
+  },
+  {
+    "ncm":"76129010",
+    "descricao":"Recipientes tubulares"
+  },
+  {
+    "ncm":"78011010",
+    "descricao":"Eletrolítico"
+  },
+  {
+    "ncm":"79011110",
+    "descricao":"Eletrolítico"
+  },
+  {
+    "ncm":"79011190",
+    "descricao":"Outro"
+  },
+  {
+    "ncm":"81052020",
+    "descricao":"Pós"
+  },
+  {
+    "ncm":"82075010",
+    "descricao":"Brocas, mesmo diamantadas"
+  },
+  {
+    "ncm":"82090010",
+    "descricao":"Plaquetas ou pastilhas"
+  },
+  {
+    "ncm":"84069010",
+    "descricao":"Rotores"
+  },
+  {
+    "ncm":"84069020",
+    "descricao":"Palhetas"
+  },
+  {
+    "ncm":"84099110",
+    "descricao":"Bielas, blocos de cilindros, cabeçotes, cárteres, carburadores, válvulas de admissão ou de escape, coletores de admissão ou de escape, anéis de segmento e guias de válvulas"
+  },
+  {
+    "ncm":"84099910",
+    "descricao":"Blocos de cilindros, cárteres, válvulas de admissão ou de escape, coletores de admissão ou escape e guias de válvulas"
+  },
+  {
+    "ncm":"84099920",
+    "descricao":"Pistões ou êmbolos"
+  },
+  {
+    "ncm":"84099940",
+    "descricao":"Bielas"
+  },
+  {
+    "ncm":"84099950",
+    "descricao":"Cabeçotes"
+  },
+  {
+    "ncm":"84099960",
+    "descricao":"Bicos injetores (incluindo os porta-injetores)"
+  },
+  {
+    "ncm":"84099970",
+    "descricao":"Anéis de segmento"
+  },
+  {
+    "ncm":"84099990",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84136010",
+    "descricao":"De vazão inferior ou igual a 300 l\/min"
+  },
+  {
+    "ncm":"84143010",
+    "descricao":"Motocompressores herméticos"
+  },
+  {
+    "ncm":"84143090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84148010",
+    "descricao":"Compressores de ar"
+  },
+  {
+    "ncm":"84148020",
+    "descricao":"Turbocompressores de ar"
+  },
+  {
+    "ncm":"84148030",
+    "descricao":"Compressores de gases (exceto ar)"
+  },
+  {
+    "ncm":"84149030",
+    "descricao":"De compressores"
+  },
+  {
+    "ncm":"84151010",
+    "descricao":"Com capacidade inferior ou igual a 30.000 frigorias\/hora"
+  },
+  {
+    "ncm":"84186930",
+    "descricao":"Unidades fornecedoras de água, sucos ou bebidas carbonatadas"
+  },
+  {
+    "ncm":"84186990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84195020",
+    "descricao":"Tubulares"
+  },
+  {
+    "ncm":"84198910",
+    "descricao":"Esterilizadores"
+  },
+  {
+    "ncm":"84198990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84199030",
+    "descricao":"De trocadores de calor, de placas"
+  },
+  {
+    "ncm":"84212910",
+    "descricao":"Do tipo utilizado em hemodiálise"
+  },
+  {
+    "ncm":"84219190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84219990",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84223020",
+    "descricao":"Máquinas e aparelhos para encher, fechar, arrolhar ou rotular caixas, latas, sacos ou outros recipientes; Máquinas e aparelhos para capsular vasos, tubos e recipientes semelhantes"
+  },
+  {
+    "ncm":"84233010",
+    "descricao":"Dosadoras"
+  },
+  {
+    "ncm":"84239020",
+    "descricao":"Partes"
+  },
+  {
+    "ncm":"84248220",
+    "descricao":"Irrigadores e sistemas de irrigação"
+  },
+  {
+    "ncm":"84271010",
+    "descricao":"Empilhadeiras"
+  },
+  {
+    "ncm":"84295110",
+    "descricao":"Carregadores-transportadores"
+  },
+  {
+    "ncm":"84295120",
+    "descricao":"Infraestruturas motoras, próprias para receber equipamentos do item 8430.69.1"
+  },
+  {
+    "ncm":"84295190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84295210",
+    "descricao":"Escavadores"
+  },
+  {
+    "ncm":"84306910",
+    "descricao":"Equipamentos frontais para escavo-carregadores ou carregadores"
+  },
+  {
+    "ncm":"84312010",
+    "descricao":"De empilhadeiras"
+  },
+  {
+    "ncm":"84314920",
+    "descricao":"De máquinas ou aparelhos das posições 84.29 ou 84.30"
+  },
+  {
+    "ncm":"84335910",
+    "descricao":"Colheitadeiras de algodão"
+  },
+  {
+    "ncm":"84336020",
+    "descricao":"Para limpar ou selecionar ovos"
+  },
+  {
+    "ncm":"84382010",
+    "descricao":"Para as indústrias de confeitaria"
+  },
+  {
+    "ncm":"84401010",
+    "descricao":"De costurar cadernos"
+  },
+  {
+    "ncm":"84431320",
+    "descricao":"Alimentados por folhas de formato inferior ou igual a 37,5 cm x 51 cm"
+  },
+  {
+    "ncm":"84433110",
+    "descricao":"Alimentadas por folhas, com velocidade de impressão, medida no formato A4 (210 mm x 297 mm), inferior ou igual a 45 páginas por minuto (ppm)"
+  },
+  {
+    "ncm":"84433190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84433220",
+    "descricao":"Impressoras de impacto"
+  },
+  {
+    "ncm":"84433230",
+    "descricao":"Outras impressoras, alimentadas por folhas, com velocidade de impressão, medida no formato A4 (210 mm x 297 mm), inferior ou igual a 45 páginas por minuto (ppm)"
+  },
+  {
+    "ncm":"84433250",
+    "descricao":"Traçadores gráficos (plotters)"
+  },
+  {
+    "ncm":"84433290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84433920",
+    "descricao":"Máquinas copiadoras eletrostáticas"
+  },
+  {
+    "ncm":"84439190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84439910",
+    "descricao":"Mecanismos de impressão por impacto, suas partes e acessórios"
+  },
+  {
+    "ncm":"84439920",
+    "descricao":"Mecanismos de impressão por jato de tinta, suas partes e acessórios"
+  },
+  {
+    "ncm":"84439930",
+    "descricao":"Mecanismos de impressão a laser, a LED (Diodos Emissores de Luz) ou a LCS (Sistema de Cristal Líquido), suas partes e acessórios"
+  },
+  {
+    "ncm":"84439940",
+    "descricao":"Mecanismos de impressão por sistema térmico, suas partes e acessórios"
+  },
+  {
+    "ncm":"84451920",
+    "descricao":"Máquinas para a preparação de outras matérias têxteis"
+  },
+  {
+    "ncm":"84454010",
+    "descricao":"Bobinadoras automáticas"
+  },
+  {
+    "ncm":"84454020",
+    "descricao":"Bobinadoras não automáticas"
+  },
+  {
+    "ncm":"84454030",
+    "descricao":"Meadeiras"
+  },
+  {
+    "ncm":"84472020",
+    "descricao":"Teares motorizados"
+  },
+  {
+    "ncm":"84483210",
+    "descricao":"De cardas"
+  },
+  {
+    "ncm":"84483910",
+    "descricao":"De máquinas para fiação, dobragem ou torção"
+  },
+  {
+    "ncm":"84483920",
+    "descricao":"De máquinas de bobinar ou de dobar"
+  },
+  {
+    "ncm":"84483990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84485920",
+    "descricao":"De teares retilíneos"
+  },
+  {
+    "ncm":"84490090",
+    "descricao":"Partes"
+  },
+  {
+    "ncm":"84513090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84514020",
+    "descricao":"Para tingir ou branquear fios ou tecidos"
+  },
+  {
+    "ncm":"84522920",
+    "descricao":"Para costurar tecidos"
+  },
+  {
+    "ncm":"84529080",
+    "descricao":"Outras partes de máquinas de costura de uso doméstico"
+  },
+  {
+    "ncm":"84529090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84561110",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84561210",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84563010",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84581190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84592190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84604010",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84604090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84609010",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84614090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84632090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84642020",
+    "descricao":"Para cerâmica"
+  },
+  {
+    "ncm":"84649010",
+    "descricao":"Para vidro"
+  },
+  {
+    "ncm":"84659210",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84659510",
+    "descricao":"De comando numérico"
+  },
+  {
+    "ncm":"84659590",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84669310",
+    "descricao":"Para máquinas da posição 84.56"
+  },
+  {
+    "ncm":"84672990",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84713010",
+    "descricao":"Capazes de funcionar sem fonte externa de energia"
+  },
+  {
+    "ncm":"84716050",
+    "descricao":"Unidades de entrada"
+  },
+  {
+    "ncm":"84716060",
+    "descricao":"Aparelhos terminais que tenham, pelo menos, uma unidade de entrada por teclado alfanumérico e uma unidade de saída por vídeo (terminais de vídeo)"
+  },
+  {
+    "ncm":"84719010",
+    "descricao":"Leitores ou gravadores"
+  },
+  {
+    "ncm":"84729050",
+    "descricao":"Classificadoras automáticas de documentos, com leitores ou gravadores do item 8471.90.1 incorporados"
+  },
+  {
+    "ncm":"84729090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84733010",
+    "descricao":"Gabinete, mesmo com módulo display numérico, fonte de alimentação incorporada ou ambos"
+  },
+  {
+    "ncm":"84733030",
+    "descricao":"De unidades de discos magnéticos ou de fitas magnéticas, exceto as do item 8473.30.4"
+  },
+  {
+    "ncm":"84733040",
+    "descricao":"Circuitos impressos com componentes elétricos ou eletrônicos, montados"
+  },
+  {
+    "ncm":"84771010",
+    "descricao":"Horizontais, de comando numérico"
+  },
+  {
+    "ncm":"84771020",
+    "descricao":"Outras horizontais"
+  },
+  {
+    "ncm":"84771090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"84775910",
+    "descricao":"Prensas"
+  },
+  {
+    "ncm":"84798910",
+    "descricao":"Prensas; distribuidores e doseadores de sólidos ou de líquidos"
+  },
+  {
+    "ncm":"84798920",
+    "descricao":"Máquinas e aparelhos para cestaria ou espartaria; máquinas e aparelhos para fabricação de pincéis, brochas e escovas"
+  },
+  {
+    "ncm":"84798930",
+    "descricao":"Limpadores de para-brisas elétricos e acumuladores hidráulicos, para aeronaves"
+  },
+  {
+    "ncm":"84798990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84812010",
+    "descricao":"Rotativas, de caixas de direção hidráulica"
+  },
+  {
+    "ncm":"84818010",
+    "descricao":"Do tipo utilizado em banheiros ou cozinhas"
+  },
+  {
+    "ncm":"84818020",
+    "descricao":"Do tipo utilizado em refrigeração"
+  },
+  {
+    "ncm":"84818030",
+    "descricao":"Do tipo utilizado em equipamentos a gás"
+  },
+  {
+    "ncm":"84818090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"84829110",
+    "descricao":"Esferas de aço calibradas"
+  },
+  {
+    "ncm":"84831010",
+    "descricao":"Virabrequins"
+  },
+  {
+    "ncm":"84833020",
+    "descricao":"\"Bronzes\""
+  },
+  {
+    "ncm":"84836010",
+    "descricao":"Embreagens"
+  },
+  {
+    "ncm":"85011010",
+    "descricao":"De corrente contínua"
+  },
+  {
+    "ncm":"85011020",
+    "descricao":"De corrente alternada"
+  },
+  {
+    "ncm":"85013410",
+    "descricao":"Motores"
+  },
+  {
+    "ncm":"85014010",
+    "descricao":"De potência não superior a 15 kW"
+  },
+  {
+    "ncm":"85014020",
+    "descricao":"De potência superior a 15 kW"
+  },
+  {
+    "ncm":"85021310",
+    "descricao":"De corrente alternada"
+  },
+  {
+    "ncm":"85022010",
+    "descricao":"De corrente alternada"
+  },
+  {
+    "ncm":"85043110",
+    "descricao":"Para frequências inferiores ou iguais a 60 Hz"
+  },
+  {
+    "ncm":"85043190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85043210",
+    "descricao":"De potência não superior a 3 kVA"
+  },
+  {
+    "ncm":"85043220",
+    "descricao":"De potência superior a 3 kVA"
+  },
+  {
+    "ncm":"85044020",
+    "descricao":"Retificadores, exceto carregadores de acumuladores"
+  },
+  {
+    "ncm":"85059010",
+    "descricao":"Eletroímãs"
+  },
+  {
+    "ncm":"85061010",
+    "descricao":"Pilhas alcalinas"
+  },
+  {
+    "ncm":"85061030",
+    "descricao":"Baterias de pilhas"
+  },
+  {
+    "ncm":"85073010",
+    "descricao":"De peso inferior ou igual a 2.500 kg"
+  },
+  {
+    "ncm":"85109010",
+    "descricao":"De aparelhos ou máquinas de barbear"
+  },
+  {
+    "ncm":"85122010",
+    "descricao":"Aparelhos de iluminação"
+  },
+  {
+    "ncm":"85122020",
+    "descricao":"Aparelhos de sinalização visual"
+  },
+  {
+    "ncm":"85142010",
+    "descricao":"Por indução"
+  },
+  {
+    "ncm":"85171430",
+    "descricao":"De redes celulares, exceto por satélite"
+  },
+  {
+    "ncm":"85171440",
+    "descricao":"De telecomunicações por satélite"
+  },
+  {
+    "ncm":"85176140",
+    "descricao":"De telecomunicação por satélite"
+  },
+  {
+    "ncm":"85176190",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"85176210",
+    "descricao":"Concentradores de linhas de assinantes (terminais de central ou terminal remoto) e multiplexadores"
+  },
+  {
+    "ncm":"85176220",
+    "descricao":"Aparelhos para comutação de linhas telefônicas"
+  },
+  {
+    "ncm":"85176230",
+    "descricao":"Outros aparelhos para comutação"
+  },
+  {
+    "ncm":"85176240",
+    "descricao":"Roteadores digitais, em redes mesmo com fio"
+  },
+  {
+    "ncm":"85176250",
+    "descricao":"Outros aparelhos para recepção, transmissão ou regeneração de voz, imagens ou outros dados em rede com fio"
+  },
+  {
+    "ncm":"85176260",
+    "descricao":"Aparelhos emissores com receptor incorporado de tecnologia celular ou por satélite"
+  },
+  {
+    "ncm":"85176270",
+    "descricao":"Outros aparelhos emissores com receptor incorporado, digitais"
+  },
+  {
+    "ncm":"85176290",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85211080",
+    "descricao":"Outros, para fitas de largura inferior a 19,05 mm (3\/4'')"
+  },
+  {
+    "ncm":"85232910",
+    "descricao":"Discos magnéticos"
+  },
+  {
+    "ncm":"85255010",
+    "descricao":"De radiodifusão"
+  },
+  {
+    "ncm":"85255020",
+    "descricao":"De televisão"
+  },
+  {
+    "ncm":"85258910",
+    "descricao":"Câmeras de televisão"
+  },
+  {
+    "ncm":"85258920",
+    "descricao":"Câmeras fotográficas digitais e câmeras de vídeo"
+  },
+  {
+    "ncm":"85287110",
+    "descricao":"Receptor-decodificador integrado (IRD) de sinais digitalizados de vídeo codificados"
+  },
+  {
+    "ncm":"85299010",
+    "descricao":"De aparelhos das subposições 8525.50 ou 8525.60"
+  },
+  {
+    "ncm":"85322110",
+    "descricao":"Próprios para montagem em superfície (SMD - Surface Mounted Device)"
+  },
+  {
+    "ncm":"85334010",
+    "descricao":"Resistências não lineares semicondutoras"
+  },
+  {
+    "ncm":"85334090",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"85340010",
+    "descricao":"Simples face, rígidos"
+  },
+  {
+    "ncm":"85340030",
+    "descricao":"Dupla face, rígidos"
+  },
+  {
+    "ncm":"85340050",
+    "descricao":"Multicamadas"
+  },
+  {
+    "ncm":"85353010",
+    "descricao":"Para corrente nominal inferior ou igual a 1.600 A"
+  },
+  {
+    "ncm":"85353020",
+    "descricao":"Para corrente nominal superior a 1.600 A"
+  },
+  {
+    "ncm":"85371010",
+    "descricao":"Comando numérico computadorizado (CNC)"
+  },
+  {
+    "ncm":"85393110",
+    "descricao":"Lâmpadas, com reator eletrônico incorporado e base rosca E 14, E 27 ou E 40"
+  },
+  {
+    "ncm":"85393130",
+    "descricao":"Tubos"
+  },
+  {
+    "ncm":"85393910",
+    "descricao":"Tubos fluorescentes de cátodo frio ou de eletrodo externo, para telas eletrônicas"
+  },
+  {
+    "ncm":"85402010",
+    "descricao":"Tubos para câmeras de televisão"
+  },
+  {
+    "ncm":"85411010",
+    "descricao":"Não montados"
+  },
+  {
+    "ncm":"85411020",
+    "descricao":"Montados, próprios para montagem em superfície (SMD - Surface Mounted Device)"
+  },
+  {
+    "ncm":"85411030",
+    "descricao":"Montados, próprios para montagem por inserção (PTH - Pin Through Hole)"
+  },
+  {
+    "ncm":"85411090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85412190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85413010",
+    "descricao":"Não montados"
+  },
+  {
+    "ncm":"85413020",
+    "descricao":"Montados"
+  },
+  {
+    "ncm":"85414110",
+    "descricao":"Não montados"
+  },
+  {
+    "ncm":"85414120",
+    "descricao":"Montados"
+  },
+  {
+    "ncm":"85423220",
+    "descricao":"Montadas, próprias para montagem em superfície (SMD - Surface Mounted Device)"
+  },
+  {
+    "ncm":"85423290",
+    "descricao":"Outras"
+  },
+  {
+    "ncm":"85423310",
+    "descricao":"Híbridos"
+  },
+  {
+    "ncm":"85423910",
+    "descricao":"Híbridos"
+  },
+  {
+    "ncm":"85423930",
+    "descricao":"Outros, montados, próprios para montagem em superfície (SMD - Surface Mounted Device)"
+  },
+  {
+    "ncm":"85423990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85437010",
+    "descricao":"Amplificadores de radiofrequência"
+  },
+  {
+    "ncm":"85437030",
+    "descricao":"Máquinas e aparelhos auxiliares para vídeo"
+  },
+  {
+    "ncm":"85437090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"85441910",
+    "descricao":"De alumínio"
+  },
+  {
+    "ncm":"86071910",
+    "descricao":"Mancais"
+  },
+  {
+    "ncm":"86080010",
+    "descricao":"Aparelhos mecânicos (incluindo os eletromecânicos) de sinalização, de segurança, de controle ou de comando para vias férreas ou semelhantes, rodoviárias ou fluviais, para áreas ou parques de estacionamento, instalações portuárias ou para aeródromos"
+  },
+  {
+    "ncm":"87082910",
+    "descricao":"Dos veículos das subposições 8701.10, 8701.30, 8701.91 a 8701.95 ou 8704.10"
+  },
+  {
+    "ncm":"87082990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"87083010",
+    "descricao":"Guarnições de freios (travões) montadas"
+  },
+  {
+    "ncm":"87084010",
+    "descricao":"Caixas de marchas dos veículos das subposições 8701.10, 8701.30, 8701.91 a 8701.95 ou 8704.10"
+  },
+  {
+    "ncm":"87085010",
+    "descricao":"Dos veículos das subposições 8701.10, 8701.30, 8701.91 a 8701.95 ou 8704.10"
+  },
+  {
+    "ncm":"87085090",
+    "descricao":"Partes"
+  },
+  {
+    "ncm":"87089410",
+    "descricao":"Volantes, colunas e caixas, de direção dos veículos das subposições 8701.10, 8701.30, 8701.91 a 8701.95 ou 8704.10"
+  },
+  {
+    "ncm":"87089480",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"87089520",
+    "descricao":"Partes"
+  },
+  {
+    "ncm":"87149310",
+    "descricao":"Cubos, exceto de freios (travões)"
+  },
+  {
+    "ncm":"87149610",
+    "descricao":"Pedaleiros e suas partes"
+  },
+  {
+    "ncm":"88022020",
+    "descricao":"A turboélice"
+  },
+  {
+    "ncm":"88023020",
+    "descricao":"A turboélice"
+  },
+  {
+    "ncm":"88023030",
+    "descricao":"A turbojato"
+  },
+  {
+    "ncm":"90011010",
+    "descricao":"Fibras ópticas"
+  },
+  {
+    "ncm":"90021110",
+    "descricao":"Para câmeras fotográficas ou cinematográficas ou para projetores"
+  },
+  {
+    "ncm":"90065950",
+    "descricao":"Outras, de foco ajustável"
+  },
+  {
+    "ncm":"90183110",
+    "descricao":"De plástico"
+  },
+  {
+    "ncm":"90183210",
+    "descricao":"Tubulares de metal"
+  },
+  {
+    "ncm":"90183920",
+    "descricao":"Sondas, cateteres e cânulas"
+  },
+  {
+    "ncm":"90183990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90184910",
+    "descricao":"Brocas"
+  },
+  {
+    "ncm":"90184990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90189020",
+    "descricao":"Bisturis"
+  },
+  {
+    "ncm":"90189030",
+    "descricao":"Litótomos e litotritores"
+  },
+  {
+    "ncm":"90189060",
+    "descricao":"Aparelhos para medida da pressão arterial"
+  },
+  {
+    "ncm":"90189090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90211090",
+    "descricao":"Partes e acessórios"
+  },
+  {
+    "ncm":"90213910",
+    "descricao":"Válvulas cardíacas"
+  },
+  {
+    "ncm":"90213990",
+    "descricao":"Partes e acessórios"
+  },
+  {
+    "ncm":"90219010",
+    "descricao":"Aparelhos que se implantam no organismo para compensar uma deficiência ou uma incapacidade"
+  },
+  {
+    "ncm":"90219090",
+    "descricao":"Partes e acessórios"
+  },
+  {
+    "ncm":"90221310",
+    "descricao":"De diagnóstico"
+  },
+  {
+    "ncm":"90221410",
+    "descricao":"De diagnóstico"
+  },
+  {
+    "ncm":"90221990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90229090",
+    "descricao":"Partes e acessórios"
+  },
+  {
+    "ncm":"90248010",
+    "descricao":"Máquinas e aparelhos para ensaios de têxteis"
+  },
+  {
+    "ncm":"90248020",
+    "descricao":"Máquinas e aparelhos para ensaios de papel, cartão, linóleo e plástico ou borracha flexíveis"
+  },
+  {
+    "ncm":"90251110",
+    "descricao":"Termômetros clínicos"
+  },
+  {
+    "ncm":"90251190",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90261010",
+    "descricao":"Para medida ou controle da vazão (caudal)"
+  },
+  {
+    "ncm":"90261020",
+    "descricao":"Para medida ou controle do nível"
+  },
+  {
+    "ncm":"90272010",
+    "descricao":"Cromatógrafos"
+  },
+  {
+    "ncm":"90272020",
+    "descricao":"Aparelhos de eletroforese"
+  },
+  {
+    "ncm":"90273010",
+    "descricao":"Espectrômetros e espectrógrafos"
+  },
+  {
+    "ncm":"90278910",
+    "descricao":"Calorímetros, viscosímetros, densitômetros e aparelhos medidores de pH"
+  },
+  {
+    "ncm":"90278990",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90279090",
+    "descricao":"Partes e acessórios"
+  },
+  {
+    "ncm":"90281010",
+    "descricao":"De gás natural comprimido, eletrônicos"
+  },
+  {
+    "ncm":"90283010",
+    "descricao":"Monofásicos, para corrente alternada"
+  },
+  {
+    "ncm":"90283020",
+    "descricao":"Bifásicos"
+  },
+  {
+    "ncm":"90283030",
+    "descricao":"Trifásicos"
+  },
+  {
+    "ncm":"90302020",
+    "descricao":"Osciloscópios analógicos"
+  },
+  {
+    "ncm":"90303310",
+    "descricao":"Voltímetros"
+  },
+  {
+    "ncm":"90303320",
+    "descricao":"Amperímetros"
+  },
+  {
+    "ncm":"90318010",
+    "descricao":"Dinamômetros e rugosímetros"
+  },
+  {
+    "ncm":"90318090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"90328910",
+    "descricao":"Reguladores de voltagem"
+  },
+  {
+    "ncm":"90328920",
+    "descricao":"Controladores eletrônicos do tipo utilizado em veículos automóveis"
+  },
+  {
+    "ncm":"90328980",
+    "descricao":"Outros, para regulação ou controle de grandezas não elétricas"
+  },
+  {
+    "ncm":"90329090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"95030020",
+    "descricao":"Bonecos que representem somente seres humanos"
+  },
+  {
+    "ncm":"95030030",
+    "descricao":"Brinquedos que representem animais ou seres não humanos"
+  },
+  {
+    "ncm":"95030090",
+    "descricao":"Outros"
+  },
+  {
+    "ncm":"96089980",
+    "descricao":"Partes"
+  }
+]
