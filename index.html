@@ -2,36 +2,68 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • CClassTrib • CST</title>
+<title>Consulta NCM – CClassTrib – CST</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:15px;}
-h1{text-align:center;}
-input{width:100%;padding:14px;font-size:16px;margin-bottom:12px;}
-table{width:100%;border-collapse:collapse;background:#fff;}
-th,td{padding:8px;border:1px solid #ccc;font-size:14px;}
-th{background:#2563eb;color:#fff;}
-.msg{text-align:center;color:#555;margin-top:10px;}
-@media(max-width:600px){
-  th,td{font-size:12px;}
+body {
+  font-family: Arial, sans-serif;
+  margin: 12px;
+  background: #f4f6f8;
+}
+h1 {
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  margin: 12px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+th {
+  background: #2563eb;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background: #eef2f7;
+}
+.msg {
+  text-align: center;
+  color: #444;
+  margin-top: 12px;
+}
+@media (max-width: 600px) {
+  th, td {
+    font-size: 12px;
+    padding: 8px;
+  }
 }
 </style>
 </head>
 <body>
 
-<h1>Consulta NCM • CClassTrib • CST</h1>
+<h1>Consulta NCM / CClassTrib / CST</h1>
 
 <input id="busca"
- placeholder="Digite: cerveja, coca cola, água mineral ou NCM"
- oninput="buscar()" />
+  placeholder="Digite: água mineral, cerveja, coca cola ou NCM"
+  oninput="buscar()" />
 
 <table>
 <thead>
 <tr>
-<th>NCM</th>
-<th>Descrição</th>
-<th>CClassTrib</th>
-<th>CST</th>
+  <th>NCM</th>
+  <th>Descrição Oficial</th>
+  <th>CClassTrib</th>
+  <th>CST p/ CClassTrib</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -40,83 +72,104 @@ th{background:#2563eb;color:#fff;}
 <div id="msg" class="msg"></div>
 
 <script>
-function norm(t){
- return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+// Normaliza texto (remove acentos e caixa)
+function normaliza(txt) {
+  return txt.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
 }
 
-// nomes comerciais (expansível)
-const nomes = [
- {termos:["cerveja"], ncm:"22030000"},
- {termos:["agua","mineral"], ncm:"22011000"},
- {termos:["agua"], ncm:"22011000"},
- {termos:["refrigerante"], ncm:"22021000"},
- {termos:["coca","cola"], ncm:"22021000"}
+// BASE COMERCIAL MANUAL (mapeia termos para NCMs comuns)
+const nomesComerciais = [
+  { termos: ["agua","mineral"], ncm: "22011000" },
+  { termos: ["agua"], ncm: "22011000" },
+  { termos: ["refrigerante"], ncm: "22021000" },
+  { termos: ["coca","cola"], ncm: "22021000" },
+  { termos: ["guarana"], ncm: "22021000" },
+  { termos: ["cerveja"], ncm: "22030000" },
+  { termos: ["cerveja","lata"], ncm: "22030000" },
+  { termos: ["cerveja","pilsen"], ncm: "22030000" }
 ];
 
-function fiscal(){
- return {cclasstrib:"000001", cst:"000"};
+// Regras padrão de CClassTrib + CST (exemplo didático)
+function regraFiscal(ncm) {
+  // Aqui você pode mapear por NCM se quiser regras diferentes
+  return {
+    cclasstrib: "000001", // exemplo
+    cst: "000"
+  };
 }
 
-let base=[];
+let baseNCM = [];
 
-fetch("ncm.json")
- .then(r=>r.json())
- .then(d=>{
-  base = d.map(i=>({
-   ncm:String(i.NCM||i.ncm||"").padStart(8,"0"),
-   desc:i.Descricao||i.descricao||""
-  }));
- });
+// Carrega JSON oficial
+fetch("./ncm.json")
+  .then(res => res.json())
+  .then(dados => {
+    // Ajusta campos de diferentes formatos do JSON oficial
+    baseNCM = dados.map(item => ({
+      ncm: String(item.ncm || item.NCM || item.codigo || item.Codigo || "").padStart(8, "0"),
+      descricao: item.descricao || item.Descricao || item.DESCRICAO || ""
+    }));
+  })
+  .catch(() => {
+    document.getElementById("msg").innerText = 
+      "Erro ao carregar ncm.json. Verifique se o arquivo está acessível.";
+  });
 
-function buscar(){
- const v = document.getElementById("busca").value;
- const termo = norm(v);
- const res = document.getElementById("resultado");
- const msg = document.getElementById("msg");
- res.innerHTML=""; msg.innerText="";
+function buscar() {
+  const txt = document.getElementById("busca").value;
+  const termo = normaliza(txt);
+  const tbody = document.getElementById("resultado");
+  const msg = document.getElementById("msg");
 
- // 🔴 NÃO MOSTRA ERRO COM MENOS DE 3 CARACTERES
- if(termo.length < 3) return;
+  tbody.innerHTML = "";
+  msg.innerText = "";
 
- let prefixoNCM = null;
+  if (termo.length < 2) return;
 
- // se digitou número
- const soNum = termo.replace(/\D/g,"");
- if(soNum.length >= 2) prefixoNCM = soNum;
+  let ncmForcado = null;
 
- // nome comercial
- if(!prefixoNCM){
-  for(const n of nomes){
-   if(n.termos.every(t=>termo.includes(t))){
-    prefixoNCM = n.ncm.substring(0,4);
-    break;
-   }
+  // Se for NCM numérico
+  const soNums = termo.replace(/\D/g, "");
+  if (soNums.length >= 2) {
+    ncmForcado = soNums;
   }
- }
 
- const achou = base.filter(i=>{
-  const d = norm(i.desc);
-  return (
-    (prefixoNCM && i.ncm.startsWith(prefixoNCM)) ||
-    d.includes(termo)
-  );
- });
+  // Mapeia nome comercial
+  if (!ncmForcado) {
+    for (const item of nomesComerciais) {
+      if (item.termos.every(t => termo.includes(t))) {
+        ncmForcado = item.ncm;
+        break;
+      }
+    }
+  }
 
- if(achou.length === 0){
-  msg.innerText="Nenhum resultado encontrado";
-  return;
- }
+  const encontrados = baseNCM.filter(item => {
+    const descNorm = normaliza(item.descricao);
+    return (
+      (ncmForcado && item.ncm.startsWith(ncmForcado)) ||
+      descNorm.includes(termo)
+    );
+  });
 
- achou.slice(0,50).forEach(i=>{
-  const f = fiscal(i.ncm);
-  res.innerHTML+=`
+  if (encontrados.length === 0) {
+    msg.innerText = "Nenhum resultado encontrado";
+    return;
+  }
+
+  encontrados.slice(0, 50).forEach(item => {
+    const reg = regraFiscal(item.ncm);
+    tbody.innerHTML += `
 <tr>
-<td>${i.ncm}</td>
-<td>${i.desc}</td>
-<td>${f.cclasstrib}</td>
-<td>${f.cst}</td>
+  <td>${item.ncm}</td>
+  <td>${item.descricao}</td>
+  <td>${reg.cclasstrib}</td>
+  <td>${reg.cst}</td>
 </tr>`;
- });
+  });
 }
 </script>
 
