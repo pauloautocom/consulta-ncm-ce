@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM, CST e CClassTrib</title>
+<title>Consulta NCM, CClassTrib e CST</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -36,12 +36,16 @@ th {
 tr:nth-child(even) {
   background: #f2f2f2;
 }
+.msg {
+  text-align: center;
+  padding: 10px;
+}
 </style>
 </head>
 
 <body>
 
-<h1>Consulta NCM, CST e CClassTrib</h1>
+<h1>Consulta NCM • CClassTrib • CST</h1>
 
 <input
   id="busca"
@@ -54,9 +58,8 @@ tr:nth-child(even) {
 <tr>
 <th>NCM</th>
 <th>Descrição Oficial</th>
-<th>CST</th>
 <th>CClassTrib</th>
-<th>Descrição CClassTrib</th>
+<th>CST p/ CClassTrib</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -66,41 +69,44 @@ tr:nth-child(even) {
 let baseNCM = [];
 
 /* NORMALIZA TEXTO */
-function norm(t) {
-  return t.toLowerCase()
+function norm(txt) {
+  return txt.toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
 }
 
-/* BASE DE NOMES COMERCIAIS (EXPANDÍVEL) */
+/* NOMES COMERCIAIS → NCM */
 const nomesComerciais = [
   { palavras: ["agua"], ncm: "22011000" },
-  { palavras: ["agua", "mineral"], ncm: "22011000" },
+  { palavras: ["agua","mineral"], ncm: "22011000" },
   { palavras: ["refrigerante"], ncm: "22021000" },
-  { palavras: ["coca"], ncm: "22021000" },
-  { palavras: ["coca", "cola"], ncm: "22021000" },
+  { palavras: ["coca","cola"], ncm: "22021000" },
   { palavras: ["cerveja"], ncm: "22030000" }
 ];
 
-/* REGRA FISCAL PADRÃO (CE – AJUSTÁVEL) */
-function regraFiscal() {
-  return {
-    cst: "00",
-    cclasstrib: "000001",
-    descricao: "Tributada integralmente"
-  };
+/* REGRA PADRÃO CE (AJUSTÁVEL DEPOIS) */
+function regraTributaria(ncm) {
+  if (ncm.startsWith("22")) {
+    return { cclasstrib: "000002", cst: "060" }; // bebidas (exemplo)
+  }
+  return { cclasstrib: "000001", cst: "000" };
 }
 
-/* CARREGAR NCM */
+/* CARREGA JSON OFICIAL */
 fetch("./ncm.json")
   .then(r => r.json())
-  .then(d => baseNCM = d)
+  .then(d => {
+    baseNCM = d.map(i => ({
+      ncm: i.ncm || i.NCM || i.codigo || i.Codigo,
+      descricao: i.descricao || i.Descricao || i.DESCRICAO
+    })).filter(i => i.ncm && i.descricao);
+  })
   .catch(() => alert("Erro ao carregar ncm.json"));
 
 function buscar() {
-  const termoOriginal = document.getElementById("busca").value;
-  const termo = norm(termoOriginal);
+  const termoDigitado = document.getElementById("busca").value;
+  const termo = norm(termoDigitado);
   const tbody = document.getElementById("resultado");
   tbody.innerHTML = "";
 
@@ -108,12 +114,12 @@ function buscar() {
 
   let ncmForcado = null;
 
-  /* PRIORIDADE 1: NCM DIGITADO */
+  /* SE DIGITAR NCM */
   if (/^\d{4,8}$/.test(termo)) {
     ncmForcado = termo;
   }
 
-  /* PRIORIDADE 2: NOME COMERCIAL */
+  /* SE DIGITAR NOME COMERCIAL */
   if (!ncmForcado) {
     for (const item of nomesComerciais) {
       if (item.palavras.every(p => termo.includes(p))) {
@@ -133,19 +139,18 @@ function buscar() {
 
   if (resultados.length === 0) {
     tbody.innerHTML =
-      "<tr><td colspan='5'>Nenhum resultado encontrado</td></tr>";
+      "<tr><td colspan='4' class='msg'>Nenhum resultado encontrado</td></tr>";
     return;
   }
 
   resultados.slice(0, 20).forEach(item => {
-    const regra = regraFiscal();
+    const regra = regraTributaria(item.ncm);
     tbody.innerHTML += `
       <tr>
         <td>${item.ncm}</td>
         <td>${item.descricao}</td>
-        <td>${regra.cst}</td>
         <td>${regra.cclasstrib}</td>
-        <td>${regra.descricao}</td>
+        <td>${regra.cst}</td>
       </tr>
     `;
   });
