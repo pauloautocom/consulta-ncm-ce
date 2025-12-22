@@ -2,31 +2,36 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM, CST e CClassTrib</title>
+<title>Consulta NCM • CClassTrib • CST</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{font-family:Arial,sans-serif;background:#f4f6f8;padding:20px;}
+body{font-family:Arial;background:#f4f6f8;padding:15px;}
 h1{text-align:center;}
-input{width:100%;padding:14px;font-size:16px;margin-bottom:18px;}
+input{width:100%;padding:14px;font-size:16px;margin-bottom:12px;}
 table{width:100%;border-collapse:collapse;background:#fff;}
-th,td{padding:10px;border:1px solid #ccc;}
+th,td{padding:8px;border:1px solid #ccc;font-size:14px;}
 th{background:#2563eb;color:#fff;}
-tr:nth-child(even){background:#f2f5f9;}
 .msg{text-align:center;color:#555;margin-top:10px;}
+@media(max-width:600px){
+  th,td{font-size:12px;}
+}
 </style>
 </head>
 <body>
 
-<h1>Consulta NCM • CST • CClassTrib</h1>
+<h1>Consulta NCM • CClassTrib • CST</h1>
 
 <input id="busca"
-  placeholder="Ex: água mineral, refrigerante, cerveja, coca cola ou 22011000"
-  oninput="buscar()" />
+ placeholder="Digite: cerveja, coca cola, água mineral ou NCM"
+ oninput="buscar()" />
 
 <table>
 <thead>
 <tr>
-<th>NCM</th><th>Descrição Oficial</th><th>CClassTrib</th><th>CST</th>
+<th>NCM</th>
+<th>Descrição</th>
+<th>CClassTrib</th>
+<th>CST</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -35,104 +40,83 @@ tr:nth-child(even){background:#f2f5f9;}
 <div id="msg" class="msg"></div>
 
 <script>
-// Normaliza texto (remove acento, caixa, trim)
-function normaliza(txt){
-  return txt.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
+function norm(t){
+ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
 }
 
-// Base comercial ampliada (você pode expandir depois)
-const nomesComerciais = [
-  { termos:["agua","mineral"], ncm:"22011000" },
-  { termos:["agua"], ncm:"22011000" },
-  { termos:["refrigerante"], ncm:"22021000" },
-  { termos:["coca","cola"], ncm:"22021000" },
-  { termos:["guarana"], ncm:"22021000" },
-  { termos:["cerveja"], ncm:"22030000" },
-  { termos:["cerveja","lata"], ncm:"22030000" },
-  { termos:["cerveja","pilsen"], ncm:"22030000" }
+// nomes comerciais (expansível)
+const nomes = [
+ {termos:["cerveja"], ncm:"22030000"},
+ {termos:["agua","mineral"], ncm:"22011000"},
+ {termos:["agua"], ncm:"22011000"},
+ {termos:["refrigerante"], ncm:"22021000"},
+ {termos:["coca","cola"], ncm:"22021000"}
 ];
 
-// Regras fiscais (modelo padrão)
-// Você pode personalizar depois para diferenciar por NCM/regime
-function regraFiscal(ncm){
-  return {
-    cclasstrib:"000001", // tributado integral
-    cst:"000"
-  };
+function fiscal(){
+ return {cclasstrib:"000001", cst:"000"};
 }
 
-let baseNCM = [];
+let base=[];
 
-// Carrega JSON oficial
-fetch("./ncm.json")
-  .then(r=>r.json())
-  .then(dados=>{
-    baseNCM = dados.map(item=>{
-      return {
-        ncm: (item.NCM||item.ncm||item.codigo||item.Codigo||"").toString().padStart(8,"0"),
-        descricao: item.Descricao||item.descricao||""
-      };
-    });
-  })
-  .catch(e=>{
-    document.getElementById("msg").innerText="Erro ao carregar ncm.json";
-  });
+fetch("ncm.json")
+ .then(r=>r.json())
+ .then(d=>{
+  base = d.map(i=>({
+   ncm:String(i.NCM||i.ncm||"").padStart(8,"0"),
+   desc:i.Descricao||i.descricao||""
+  }));
+ });
 
 function buscar(){
-  const termoInput = document.getElementById("busca").value;
-  const termo = normaliza(termoInput);
-  const tbody = document.getElementById("resultado");
-  const msg = document.getElementById("msg");
-  tbody.innerHTML="";
-  msg.innerText="";
+ const v = document.getElementById("busca").value;
+ const termo = norm(v);
+ const res = document.getElementById("resultado");
+ const msg = document.getElementById("msg");
+ res.innerHTML=""; msg.innerText="";
 
-  if(!termo) return;
+ // 🔴 NÃO MOSTRA ERRO COM MENOS DE 3 CARACTERES
+ if(termo.length < 3) return;
 
-  let ncmForcado = null;
+ let prefixoNCM = null;
 
-  // Se é número (NCM)
-  const apenasNums = termo.replace(/\D/g,"");
-  if(apenasNums.length>=4){
-    ncmForcado = apenasNums;
+ // se digitou número
+ const soNum = termo.replace(/\D/g,"");
+ if(soNum.length >= 2) prefixoNCM = soNum;
+
+ // nome comercial
+ if(!prefixoNCM){
+  for(const n of nomes){
+   if(n.termos.every(t=>termo.includes(t))){
+    prefixoNCM = n.ncm.substring(0,4);
+    break;
+   }
   }
+ }
 
-  // Busca NCM por nome comercial
-  if(!ncmForcado){
-    for(const item of nomesComerciais){
-      if(item.termos.every(t=>termo.includes(t))){
-        ncmForcado = item.ncm;
-        break;
-      }
-    }
-  }
+ const achou = base.filter(i=>{
+  const d = norm(i.desc);
+  return (
+    (prefixoNCM && i.ncm.startsWith(prefixoNCM)) ||
+    d.includes(termo)
+  );
+ });
 
-  const resultados = baseNCM.filter(item=>{
-    const descNorm = normaliza(item.descricao);
-    return (
-      (ncmForcado && item.ncm.startsWith(ncmForcado)) ||
-      descNorm.includes(termo)
-    );
-  });
+ if(achou.length === 0){
+  msg.innerText="Nenhum resultado encontrado";
+  return;
+ }
 
-  if(resultados.length === 0){
-    msg.innerText="Nenhum resultado encontrado";
-    return;
-  }
-
-  resultados.slice(0,50).forEach(i=>{
-    const regra = regraFiscal(i.ncm);
-    tbody.innerHTML += `
+ achou.slice(0,50).forEach(i=>{
+  const f = fiscal(i.ncm);
+  res.innerHTML+=`
 <tr>
 <td>${i.ncm}</td>
-<td>${i.descricao}</td>
-<td>${regra.cclasstrib}</td>
-<td>${regra.cst}</td>
-</tr>
-    `;
-  });
+<td>${i.desc}</td>
+<td>${f.cclasstrib}</td>
+<td>${f.cst}</td>
+</tr>`;
+ });
 }
 </script>
 
