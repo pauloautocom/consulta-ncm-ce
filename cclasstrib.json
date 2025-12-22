@@ -1,0 +1,21 @@
+[
+  { "cst": "000", "cclasstrib": "000001", "descricao": "Tributação integral" },
+  { "cst": "000", "cclasstrib": "000002", "descricao": "Exploração de via" },
+  { "cst": "000", "cclasstrib": "000003", "descricao": "Regime automotivo – projetos incentivados (art. 311)" },
+  { "cst": "000", "cclasstrib": "000004", "descricao": "Regime automotivo – projetos incentivados (art. 312)" },
+  { "cst": "010", "cclasstrib": "010001", "descricao": "Operações do FGTS não realizadas pela Caixa" },
+  { "cst": "011", "cclasstrib": "011001", "descricao": "Planos de assistência funerária (reduzido)" },
+  { "cst": "011", "cclasstrib": "011002", "descricao": "Planos de assistência à saúde (reduzido)" },
+  { "cst": "011", "cclasstrib": "011003", "descricao": "Intermediação de assistência à saúde (reduzido)" },
+  { "cst": "011", "cclasstrib": "011004", "descricao": "Concursos e prognósticos" },
+  { "cst": "200", "cclasstrib": "200001", "descricao": "Alíquota zero – diversos casos" },
+  { "cst": "200", "cclasstrib": "200003", "descricao": "Alíquota zero – cesta básica" },
+  { "cst": "400", "cclasstrib": "400001", "descricao": "Isenção" },
+  { "cst": "410", "cclasstrib": "410001", "descricao": "Imunidade / não incidência" },
+  { "cst": "510", "cclasstrib": "510001", "descricao": "Diferimento sobre energia elétrica" },
+  { "cst": "550", "cclasstrib": "550001", "descricao": "Suspensão – exportação de bens" },
+  { "cst": "620", "cclasstrib": "620001", "descricao": "Tributação monofásica – combustíveis" },
+  { "cst": "800", "cclasstrib": "800001", "descricao": "Transferência de crédito" },
+  { "cst": "810", "cclasstrib": "810001", "descricao": "Ajuste de crédito presumido" },
+  { "cst": "820", "cclasstrib": "820001", "descricao": "Regime específico tributação" }
+]
