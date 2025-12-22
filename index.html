@@ -1,131 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Consulta NCM e CClassTrib</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Consulta NCM, CClassTrib e CST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 20px;
+}
 
-    h1 {
-      text-align: center;
-    }
+h1 {
+  text-align: center;
+}
 
-    input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
 
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 
-    th {
-      background: #2c3e50;
-      color: #fff;
-    }
+th {
+  background: #2c3e50;
+  color: #fff;
+}
 
-    tr:nth-child(even) {
-      background: #f2f2f2;
-    }
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
 
-    .msg {
-      margin-top: 10px;
-      color: #777;
-      text-align: center;
-    }
-  </style>
+.msg {
+  margin-top: 10px;
+  text-align: center;
+  color: #666;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>Consulta NCM e CClassTrib</h1>
+<h1>Consulta NCM / CClassTrib / CST</h1>
 
-  <input
-    type="text"
-    id="busca"
-    placeholder="Digite o NCM ou parte da descrição..."
-    onkeyup="buscar()"
-  />
+<input
+  type="text"
+  id="busca"
+  placeholder="Digite NCM ou descrição (ex: água, refrigerante, 2202)"
+  onkeyup="buscar()"
+/>
 
-  <table>
-    <thead>
-      <tr>
-        <th>NCM</th>
-        <th>Descrição</th>
-      </tr>
-    </thead>
-    <tbody id="resultado"></tbody>
-  </table>
+<table>
+<thead>
+<tr>
+  <th>NCM</th>
+  <th>Descrição</th>
+  <th>CClassTrib</th>
+  <th>CST</th>
+</tr>
+</thead>
+<tbody id="resultado"></tbody>
+</table>
 
-  <div class="msg" id="msg"></div>
+<div class="msg" id="msg"></div>
 
-  <script>
-    let dadosNCM = [];
+<script>
+let base = [];
 
-    // Carrega o JSON
-    fetch("ncm.json")
-      .then(response => response.json())
-      .then(data => {
-        dadosNCM = data;
-      })
-      .catch(error => {
-        document.getElementById("msg").innerText =
-          "Erro ao carregar o arquivo ncm.json";
-        console.error(error);
-      });
+// remove acentos
+function normalizar(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
 
-    function buscar() {
-      const termo = document.getElementById("busca").value
-        .toLowerCase()
-        .replace(/\D/g, "");
+// carrega JSON
+fetch("ncm.json")
+  .then(r => r.json())
+  .then(d => base = d)
+  .catch(() => {
+    document.getElementById("msg").innerText =
+      "Erro ao carregar ncm.json";
+  });
 
-      const texto = document.getElementById("busca").value.toLowerCase();
-      const tbody = document.getElementById("resultado");
-      const msg = document.getElementById("msg");
+function buscar() {
+  const termoOriginal = document.getElementById("busca").value;
+  const termo = normalizar(termoOriginal);
+  const termoNcm = termoOriginal.replace(/\D/g, "");
 
-      tbody.innerHTML = "";
-      msg.innerText = "";
+  const tbody = document.getElementById("resultado");
+  const msg = document.getElementById("msg");
 
-      if (texto.length < 2) return;
+  tbody.innerHTML = "";
+  msg.innerText = "";
 
-      const resultados = dadosNCM.filter(item =>
-        item.ncm.includes(termo) ||
-        item.descricao.toLowerCase().includes(texto)
-      );
+  if (termoOriginal.length < 2) return;
 
-      if (resultados.length === 0) {
-        msg.innerText = "Nenhum resultado encontrado.";
-        return;
-      }
+  const resultados = base.filter(item => {
+    const desc = normalizar(item.descricao || "");
+    return (
+      item.ncm.includes(termoNcm) ||
+      desc.includes(termo)
+    );
+  });
 
-      resultados.slice(0, 100).forEach(item => {
-        const tr = document.createElement("tr");
+  if (resultados.length === 0) {
+    msg.innerText = "Nenhum resultado encontrado.";
+    return;
+  }
 
-        tr.innerHTML = `
-          <td>${item.ncm}</td>
-          <td>${item.descricao}</td>
-        `;
-
-        tbody.appendChild(tr);
-      });
-    }
-  </script>
+  resultados.slice(0, 100).forEach(item => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${item.ncm || ""}</td>
+      <td>${item.descricao || ""}</td>
+      <td>${item.cclasstrib || ""}</td>
+      <td>${item.cst || ""}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+</script>
 
 </body>
 </html>
