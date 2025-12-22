@@ -2,108 +2,149 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM e cClassTrib - CE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta NCM • cClassTrib • Ceará</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  padding:15px;
-}
-h1 {
-  text-align:center;
-  font-size:22px;
-}
-input {
-  width:100%;
-  padding:12px;
-  font-size:16px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  margin-bottom:15px;
-}
-.card {
-  background:#fff;
-  padding:12px;
-  border-radius:6px;
-  margin-bottom:10px;
-  box-shadow:0 1px 4px rgba(0,0,0,.1);
-}
-.label {
-  font-weight:bold;
-}
+body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 15px; }
+h1 { text-align: center; }
+input { width: 100%; padding: 12px; font-size: 16px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ccc; }
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 14px; }
+th { background: #2563eb; color: white; }
+tr:nth-child(even) { background: #eef2f7; }
+.msg { text-align: center; margin-top: 10px; font-weight: bold; color: #555; }
 </style>
 </head>
-
 <body>
 
-<h1>Consulta NCM / cClassTrib – Ceará</h1>
+<h1>Consulta NCM • cClassTrib • CST</h1>
 
-<input
-  id="busca"
-  type="text"
-  placeholder="Digite nome ou NCM (ex: água, cerveja, 2201)"
-  oninput="buscar()"
-/>
+<input type="text" id="busca" placeholder="Digite: cerveja, arroz, água mineral, 22011100, ..." oninput="buscar()" />
 
-<div id="resultados"></div>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>NCM</th>
+        <th>Descrição Oficial</th>
+        <th>CST</th>
+        <th>cClassTrib</th>
+        <th>Descrição cClassTrib</th>
+      </tr>
+    </thead>
+    <tbody id="resultado"></tbody>
+  </table>
+</div>
+
+<div id="msg" class="msg"></div>
 
 <script>
+// Normaliza para comparações (remove acentos e caixa)
+function normaliza(txt) {
+  return txt.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
 let ncmData = [];
 let cClassData = [];
 
-// 🔹 Função para normalizar texto (remove acento)
-function normalizar(txt) {
-  return txt.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
+// Carrega ncm.json
+fetch("ncm.json")
+  .then(res => res.json())
+  .then(data => {
+    ncmData = data.map(item => ({
+      ncm: String(item.ncm || item.NCM || item.codigo || "").padStart(8, "0"),
+      descricao: item.descricao || item.Descricao || ""
+    }));
+  })
+  .catch(() => {
+    document.getElementById("msg").innerText = "Erro ao carregar ncm.json";
+  });
 
-// 🔹 Carrega NCM
-fetch('ncm.json')
-  .then(r => r.json())
-  .then(d => ncmData = d);
+// Carrega cclasstrib.json
+fetch("cclasstrib.json")
+  .then(res => res.json())
+  .then(data => {
+    cClassData = data;
+  })
+  .catch(() => {
+    document.getElementById("msg").innerText = "Erro ao carregar cclasstrib.json";
+  });
 
-// 🔹 Carrega cClassTrib
-fetch('cclasstrib.json')
-  .then(r => r.json())
-  .then(d => cClassData = d);
+// Lista de termos comerciais comuns
+const comercial = [
+  { termos: ["agua", "mineral"], ncm: "22011000" },
+  { termos: ["cerveja"], ncm: "22030000" },
+  { termos: ["refrigerante"], ncm: "22021000" },
+  { termos: ["arroz"], ncm: "10063021" },
+  { termos: ["cachaca"], ncm: "22072020" }
+];
 
 function buscar() {
-  const termoOriginal = document.getElementById('busca').value.trim();
-  const termo = normalizar(termoOriginal);
-  const res = document.getElementById('resultados');
-  res.innerHTML = '';
+  const texto = document.getElementById("busca").value;
+  const termo = normaliza(texto);
+  const resultadoEl = document.getElementById("resultado");
+  const msgEl = document.getElementById("msg");
+
+  resultadoEl.innerHTML = "";
+  msgEl.innerText = "";
 
   if (termo.length < 2) return;
 
+  // Detecta termo numérico para NCM parcial
+  const soNums = termo.replace(/\D/g, "");
+
+  let forcarNCM = null;
+
+  if (soNums.length >= 2) {
+    // Se o usuário digitou NCM ou parte dele
+    forcarNCM = soNums;
+  }
+
+  // Caso não seja número, tenta mapear nome comercial
+  if (!forcarNCM) {
+    for (const c of comercial) {
+      if (c.termos.every(t => termo.includes(t))) {
+        forcarNCM = c.ncm;
+        break;
+      }
+    }
+  }
+
   const encontrados = ncmData.filter(item => {
-    const ncm = item.ncm.replace(/\D/g, '');
-    const desc = normalizar(item.descricao || '');
-    return ncm.includes(termo) || desc.includes(termo);
+    const descNorm = normaliza(item.descricao);
+    return (
+      (forcarNCM && item.ncm.startsWith(forcarNCM)) ||
+      descNorm.includes(termo)
+    );
   });
 
   if (encontrados.length === 0) {
-    res.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+    msgEl.innerText = "Nenhum resultado encontrado";
     return;
   }
 
-  encontrados.slice(0, 20).forEach(item => {
-    // 🔹 REGRA PADRÃO MERCANTIL – CE
-    const cst = "000"; // Tributação integral
-    const cclass = cClassData.find(c =>
-      c.cclasstrib === "000001"
-    );
+  encontrados.slice(0, 50).forEach(item => {
+    // Busca cClassTrib padrão para esse NCM
+    let cst = "000";
+    let cclasstrib = "000001";
+    let descClass = "";
 
-    res.innerHTML += `
-      <div class="card">
-        <div><span class="label">Produto:</span> ${item.descricao}</div>
-        <div><span class="label">NCM:</span> ${item.ncm}</div>
-        <div><span class="label">CST p/ cClassTrib:</span> ${cst}</div>
-        <div><span class="label">cClassTrib:</span> ${cclass?.cclasstrib || '000001'}</div>
-        <div><span class="label">Descrição cClassTrib:</span> ${cclass?.descricao || 'Tributação integral'}</div>
-      </div>
+    const match = cClassData.find(c => c.cclasstrib === cclasstrib);
+    if (match) descClass = match.descricao;
+
+    resultadoEl.innerHTML += `
+      <tr>
+        <td>${item.ncm}</td>
+        <td>${item.descricao}</td>
+        <td>${cst}</td>
+        <td>${cclasstrib}</td>
+        <td>${descClass}</td>
+      </tr>
     `;
   });
 }
