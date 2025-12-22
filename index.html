@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM, CClassTrib e CST</title>
+<title>Consulta NCM e CClassTrib</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -44,8 +44,8 @@ tr:nth-child(even) {
 }
 
 .msg {
-  margin-top: 10px;
   text-align: center;
+  margin-top: 10px;
   color: #666;
 }
 </style>
@@ -53,7 +53,7 @@ tr:nth-child(even) {
 
 <body>
 
-<h1>Consulta NCM / CClassTrib / CST</h1>
+<h1>Consulta NCM e CClassTrib</h1>
 
 <input
   type="text"
@@ -79,15 +79,13 @@ tr:nth-child(even) {
 <script>
 let base = [];
 
-// remove acentos
-function normalizar(texto) {
-  return texto
+function normalizar(txt) {
+  return txt
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-// carrega JSON
 fetch("ncm.json")
   .then(r => r.json())
   .then(d => base = d)
@@ -97,24 +95,26 @@ fetch("ncm.json")
   });
 
 function buscar() {
-  const termoOriginal = document.getElementById("busca").value;
-  const termo = normalizar(termoOriginal);
-  const termoNcm = termoOriginal.replace(/\D/g, "");
-
+  const texto = document.getElementById("busca").value.trim();
   const tbody = document.getElementById("resultado");
   const msg = document.getElementById("msg");
 
   tbody.innerHTML = "";
   msg.innerText = "";
 
-  if (termoOriginal.length < 2) return;
+  if (texto.length < 2) return;
+
+  const textoNorm = normalizar(texto);
+  const somenteNumeros = texto.replace(/\D/g, "");
 
   const resultados = base.filter(item => {
-    const desc = normalizar(item.descricao || "");
-    return (
-      item.ncm.includes(termoNcm) ||
-      desc.includes(termo)
-    );
+    // Busca por NCM
+    if (somenteNumeros.length >= 2) {
+      return item.ncm.startsWith(somenteNumeros);
+    }
+
+    // Busca por descrição
+    return normalizar(item.descricao || "").includes(textoNorm);
   });
 
   if (resultados.length === 0) {
@@ -125,8 +125,8 @@ function buscar() {
   resultados.slice(0, 100).forEach(item => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${item.ncm || ""}</td>
-      <td>${item.descricao || ""}</td>
+      <td>${item.ncm}</td>
+      <td>${item.descricao}</td>
       <td>${item.cclasstrib || ""}</td>
       <td>${item.cst || ""}</td>
     `;
