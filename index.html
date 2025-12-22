@@ -2,61 +2,31 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • CClassTrib • CST</title>
+<title>Consulta NCM, CST e CClassTrib</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 10px;
-}
-h1 {
-  text-align: center;
-}
-input {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-th {
-  background: #2563eb;
-  color: #fff;
-}
-tr:nth-child(even) {
-  background: #f1f5f9;
-}
-.msg {
-  text-align: center;
-  margin-top: 10px;
-  font-weight: bold;
-}
+body{font-family:Arial,sans-serif;background:#f4f6f8;padding:20px;}
+h1{text-align:center;}
+input{width:100%;padding:14px;font-size:16px;margin-bottom:18px;}
+table{width:100%;border-collapse:collapse;background:#fff;}
+th,td{padding:10px;border:1px solid #ccc;}
+th{background:#2563eb;color:#fff;}
+tr:nth-child(even){background:#f2f5f9;}
+.msg{text-align:center;color:#555;margin-top:10px;}
 </style>
 </head>
-
 <body>
 
-<h1>Consulta NCM • CClassTrib • CST</h1>
+<h1>Consulta NCM • CST • CClassTrib</h1>
 
 <input id="busca"
-  placeholder="Ex: água mineral, cerveja, coca cola ou 22011100"
-  oninput="buscar()">
+  placeholder="Ex: água mineral, refrigerante, cerveja, coca cola ou 22011000"
+  oninput="buscar()" />
 
 <table>
 <thead>
 <tr>
-  <th>NCM</th>
-  <th>Descrição Oficial</th>
-  <th>CClassTrib</th>
-  <th>CST</th>
+<th>NCM</th><th>Descrição Oficial</th><th>CClassTrib</th><th>CST</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -65,90 +35,102 @@ tr:nth-child(even) {
 <div id="msg" class="msg"></div>
 
 <script>
-function normaliza(txt) {
+// Normaliza texto (remove acento, caixa, trim)
+function normaliza(txt){
   return txt.toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
 }
 
-let baseNCM = [];
-
-// CARREGA O JSON
-fetch("ncm.json")
-  .then(r => r.json())
-  .then(dados => {
-    baseNCM = dados.map(d => ({
-      ncm: (d.NCM || d.ncm || "").toString().padStart(8, "0"),
-      descricao: d.Descricao || d.descricao || ""
-    }));
-  });
-
-// MAPA COMERCIAL (ESSENCIAL)
+// Base comercial ampliada (você pode expandir depois)
 const nomesComerciais = [
-  { termos: ["agua"], ncm: "22011000" },
-  { termos: ["agua", "mineral"], ncm: "22011000" },
-  { termos: ["cerveja"], ncm: "22030000" },
-  { termos: ["refrigerante"], ncm: "22021000" },
-  { termos: ["coca", "cola"], ncm: "22021000" }
+  { termos:["agua","mineral"], ncm:"22011000" },
+  { termos:["agua"], ncm:"22011000" },
+  { termos:["refrigerante"], ncm:"22021000" },
+  { termos:["coca","cola"], ncm:"22021000" },
+  { termos:["guarana"], ncm:"22021000" },
+  { termos:["cerveja"], ncm:"22030000" },
+  { termos:["cerveja","lata"], ncm:"22030000" },
+  { termos:["cerveja","pilsen"], ncm:"22030000" }
 ];
 
-// REGRA FISCAL (MODELO)
-function regraFiscal(ncm) {
+// Regras fiscais (modelo padrão)
+// Você pode personalizar depois para diferenciar por NCM/regime
+function regraFiscal(ncm){
   return {
-    cclasstrib: "000001",
-    cst: "000"
+    cclasstrib:"000001", // tributado integral
+    cst:"000"
   };
 }
 
-function buscar() {
-  const termo = normaliza(document.getElementById("busca").value);
-  const tbody = document.getElementById("resultado");
-  const msg = document.getElementById("msg");
+let baseNCM = [];
 
-  tbody.innerHTML = "";
-  msg.innerText = "";
-
-  if (!termo) return;
-
-  let ncmDetectado = null;
-
-  // 1️⃣ SE DIGITAR NÚMERO
-  const numeros = termo.replace(/\D/g, "");
-  if (numeros.length >= 4) {
-    ncmDetectado = numeros;
-  }
-
-  // 2️⃣ NOME COMERCIAL
-  nomesComerciais.forEach(m => {
-    if (m.termos.every(t => termo.includes(t))) {
-      ncmDetectado = m.ncm;
-    }
+// Carrega JSON oficial
+fetch("./ncm.json")
+  .then(r=>r.json())
+  .then(dados=>{
+    baseNCM = dados.map(item=>{
+      return {
+        ncm: (item.NCM||item.ncm||item.codigo||item.Codigo||"").toString().padStart(8,"0"),
+        descricao: item.Descricao||item.descricao||""
+      };
+    });
+  })
+  .catch(e=>{
+    document.getElementById("msg").innerText="Erro ao carregar ncm.json";
   });
 
-  // 3️⃣ BUSCA FINAL
-  const achados = baseNCM.filter(i => {
-    const desc = normaliza(i.descricao);
+function buscar(){
+  const termoInput = document.getElementById("busca").value;
+  const termo = normaliza(termoInput);
+  const tbody = document.getElementById("resultado");
+  const msg = document.getElementById("msg");
+  tbody.innerHTML="";
+  msg.innerText="";
+
+  if(!termo) return;
+
+  let ncmForcado = null;
+
+  // Se é número (NCM)
+  const apenasNums = termo.replace(/\D/g,"");
+  if(apenasNums.length>=4){
+    ncmForcado = apenasNums;
+  }
+
+  // Busca NCM por nome comercial
+  if(!ncmForcado){
+    for(const item of nomesComerciais){
+      if(item.termos.every(t=>termo.includes(t))){
+        ncmForcado = item.ncm;
+        break;
+      }
+    }
+  }
+
+  const resultados = baseNCM.filter(item=>{
+    const descNorm = normaliza(item.descricao);
     return (
-      (ncmDetectado && i.ncm.startsWith(ncmDetectado)) ||
-      desc.includes(termo)
+      (ncmForcado && item.ncm.startsWith(ncmForcado)) ||
+      descNorm.includes(termo)
     );
   });
 
-  if (achados.length === 0) {
-    msg.innerText = "Nenhum resultado encontrado";
+  if(resultados.length === 0){
+    msg.innerText="Nenhum resultado encontrado";
     return;
   }
 
-  achados.slice(0, 50).forEach(i => {
-    const r = regraFiscal(i.ncm);
+  resultados.slice(0,50).forEach(i=>{
+    const regra = regraFiscal(i.ncm);
     tbody.innerHTML += `
-      <tr>
-        <td>${i.ncm}</td>
-        <td>${i.descricao}</td>
-        <td>${r.cclasstrib}</td>
-        <td>${r.cst}</td>
-      </tr>
+<tr>
+<td>${i.ncm}</td>
+<td>${i.descricao}</td>
+<td>${regra.cclasstrib}</td>
+<td>${regra.cst}</td>
+</tr>
     `;
   });
 }
