@@ -1,96 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Consulta NCM, CST e CClassTrib</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Consulta NCM, CST e CClassTrib</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    th {
-      background: #2c3e50;
-      color: #fff;
-    }
-
-    tr:nth-child(even) {
-      background: #f2f2f2;
-    }
-  </style>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+th {
+  background: #2c3e50;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+</style>
 </head>
+
 <body>
 
 <h1>Consulta NCM, CST e CClassTrib</h1>
 
 <input
-  type="text"
   id="busca"
   placeholder="Digite nome comercial ou NCM (ex: água, refrigerante, 22011000)"
   onkeyup="buscar()"
 />
 
 <table>
-  <thead>
-    <tr>
-      <th>NCM</th>
-      <th>Descrição</th>
-      <th>CST</th>
-      <th>CClassTrib</th>
-      <th>Descrição CClassTrib</th>
-    </tr>
-  </thead>
-  <tbody id="resultado"></tbody>
+<thead>
+<tr>
+<th>NCM</th>
+<th>Descrição</th>
+<th>CST</th>
+<th>CClassTrib</th>
+<th>Descrição CClassTrib</th>
+</tr>
+</thead>
+<tbody id="resultado"></tbody>
 </table>
 
 <script>
 let baseNCM = [];
 
-/* 🔹 BASE DE NOMES COMERCIAIS */
-const produtosComerciais = {
+/* 🔹 NORMALIZA TEXTO (remove acentos) */
+function normalizar(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+/* 🔹 MAPA DE NOMES COMERCIAIS → NCM */
+const mapaComercial = {
   "agua": "22011000",
   "agua mineral": "22011000",
-  "água": "22011000",
   "refrigerante": "22021000",
   "cerveja": "22030000"
 };
 
-/* 🔹 REGRA PADRÃO CST + CCLASSTRIB */
+/* 🔹 REGRA TRIBUTÁRIA PADRÃO */
 function regraTributaria(ncm) {
-  if (ncm.startsWith("22")) {
-    return {
-      cst: "00",
-      cclasstrib: "000001",
-      desc: "Situações tributadas integralmente"
-    };
-  }
-
   return {
     cst: "00",
     cclasstrib: "000001",
@@ -98,15 +90,18 @@ function regraTributaria(ncm) {
   };
 }
 
-/* 🔹 CARREGA O NCM.JSON */
-fetch("ncm.json")
-  .then(res => res.json())
-  .then(dados => {
-    baseNCM = dados;
-  });
+/* 🔹 CARREGAR BASE */
+fetch("./ncm.json")
+  .then(r => r.json())
+  .then(d => {
+    baseNCM = d;
+    console.log("NCM carregados:", baseNCM.length);
+  })
+  .catch(e => alert("Erro ao carregar ncm.json"));
 
 function buscar() {
-  const termo = document.getElementById("busca").value.toLowerCase().trim();
+  const termoOriginal = document.getElementById("busca").value.trim();
+  const termo = normalizar(termoOriginal);
   const tbody = document.getElementById("resultado");
   tbody.innerHTML = "";
 
@@ -114,22 +109,26 @@ function buscar() {
 
   let ncmBusca = termo;
 
-  /* 🔹 SE FOR NOME COMERCIAL */
-  if (produtosComerciais[termo]) {
-    ncmBusca = produtosComerciais[termo];
+  if (mapaComercial[termo]) {
+    ncmBusca = mapaComercial[termo];
   }
 
-  const encontrados = baseNCM.filter(item =>
-    item.ncm.includes(ncmBusca) ||
-    item.descricao.toLowerCase().includes(termo)
-  );
+  const resultados = baseNCM.filter(item => {
+    const ncm = item.ncm;
+    const desc = normalizar(item.descricao);
 
-  if (encontrados.length === 0) {
+    return (
+      ncm.includes(ncmBusca) ||
+      desc.includes(termo)
+    );
+  });
+
+  if (resultados.length === 0) {
     tbody.innerHTML = "<tr><td colspan='5'>Nenhum resultado encontrado</td></tr>";
     return;
   }
 
-  encontrados.slice(0, 50).forEach(item => {
+  resultados.slice(0, 50).forEach(item => {
     const regra = regraTributaria(item.ncm);
 
     tbody.innerHTML += `
