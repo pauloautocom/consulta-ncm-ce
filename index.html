@@ -9,19 +9,15 @@
 body { font-family: Arial, sans-serif; background:#f4f6f8; padding:12px; }
 h1 { text-align:center; }
 input {
-  width:100%; padding:14px; font-size:16px; margin-bottom:12px;
+ width:100%; padding:14px; font-size:16px; margin-bottom:12px;
 }
-table {
-  width:100%; border-collapse:collapse; background:#fff;
-}
-th,td {
-  border:1px solid #ccc; padding:10px; font-size:14px;
-}
+table { width:100%; border-collapse:collapse; background:#fff; }
+th,td { border:1px solid #ccc; padding:10px; font-size:14px; }
 th { background:#2563eb; color:#fff; }
 tr:nth-child(even){ background:#eef2f7; }
 .msg { text-align:center; margin-top:10px; color:#444; }
 @media(max-width:600px){
-  th,td{ font-size:12px; padding:8px; }
+ th,td{ font-size:12px; padding:8px; }
 }
 </style>
 </head>
@@ -30,16 +26,16 @@ tr:nth-child(even){ background:#eef2f7; }
 <h1>Consulta NCM • CClassTrib • CST</h1>
 
 <input id="busca"
- placeholder="Digite: água mineral, cerveja, refrigerante ou NCM"
+ placeholder="Digite produto ou NCM (ex: cachaça, 22072020)"
  oninput="buscar()" />
 
 <table>
 <thead>
 <tr>
-  <th>NCM</th>
-  <th>Descrição</th>
-  <th>CClassTrib</th>
-  <th>CST</th>
+ <th>NCM</th>
+ <th>Descrição</th>
+ <th>CClassTrib</th>
+ <th>CST</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -48,28 +44,46 @@ tr:nth-child(even){ background:#eef2f7; }
 <div id="msg" class="msg"></div>
 
 <script>
-// Normaliza texto
+// Normalização
 function norm(t){
  return t.toLowerCase()
-   .normalize("NFD")
-   .replace(/[\u0300-\u036f]/g,"")
-   .trim();
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g,"")
+  .trim();
 }
 
-// 🔥 BASE MÍNIMA FUNCIONAL (PROFISSIONAL)
-const base = [
- { ncm:"22011000", desc:"Águas minerais e águas gaseificadas", termos:["agua","mineral"] },
- { ncm:"22011100", desc:"Água mineral natural", termos:["agua","mineral"] },
- { ncm:"22021000", desc:"Refrigerantes", termos:["refrigerante","coca","cola","guarana"] },
- { ncm:"22030000", desc:"Cervejas de malte", termos:["cerveja","pilsen"] }
+// 🔹 Base mínima (NUNCA REMOVER)
+const baseMinima = [
+ { ncm:"22011000", desc:"Águas minerais e águas gaseificadas" },
+ { ncm:"22011100", desc:"Água mineral natural" },
+ { ncm:"22021000", desc:"Refrigerantes" },
+ { ncm:"22030000", desc:"Cervejas de malte" },
+ { ncm:"22072020", desc:"Cachaça" }
 ];
 
-// Regra fiscal exemplo (CE)
+let baseCompleta = [...baseMinima];
+
+// 🔹 Carrega JSON oficial
+fetch("ncm.json")
+ .then(r => r.json())
+ .then(dados => {
+   dados.forEach(i=>{
+     if(i.ncm && i.descricao){
+       baseCompleta.push({
+         ncm: String(i.ncm),
+         desc: i.descricao
+       });
+     }
+   });
+   console.log("Base NCM carregada:", baseCompleta.length);
+ })
+ .catch(()=>{
+   console.warn("JSON não carregou, usando base mínima");
+ });
+
+// Regra fiscal (exemplo)
 function regraFiscal(ncm){
- return {
-  cclasstrib:"000001",
-  cst:"000"
- };
+ return { cclasstrib:"000001", cst:"000" };
 }
 
 function buscar(){
@@ -84,12 +98,10 @@ function buscar(){
 
  const nums = v.replace(/\D/g,"");
 
- const achou = base.filter(i=>{
-  const d = norm(i.desc);
+ const achou = baseCompleta.filter(i=>{
   return (
-    (nums && i.ncm.startsWith(nums)) ||
-    d.includes(v) ||
-    i.termos.some(t => v.includes(t))
+   (nums && i.ncm.startsWith(nums)) ||
+   norm(i.desc).includes(v)
   );
  });
 
@@ -98,7 +110,7 @@ function buscar(){
   return;
  }
 
- achou.forEach(i=>{
+ achou.slice(0,50).forEach(i=>{
   const f = regraFiscal(i.ncm);
   tbody.innerHTML += `
 <tr>
