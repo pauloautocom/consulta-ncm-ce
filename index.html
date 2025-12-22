@@ -2,31 +2,31 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • CClassTrib • CST</title>
+<title>Consulta NCM • Mercantil • CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body { font-family: Arial, sans-serif; background:#f4f6f8; padding:12px; }
-h1 { text-align:center; }
+body { font-family: Arial, sans-serif; background:#f3f4f6; padding:10px; }
+h1 { text-align:center; font-size:20px; }
 input {
  width:100%; padding:14px; font-size:16px; margin-bottom:12px;
 }
 table { width:100%; border-collapse:collapse; background:#fff; }
-th,td { border:1px solid #ccc; padding:10px; font-size:14px; }
-th { background:#2563eb; color:#fff; }
+th,td { border:1px solid #ccc; padding:8px; font-size:14px; }
+th { background:#1e40af; color:#fff; }
 tr:nth-child(even){ background:#eef2f7; }
-.msg { text-align:center; margin-top:10px; color:#444; }
+.msg { text-align:center; margin-top:10px; color:#555; }
 @media(max-width:600px){
- th,td{ font-size:12px; padding:8px; }
+ th,td{ font-size:12px; }
 }
 </style>
 </head>
 <body>
 
-<h1>Consulta NCM • CClassTrib • CST</h1>
+<h1>Consulta NCM • Mercantil • Ceará</h1>
 
 <input id="busca"
- placeholder="Digite produto ou NCM (ex: cachaça, 22072020)"
+ placeholder="Digite produto ou NCM (ex: arroz, cerveja, 2201)"
  oninput="buscar()" />
 
 <table>
@@ -34,7 +34,7 @@ tr:nth-child(even){ background:#eef2f7; }
 <tr>
  <th>NCM</th>
  <th>Descrição</th>
- <th>CClassTrib</th>
+ <th>CClassTrib (CE)</th>
  <th>CST</th>
 </tr>
 </thead>
@@ -44,7 +44,6 @@ tr:nth-child(even){ background:#eef2f7; }
 <div id="msg" class="msg"></div>
 
 <script>
-// Normalização
 function norm(t){
  return t.toLowerCase()
   .normalize("NFD")
@@ -52,38 +51,43 @@ function norm(t){
   .trim();
 }
 
-// 🔹 Base mínima (NUNCA REMOVER)
-const baseMinima = [
- { ncm:"22011000", desc:"Águas minerais e águas gaseificadas" },
- { ncm:"22011100", desc:"Água mineral natural" },
- { ncm:"22021000", desc:"Refrigerantes" },
- { ncm:"22030000", desc:"Cervejas de malte" },
- { ncm:"22072020", desc:"Cachaça" }
+// 🔹 BASE MERCANTIL
+const baseLocal = [
+ {ncm:"10063021", desc:"Arroz"},
+ {ncm:"07133319", desc:"Feijão"},
+ {ncm:"17019900", desc:"Açúcar"},
+ {ncm:"09012100", desc:"Café"},
+ {ncm:"04012010", desc:"Leite"},
+ {ncm:"11010010", desc:"Farinha de trigo"},
+ {ncm:"19021900", desc:"Macarrão"},
+ {ncm:"15079011", desc:"Óleo de soja"},
+ {ncm:"22011000", desc:"Água mineral"},
+ {ncm:"22021000", desc:"Refrigerante"},
+ {ncm:"22030000", desc:"Cerveja"},
+ {ncm:"22072020", desc:"Cachaça"},
+ {ncm:"19053100", desc:"Biscoito"},
+ {ncm:"16010000", desc:"Linguiça"},
+ {ncm:"02013000", desc:"Carne bovina"},
+ {ncm:"02071200", desc:"Frango"}
 ];
 
-let baseCompleta = [...baseMinima];
+let baseCompleta = [...baseLocal];
 
-// 🔹 Carrega JSON oficial
+// 🔹 JSON completo
 fetch("ncm.json")
- .then(r => r.json())
- .then(dados => {
-   dados.forEach(i=>{
-     if(i.ncm && i.descricao){
-       baseCompleta.push({
-         ncm: String(i.ncm),
-         desc: i.descricao
-       });
-     }
-   });
-   console.log("Base NCM carregada:", baseCompleta.length);
- })
- .catch(()=>{
-   console.warn("JSON não carregou, usando base mínima");
+ .then(r=>r.json())
+ .then(d=>{
+  d.forEach(i=>{
+   if(i.ncm && i.descricao){
+    baseCompleta.push({ ncm:String(i.ncm), desc:i.descricao });
+   }
+  });
  });
 
-// Regra fiscal (exemplo)
-function regraFiscal(ncm){
- return { cclasstrib:"000001", cst:"000" };
+// 🔹 Regra CE simplificada
+function regraCE(ncm){
+ if(ncm.startsWith("22")) return {c:"000002", cst:"060"}; // bebidas ST
+ return {c:"000001", cst:"000"}; // tributado
 }
 
 function buscar(){
@@ -91,33 +95,33 @@ function buscar(){
  const tbody = document.getElementById("resultado");
  const msg = document.getElementById("msg");
 
- tbody.innerHTML = "";
- msg.innerText = "";
+ tbody.innerHTML="";
+ msg.innerText="";
 
- if(v.length < 2) return;
+ if(v.length<2) return;
 
- const nums = v.replace(/\D/g,"");
+ const num = v.replace(/\D/g,"");
 
- const achou = baseCompleta.filter(i=>{
+ const res = baseCompleta.filter(i=>{
   return (
-   (nums && i.ncm.startsWith(nums)) ||
+   (num && i.ncm.startsWith(num)) ||
    norm(i.desc).includes(v)
   );
  });
 
- if(achou.length === 0){
-  msg.innerText = "Nenhum resultado encontrado";
+ if(res.length===0){
+  msg.innerText="Nenhum resultado encontrado";
   return;
  }
 
- achou.slice(0,50).forEach(i=>{
-  const f = regraFiscal(i.ncm);
-  tbody.innerHTML += `
+ res.slice(0,50).forEach(i=>{
+  const r = regraCE(i.ncm);
+  tbody.innerHTML+=`
 <tr>
  <td>${i.ncm}</td>
  <td>${i.desc}</td>
- <td>${f.cclasstrib}</td>
- <td>${f.cst}</td>
+ <td>${r.c}</td>
+ <td>${r.cst}</td>
 </tr>`;
  });
 }
