@@ -1,99 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Consulta NCM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-    }
-    th, td {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
-    }
-    th {
-      background: #eee;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Consulta NCM e CClassTrib</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.result {
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+small {
+  color: #666;
+}
+</style>
 </head>
 <body>
 
-<h1>Consulta de NCM</h1>
+<h1>Consulta NCM e CClassTrib</h1>
 
-<input
-  type="text"
-  id="busca"
-  placeholder="Digite o NCM ou nome do produto (ex: coca cola, refrigerante, 22021000)"
-  oninput="buscar()"
-/>
+<input type="text" id="busca" placeholder="Digite NCM ou nome do produto">
 
-<table>
-  <thead>
-    <tr>
-      <th>NCM</th>
-      <th>Descrição</th>
-    </tr>
-  </thead>
-  <tbody id="resultado"></tbody>
-</table>
+<div id="resultado"></div>
 
 <script>
-let listaNCM = [];
+let dados = [];
 
 fetch("ncm.json")
   .then(res => res.json())
-  .then(dados => {
-    listaNCM = dados;
+  .then(json => dados = json)
+  .catch(() => {
+    document.getElementById("resultado").innerHTML =
+      "<p>Erro ao carregar base de dados.</p>";
   });
 
-function buscar() {
-  const termo = document.getElementById("busca").value
-    .toLowerCase()
-    .replace(/\./g, "")
-    .trim();
-
-  const tbody = document.getElementById("resultado");
-  tbody.innerHTML = "";
+document.getElementById("busca").addEventListener("input", function () {
+  const termo = this.value.toLowerCase().trim();
+  const div = document.getElementById("resultado");
+  div.innerHTML = "";
 
   if (termo.length < 2) return;
 
-  const encontrados = listaNCM.filter(item =>
+  const encontrados = dados.filter(item =>
     item.ncm.includes(termo) ||
     item.descricao.toLowerCase().includes(termo)
   );
 
   if (encontrados.length === 0) {
-    tbody.innerHTML = "<tr><td colspan='2'>Nenhum resultado encontrado</td></tr>";
+    div.innerHTML = "<p>Nenhum resultado encontrado.</p>";
     return;
   }
 
   encontrados.slice(0, 50).forEach(item => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${item.ncm}</td>
-      <td>${item.descricao}</td>
+    div.innerHTML += `
+      <div class="result">
+        <strong>NCM:</strong> ${item.ncm}<br>
+        <strong>Descrição:</strong> ${item.descricao}
+      </div>
     `;
-    tbody.appendChild(tr);
   });
-}
+});
 </script>
 
 </body>
