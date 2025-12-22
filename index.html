@@ -2,26 +2,53 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM, CST e CClassTrib</title>
+<title>Consulta NCM • CClassTrib • CST</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body { font-family: Arial, sans-serif; margin:20px; }
-h1 { text-align:center; }
-input { width:100%; padding:12px; font-size:16px; margin-bottom:15px; }
-table { width:100%; border-collapse:collapse; }
-th, td { padding:10px; border:1px solid #ccc; text-align:left; }
-th { background:#2563eb; color:white; }
-tr:nth-child(even) { background:#f1f5f9; }
-.msg { padding:10px; text-align:center; color:#444; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 10px;
+}
+h1 {
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+th {
+  background: #2563eb;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background: #f1f5f9;
+}
+.msg {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
 </style>
-
 </head>
+
 <body>
 
-<h1>Consulta NCM, CST e CClassTrib</h1>
+<h1>Consulta NCM • CClassTrib • CST</h1>
 
-<input id="busca" placeholder="Ex: água mineral, cerveja, coca cola ou 22011000" oninput="buscar()">
+<input id="busca"
+  placeholder="Ex: água mineral, cerveja, coca cola ou 22011100"
+  oninput="buscar()">
 
 <table>
 <thead>
@@ -38,41 +65,36 @@ tr:nth-child(even) { background:#f1f5f9; }
 <div id="msg" class="msg"></div>
 
 <script>
-// normaliza texto para comparação
 function normaliza(txt) {
   return txt.toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g,"")
-            .trim();
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
 }
 
 let baseNCM = [];
 
-// carregar o JSON
-fetch("./ncm.json")
-  .then(resp => resp.json())
+// CARREGA O JSON
+fetch("ncm.json")
+  .then(r => r.json())
   .then(dados => {
-    // converte várias formas de campo do JSON oficial para padrão simples
-    baseNCM = dados.map(i => ({
-      ncm: (i.ncm || i.NCM || i.codigo || i.Codigo || "").toString().padStart(8,"0"),
-      descricao: i.descricao || i.Descricao || i.DESCRICAO || ""
+    baseNCM = dados.map(d => ({
+      ncm: (d.NCM || d.ncm || "").toString().padStart(8, "0"),
+      descricao: d.Descricao || d.descricao || ""
     }));
-  })
-  .catch(err => {
-    document.getElementById("msg").innerText = "Erro ao carregar ncm.json — verifique se o arquivo existe e está acessível.";
   });
 
-// mapa básico de nomes comerciais para NCM
-const mapaComercial = [
-  { termos:["agua","mineral"], ncm:"22011000" },
-  { termos:["agua"], ncm:"22011000" },
-  { termos:["refrigerante"], ncm:"22021000" },
-  { termos:["coca","cola"], ncm:"22021000" },
-  { termos:["cerveja"], ncm:"22030000" }
+// MAPA COMERCIAL (ESSENCIAL)
+const nomesComerciais = [
+  { termos: ["agua"], ncm: "22011000" },
+  { termos: ["agua", "mineral"], ncm: "22011000" },
+  { termos: ["cerveja"], ncm: "22030000" },
+  { termos: ["refrigerante"], ncm: "22021000" },
+  { termos: ["coca", "cola"], ncm: "22021000" }
 ];
 
-// regra fiscal exemplo
-function getRegra(ncm) {
+// REGRA FISCAL (MODELO)
+function regraFiscal(ncm) {
   return {
     cclasstrib: "000001",
     cst: "000"
@@ -80,53 +102,52 @@ function getRegra(ncm) {
 }
 
 function buscar() {
-  const termo = document.getElementById("busca").value;
-  const termoNorm = normaliza(termo);
-  const resultadosEl = document.getElementById("resultado");
-  const msgEl = document.getElementById("msg");
-  resultadosEl.innerHTML = "";
-  msgEl.innerText = "";
+  const termo = normaliza(document.getElementById("busca").value);
+  const tbody = document.getElementById("resultado");
+  const msg = document.getElementById("msg");
 
-  if (!termoNorm) return;
+  tbody.innerHTML = "";
+  msg.innerText = "";
 
-  let ncmForcado = null;
+  if (!termo) return;
 
-  // se for NCM numérico
-  const soNums = termoNorm.replace(/\D/g,"");
-  if (soNums.length >= 4) {
-    ncmForcado = soNums;
+  let ncmDetectado = null;
+
+  // 1️⃣ SE DIGITAR NÚMERO
+  const numeros = termo.replace(/\D/g, "");
+  if (numeros.length >= 4) {
+    ncmDetectado = numeros;
   }
 
-  // se nome comercial mapeado
-  if (!ncmForcado) {
-    mapaComercial.forEach(item => {
-      if (item.termos.every(t => termoNorm.includes(t))) {
-        ncmForcado = item.ncm;
-      }
-    });
-  }
+  // 2️⃣ NOME COMERCIAL
+  nomesComerciais.forEach(m => {
+    if (m.termos.every(t => termo.includes(t))) {
+      ncmDetectado = m.ncm;
+    }
+  });
 
-  const encontrados = baseNCM.filter(i => {
+  // 3️⃣ BUSCA FINAL
+  const achados = baseNCM.filter(i => {
     const desc = normaliza(i.descricao);
     return (
-      (ncmForcado && i.ncm.startsWith(ncmForcado)) ||
-      desc.includes(termoNorm)
+      (ncmDetectado && i.ncm.startsWith(ncmDetectado)) ||
+      desc.includes(termo)
     );
   });
 
-  if (encontrados.length === 0) {
-    msgEl.innerText = "Nenhum resultado encontrado";
+  if (achados.length === 0) {
+    msg.innerText = "Nenhum resultado encontrado";
     return;
   }
 
-  encontrados.slice(0,50).forEach(item => {
-    const regra = getRegra(item.ncm);
-    resultadosEl.innerHTML += `
+  achados.slice(0, 50).forEach(i => {
+    const r = regraFiscal(i.ncm);
+    tbody.innerHTML += `
       <tr>
-        <td>${item.ncm}</td>
-        <td>${item.descricao}</td>
-        <td>${regra.cclasstrib}</td>
-        <td>${regra.cst}</td>
+        <td>${i.ncm}</td>
+        <td>${i.descricao}</td>
+        <td>${r.cclasstrib}</td>
+        <td>${r.cst}</td>
       </tr>
     `;
   });
