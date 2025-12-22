@@ -1,82 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Consulta NCM e CClassTrib</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  padding: 20px;
-}
-h1 {
-  text-align: center;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-.result {
-  background: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
-}
-small {
-  color: #666;
-}
-</style>
+  <meta charset="UTF-8" />
+  <title>Consulta NCM e CClassTrib</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+
+    .msg {
+      margin-top: 10px;
+      color: #777;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Consulta NCM e CClassTrib</h1>
+  <h1>Consulta NCM e CClassTrib</h1>
 
-<input type="text" id="busca" placeholder="Digite NCM ou nome do produto">
+  <input
+    type="text"
+    id="busca"
+    placeholder="Digite o NCM ou parte da descrição..."
+    onkeyup="buscar()"
+  />
 
-<div id="resultado"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>NCM</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody id="resultado"></tbody>
+  </table>
 
-<script>
-let dados = [];
+  <div class="msg" id="msg"></div>
 
-fetch("ncm.json")
-  .then(res => res.json())
-  .then(json => dados = json)
-  .catch(() => {
-    document.getElementById("resultado").innerHTML =
-      "<p>Erro ao carregar base de dados.</p>";
-  });
+  <script>
+    let dadosNCM = [];
 
-document.getElementById("busca").addEventListener("input", function () {
-  const termo = this.value.toLowerCase().trim();
-  const div = document.getElementById("resultado");
-  div.innerHTML = "";
+    // Carrega o JSON
+    fetch("ncm.json")
+      .then(response => response.json())
+      .then(data => {
+        dadosNCM = data;
+      })
+      .catch(error => {
+        document.getElementById("msg").innerText =
+          "Erro ao carregar o arquivo ncm.json";
+        console.error(error);
+      });
 
-  if (termo.length < 2) return;
+    function buscar() {
+      const termo = document.getElementById("busca").value
+        .toLowerCase()
+        .replace(/\D/g, "");
 
-  const encontrados = dados.filter(item =>
-    item.ncm.includes(termo) ||
-    item.descricao.toLowerCase().includes(termo)
-  );
+      const texto = document.getElementById("busca").value.toLowerCase();
+      const tbody = document.getElementById("resultado");
+      const msg = document.getElementById("msg");
 
-  if (encontrados.length === 0) {
-    div.innerHTML = "<p>Nenhum resultado encontrado.</p>";
-    return;
-  }
+      tbody.innerHTML = "";
+      msg.innerText = "";
 
-  encontrados.slice(0, 50).forEach(item => {
-    div.innerHTML += `
-      <div class="result">
-        <strong>NCM:</strong> ${item.ncm}<br>
-        <strong>Descrição:</strong> ${item.descricao}
-      </div>
-    `;
-  });
-});
-</script>
+      if (texto.length < 2) return;
+
+      const resultados = dadosNCM.filter(item =>
+        item.ncm.includes(termo) ||
+        item.descricao.toLowerCase().includes(texto)
+      );
+
+      if (resultados.length === 0) {
+        msg.innerText = "Nenhum resultado encontrado.";
+        return;
+      }
+
+      resultados.slice(0, 100).forEach(item => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${item.ncm}</td>
+          <td>${item.descricao}</td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
 
 </body>
 </html>
