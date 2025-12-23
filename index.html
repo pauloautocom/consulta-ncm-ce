@@ -22,7 +22,7 @@ tr:nth-child(even){background:#f1f5f9}
 <h1>Consulta NCM • cClassTrib • CST (CE)</h1>
 
 <input id="busca"
-placeholder="Digite: água mineral, cerveja, arroz ou 22011000"
+placeholder="Digite: água mineral, cabo usb, camisa algodão ou NCM"
 oninput="buscar()">
 
 <table>
@@ -45,8 +45,9 @@ function norm(t){
  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-/* ===== BASE MERCANTIL AMPLA ===== */
+/* ================= BASE DE DADOS ================= */
 const base = [
+/* ===== ALIMENTOS ===== */
 {ncm:"22011000",nome:"Água mineral"},
 {ncm:"22011100",nome:"Água mineral gaseificada"},
 {ncm:"22021000",nome:"Refrigerante"},
@@ -55,44 +56,53 @@ const base = [
 {ncm:"10063021",nome:"Arroz"},
 {ncm:"07133329",nome:"Feijão"},
 {ncm:"19053100",nome:"Biscoito"},
-{ncm:"19059090",nome:"Bolacha"},
 {ncm:"15079011",nome:"Óleo vegetal"},
 {ncm:"22090000",nome:"Vinagre"},
 {ncm:"04072100",nome:"Ovo"},
 {ncm:"02013000",nome:"Carne bovina"},
 {ncm:"02071400",nome:"Frango"},
-{ncm:"02032900",nome:"Carne suína"},
-{ncm:"07020000",nome:"Tomate"},
 {ncm:"07019000",nome:"Batata"},
-{ncm:"08039000",nome:"Banana"},
-{ncm:"08081000",nome:"Maçã"},
-{ncm:"09011110",nome:"Café em grão"},
 {ncm:"09012100",nome:"Café torrado"},
 {ncm:"17019900",nome:"Açúcar"},
 {ncm:"04012010",nome:"Leite UHT"},
-{ncm:"04061010",nome:"Queijo"},
-{ncm:"16010000",nome:"Linguiça"},
-{ncm:"21069090",nome:"Achocolatado"},
-{ncm:"21032010",nome:"Ketchup"},
-{ncm:"21039011",nome:"Maionese"},
-{ncm:"19022000",nome:"Macarrão"},
-{ncm:"19023000",nome:"Lasanha"},
-{ncm:"19011010",nome:"Farinha"},
-{ncm:"23091000",nome:"Ração"},
-{ncm:"33049990",nome:"Sabonete"},
+
+/* ===== ELETRÔNICOS ===== */
+{ncm:"85444200",nome:"Cabo USB"},
+{ncm:"85044090",nome:"Carregador de celular"},
+{ncm:"85171231",nome:"Telefone celular"},
+{ncm:"85287200",nome:"Televisão LED"},
+{ncm:"85183000",nome:"Fone de ouvido"},
+{ncm:"84713012",nome:"Notebook"},
+{ncm:"84716052",nome:"Teclado"},
+{ncm:"84716053",nome:"Mouse"},
+{ncm:"85235110",nome:"Pen drive"},
+{ncm:"85258029",nome:"Câmera digital"},
+
+/* ===== VESTUÁRIO ===== */
+{ncm:"61091000",nome:"Camiseta de algodão"},
+{ncm:"61051000",nome:"Camisa de algodão"},
+{ncm:"62034200",nome:"Calça jeans"},
+{ncm:"64039990",nome:"Tênis"},
+{ncm:"61071100",nome:"Cueca"},
+{ncm:"61082100",nome:"Calcinha"},
+{ncm:"61044300",nome:"Vestido"},
+{ncm:"61102000",nome:"Blusa de malha"},
+{ncm:"62113300",nome:"Bermuda"},
+{ncm:"65050090",nome:"Boné"},
+
+/* ===== LIMPEZA / OUTROS ===== */
 {ncm:"34011190",nome:"Detergente"},
 {ncm:"34022000",nome:"Sabão em pó"},
-{ncm:"96081000",nome:"Caneta"},
 {ncm:"48181000",nome:"Papel higiênico"},
 {ncm:"39269090",nome:"Saco plástico"}
 ];
 
-/* ===== REGRA FISCAL CORRETA ===== */
+/* ===== REGRA FISCAL (CE – PADRÃO) ===== */
 const cClassTrib="000001";
 const descClass="Tributação integral";
 const CST="000";
 
-/* ===== BUSCA REAL ===== */
+/* ================= BUSCA ================= */
 function buscar(){
  const termo = norm(document.getElementById("busca").value);
  const res = document.getElementById("resultado");
