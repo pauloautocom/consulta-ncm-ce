@@ -2,140 +2,78 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • cClassTrib • CE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta NCM CE</title>
+
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:15px}
-h1{text-align:center;font-size:20px}
-input{width:100%;padding:14px;font-size:16px;border-radius:8px;border:1px solid #ccc}
-table{width:100%;border-collapse:collapse;margin-top:15px;background:#fff}
-th,td{border:1px solid #ddd;padding:8px;font-size:14px}
-th{background:#2563eb;color:#fff}
-tr:nth-child(even){background:#f1f5f9}
-.msg{text-align:center;margin-top:10px;font-weight:bold;color:#b91c1c}
-@media(max-width:600px){th,td{font-size:12px}}
+body { font-family: Arial, sans-serif; background:#f4f6f8; padding:15px; }
+.card { background:#fff; max-width:720px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+input, select, button { width:100%; padding:12px; margin-top:10px; font-size:16px; }
+button { background:#2563eb; color:#fff; border:none; border-radius:6px; }
+.resultado { margin-top:20px; padding:15px; background:#eef6ff; border-radius:8px; }
+.erro { margin-top:20px; padding:15px; background:#fee2e2; border-radius:8px; }
+.small { font-size:13px; color:#555; }
 </style>
 </head>
 
 <body>
+<div class="card">
+<h2>Consulta NCM • Ceará</h2>
 
-<h1>Consulta NCM • cClassTrib • CST (CE)</h1>
+<input type="text" id="busca" placeholder="Digite produto ou NCM (ex: água, cerveja, 2201)">
 
-<input id="busca"
-placeholder="Digite: água mineral, cabo usb, camisa algodão ou NCM"
-oninput="buscar()">
+<button onclick="consultar()">Consultar</button>
 
-<table>
-<thead>
-<tr>
-<th>NCM</th>
-<th>Produto</th>
-<th>cClassTrib</th>
-<th>Descrição</th>
-<th>CST</th>
-</tr>
-</thead>
-<tbody id="resultado"></tbody>
-</table>
-
-<div id="msg" class="msg"></div>
+<div id="saida"></div>
+</div>
 
 <script>
-function norm(t){
- return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+let produtos = [];
+let cclasstrib = [];
+
+fetch('produtos.json').then(r => r.json()).then(d => produtos = d);
+fetch('cclasstrib.json').then(r => r.json()).then(d => cclasstrib = d);
+
+function normalizar(t){
+  return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 }
 
-/* ================= BASE DE DADOS ================= */
-const base = [
-/* ===== ALIMENTOS ===== */
-{ncm:"22011000",nome:"Água mineral"},
-{ncm:"22011100",nome:"Água mineral gaseificada"},
-{ncm:"22021000",nome:"Refrigerante"},
-{ncm:"22030000",nome:"Cerveja"},
-{ncm:"22072020",nome:"Cachaça"},
-{ncm:"10063021",nome:"Arroz"},
-{ncm:"07133329",nome:"Feijão"},
-{ncm:"19053100",nome:"Biscoito"},
-{ncm:"15079011",nome:"Óleo vegetal"},
-{ncm:"22090000",nome:"Vinagre"},
-{ncm:"04072100",nome:"Ovo"},
-{ncm:"02013000",nome:"Carne bovina"},
-{ncm:"02071400",nome:"Frango"},
-{ncm:"07019000",nome:"Batata"},
-{ncm:"09012100",nome:"Café torrado"},
-{ncm:"17019900",nome:"Açúcar"},
-{ncm:"04012010",nome:"Leite UHT"},
+function consultar(){
+  const termo = normalizar(document.getElementById('busca').value);
+  const out = document.getElementById('saida');
+  out.innerHTML = '';
 
-/* ===== ELETRÔNICOS ===== */
-{ncm:"85444200",nome:"Cabo USB"},
-{ncm:"85044090",nome:"Carregador de celular"},
-{ncm:"85171231",nome:"Telefone celular"},
-{ncm:"85287200",nome:"Televisão LED"},
-{ncm:"85183000",nome:"Fone de ouvido"},
-{ncm:"84713012",nome:"Notebook"},
-{ncm:"84716052",nome:"Teclado"},
-{ncm:"84716053",nome:"Mouse"},
-{ncm:"85235110",nome:"Pen drive"},
-{ncm:"85258029",nome:"Câmera digital"},
+  if(!termo) return;
 
-/* ===== VESTUÁRIO ===== */
-{ncm:"61091000",nome:"Camiseta de algodão"},
-{ncm:"61051000",nome:"Camisa de algodão"},
-{ncm:"62034200",nome:"Calça jeans"},
-{ncm:"64039990",nome:"Tênis"},
-{ncm:"61071100",nome:"Cueca"},
-{ncm:"61082100",nome:"Calcinha"},
-{ncm:"61044300",nome:"Vestido"},
-{ncm:"61102000",nome:"Blusa de malha"},
-{ncm:"62113300",nome:"Bermuda"},
-{ncm:"65050090",nome:"Boné"},
+  let encontrado = produtos.find(p =>
+    p.ncm.startsWith(termo) ||
+    p.termos.some(t => normalizar(t).includes(termo) || termo.includes(normalizar(t)))
+  );
 
-/* ===== LIMPEZA / OUTROS ===== */
-{ncm:"34011190",nome:"Detergente"},
-{ncm:"34022000",nome:"Sabão em pó"},
-{ncm:"48181000",nome:"Papel higiênico"},
-{ncm:"39269090",nome:"Saco plástico"}
-];
+  if(!encontrado){
+    out.innerHTML = `<div class="erro">Nenhum resultado encontrado.</div>`;
+    return;
+  }
 
-/* ===== REGRA FISCAL (CE – PADRÃO) ===== */
-const cClassTrib="000001";
-const descClass="Tributação integral";
-const CST="000";
+  // REGRA SIMPLIFICADA CE (corrigida)
+  let cclass = '000001'; // Tributação integral
+  let cst = '000';
 
-/* ================= BUSCA ================= */
-function buscar(){
- const termo = norm(document.getElementById("busca").value);
- const res = document.getElementById("resultado");
- const msg = document.getElementById("msg");
- res.innerHTML="";
- msg.innerText="";
+  if(encontrado.ncm.startsWith('22')){
+    cclass = '000010'; // Bebidas
+    cst = '010';
+  }
 
- if(termo.length<2) return;
-
- const filtroNCM = termo.replace(/\D/g,"");
-
- const achados = base.filter(p=>{
-   if(filtroNCM && p.ncm.startsWith(filtroNCM)) return true;
-   return norm(p.nome).includes(termo);
- });
-
- if(!achados.length){
-   msg.innerText="Nenhum resultado encontrado";
-   return;
- }
-
- achados.forEach(p=>{
-   res.innerHTML+=`
-   <tr>
-     <td>${p.ncm}</td>
-     <td>${p.nome}</td>
-     <td>${cClassTrib}</td>
-     <td>${descClass}</td>
-     <td>${CST}</td>
-   </tr>`;
- });
+  out.innerHTML = `
+    <div class="resultado">
+      <b>Produto:</b> ${encontrado.nome}<br>
+      <b>NCM:</b> ${encontrado.ncm}<br>
+      <b>CClassTrib (CE):</b> ${cclass}<br>
+      <b>CST para CClassTrib:</b> ${cst}<br><br>
+      <span class="small">Classificação estimada. Confirme com contador ou SEFAZ.</span>
+    </div>
+  `;
 }
 </script>
-
 </body>
 </html>
