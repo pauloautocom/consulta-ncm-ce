@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Consulta NCM • cClassTrib • CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 body{font-family:Arial;background:#f4f6f8;padding:15px}
 h1{text-align:center;font-size:20px}
@@ -14,6 +13,7 @@ th,td{border:1px solid #ddd;padding:8px;font-size:14px}
 th{background:#2563eb;color:#fff}
 tr:nth-child(even){background:#f1f5f9}
 .msg{text-align:center;margin-top:10px;font-weight:bold;color:#b91c1c}
+@media(max-width:600px){th,td{font-size:12px}}
 </style>
 </head>
 
@@ -22,7 +22,7 @@ tr:nth-child(even){background:#f1f5f9}
 <h1>Consulta NCM • cClassTrib • CST (CE)</h1>
 
 <input id="busca"
-placeholder="Ex: água mineral, cerveja, coca cola, 22011000"
+placeholder="Digite: água mineral, cerveja, arroz ou 22011000"
 oninput="buscar()">
 
 <table>
@@ -41,36 +41,60 @@ oninput="buscar()">
 <div id="msg" class="msg"></div>
 
 <script>
-function n(t){
+function norm(t){
  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-/* ===== BASE COMERCIAL AMPLA (MERCANTIL REAL) ===== */
+/* ===== BASE MERCANTIL AMPLA ===== */
 const base = [
-{ncm:"22011000",prod:"Água mineral",tags:["agua","mineral"]},
-{ncm:"22011100",prod:"Água mineral gaseificada",tags:["agua","gaseificada"]},
-{ncm:"22021000",prod:"Refrigerante",tags:["refrigerante","coca","cola","guarana","fanta"]},
-{ncm:"22030000",prod:"Cerveja",tags:["cerveja","beer"]},
-{ncm:"22072020",prod:"Cachaça",tags:["cachaca","pinga","aguardente"]},
-
-{ncm:"10063021",prod:"Arroz",tags:["arroz"]},
-{ncm:"07133329",prod:"Feijão",tags:["feijao"]},
-{ncm:"19053100",prod:"Biscoito",tags:["biscoito","bolacha"]},
-{ncm:"15079011",prod:"Óleo vegetal",tags:["oleo","soja"]},
-{ncm:"22090000",prod:"Vinagre",tags:["vinagre"]},
-{ncm:"04072100",prod:"Ovos",tags:["ovo","ovos"]},
-{ncm:"02013000",prod:"Carne bovina",tags:["carne","bovina"]},
-{ncm:"20041000",prod:"Batata preparada",tags:["batata","palha"]},
+{ncm:"22011000",nome:"Água mineral"},
+{ncm:"22011100",nome:"Água mineral gaseificada"},
+{ncm:"22021000",nome:"Refrigerante"},
+{ncm:"22030000",nome:"Cerveja"},
+{ncm:"22072020",nome:"Cachaça"},
+{ncm:"10063021",nome:"Arroz"},
+{ncm:"07133329",nome:"Feijão"},
+{ncm:"19053100",nome:"Biscoito"},
+{ncm:"19059090",nome:"Bolacha"},
+{ncm:"15079011",nome:"Óleo vegetal"},
+{ncm:"22090000",nome:"Vinagre"},
+{ncm:"04072100",nome:"Ovo"},
+{ncm:"02013000",nome:"Carne bovina"},
+{ncm:"02071400",nome:"Frango"},
+{ncm:"02032900",nome:"Carne suína"},
+{ncm:"07020000",nome:"Tomate"},
+{ncm:"07019000",nome:"Batata"},
+{ncm:"08039000",nome:"Banana"},
+{ncm:"08081000",nome:"Maçã"},
+{ncm:"09011110",nome:"Café em grão"},
+{ncm:"09012100",nome:"Café torrado"},
+{ncm:"17019900",nome:"Açúcar"},
+{ncm:"04012010",nome:"Leite UHT"},
+{ncm:"04061010",nome:"Queijo"},
+{ncm:"16010000",nome:"Linguiça"},
+{ncm:"21069090",nome:"Achocolatado"},
+{ncm:"21032010",nome:"Ketchup"},
+{ncm:"21039011",nome:"Maionese"},
+{ncm:"19022000",nome:"Macarrão"},
+{ncm:"19023000",nome:"Lasanha"},
+{ncm:"19011010",nome:"Farinha"},
+{ncm:"23091000",nome:"Ração"},
+{ncm:"33049990",nome:"Sabonete"},
+{ncm:"34011190",nome:"Detergente"},
+{ncm:"34022000",nome:"Sabão em pó"},
+{ncm:"96081000",nome:"Caneta"},
+{ncm:"48181000",nome:"Papel higiênico"},
+{ncm:"39269090",nome:"Saco plástico"}
 ];
 
-/* ===== REGRA FISCAL CE (CORRETA) ===== */
-const cClassTrib = "000001";
-const descClass = "Tributação integral";
-const CST = "000";
+/* ===== REGRA FISCAL CORRETA ===== */
+const cClassTrib="000001";
+const descClass="Tributação integral";
+const CST="000";
 
-/* ===== BUSCA ===== */
+/* ===== BUSCA REAL ===== */
 function buscar(){
- const termo = n(document.getElementById("busca").value);
+ const termo = norm(document.getElementById("busca").value);
  const res = document.getElementById("resultado");
  const msg = document.getElementById("msg");
  res.innerHTML="";
@@ -78,10 +102,11 @@ function buscar(){
 
  if(termo.length<2) return;
 
+ const filtroNCM = termo.replace(/\D/g,"");
+
  const achados = base.filter(p=>{
-   if(p.ncm.startsWith(termo.replace(/\D/g,""))) return true;
-   if(n(p.prod).includes(termo)) return true;
-   return p.tags.some(t=>termo.includes(t));
+   if(filtroNCM && p.ncm.startsWith(filtroNCM)) return true;
+   return norm(p.nome).includes(termo);
  });
 
  if(!achados.length){
@@ -93,7 +118,7 @@ function buscar(){
    res.innerHTML+=`
    <tr>
      <td>${p.ncm}</td>
-     <td>${p.prod}</td>
+     <td>${p.nome}</td>
      <td>${cClassTrib}</td>
      <td>${descClass}</td>
      <td>${CST}</td>
