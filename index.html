@@ -2,54 +2,18 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • cClassTrib • CST (CE)</title>
+<title>Consulta NCM • cClassTrib • CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  padding:15px;
-}
-h1 {
-  text-align:center;
-  font-size:20px;
-  margin-bottom:15px;
-}
-input {
-  width:100%;
-  padding:14px;
-  font-size:16px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  margin-bottom:12px;
-}
-table {
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-}
-th, td {
-  border:1px solid #ddd;
-  padding:8px;
-  font-size:14px;
-}
-th {
-  background:#2563eb;
-  color:#fff;
-}
-tr:nth-child(even) {
-  background:#f1f5f9;
-}
-.msg {
-  text-align:center;
-  margin-top:10px;
-  font-weight:bold;
-  color:#b91c1c;
-}
-@media(max-width:600px){
-  th, td { font-size:12px; }
-}
+body{font-family:Arial;background:#f4f6f8;padding:15px}
+h1{text-align:center;font-size:20px}
+input{width:100%;padding:14px;font-size:16px;border-radius:8px;border:1px solid #ccc}
+table{width:100%;border-collapse:collapse;margin-top:15px;background:#fff}
+th,td{border:1px solid #ddd;padding:8px;font-size:14px}
+th{background:#2563eb;color:#fff}
+tr:nth-child(even){background:#f1f5f9}
+.msg{text-align:center;margin-top:10px;font-weight:bold;color:#b91c1c}
 </style>
 </head>
 
@@ -57,20 +21,18 @@ tr:nth-child(even) {
 
 <h1>Consulta NCM • cClassTrib • CST (CE)</h1>
 
-<input
-  id="busca"
-  placeholder="Digite: água mineral, cerveja, coca cola, 22011000..."
-  oninput="buscar()"
-/>
+<input id="busca"
+placeholder="Ex: água mineral, cerveja, coca cola, 22011000"
+oninput="buscar()">
 
 <table>
 <thead>
 <tr>
-  <th>NCM</th>
-  <th>Descrição</th>
-  <th>cClassTrib</th>
-  <th>Desc. cClassTrib</th>
-  <th>CST</th>
+<th>NCM</th>
+<th>Produto</th>
+<th>cClassTrib</th>
+<th>Descrição</th>
+<th>CST</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -79,101 +41,64 @@ tr:nth-child(even) {
 <div id="msg" class="msg"></div>
 
 <script>
-// ===== FUNÇÕES AUXILIARES =====
-function normalizar(t){
-  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function n(t){
+ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ===== BASE NCM (CARREGADA DO JSON) =====
-let ncmData = [];
-fetch("ncm.json")
-  .then(r=>r.json())
-  .then(d=>{
-    ncmData = d.map(i=>({
-      ncm: String(i.ncm || i.NCM).padStart(8,"0"),
-      descricao: i.descricao || i.Descricao || ""
-    }));
-  });
+/* ===== BASE COMERCIAL AMPLA (MERCANTIL REAL) ===== */
+const base = [
+{ncm:"22011000",prod:"Água mineral",tags:["agua","mineral"]},
+{ncm:"22011100",prod:"Água mineral gaseificada",tags:["agua","gaseificada"]},
+{ncm:"22021000",prod:"Refrigerante",tags:["refrigerante","coca","cola","guarana","fanta"]},
+{ncm:"22030000",prod:"Cerveja",tags:["cerveja","beer"]},
+{ncm:"22072020",prod:"Cachaça",tags:["cachaca","pinga","aguardente"]},
 
-// ===== BASE cClassTrib =====
-let cclassData = [];
-fetch("cclasstrib.json")
-  .then(r=>r.json())
-  .then(d=>cclassData = d);
-
-// ===== BASE COMERCIAL (FACILITA BUSCA POR NOME) =====
-const comercial = [
-  { termos:["agua","mineral"], ncm:"22011000" },
-  { termos:["agua"], ncm:"22011000" },
-  { termos:["cerveja"], ncm:"22030000" },
-  { termos:["refrigerante"], ncm:"22021000" },
-  { termos:["coca","cola"], ncm:"22021000" },
-  { termos:["arroz"], ncm:"10063021" },
-  { termos:["biscoito"], ncm:"19053100" },
-  { termos:["oleo"], ncm:"15079011" },
-  { termos:["vinagre"], ncm:"22090000" },
-  { termos:["ovo"], ncm:"04072100" },
-  { termos:["batata"], ncm:"20041000" },
-  { termos:["carne"], ncm:"02013000" },
-  { termos:["cachaca"], ncm:"22072020" }
+{ncm:"10063021",prod:"Arroz",tags:["arroz"]},
+{ncm:"07133329",prod:"Feijão",tags:["feijao"]},
+{ncm:"19053100",prod:"Biscoito",tags:["biscoito","bolacha"]},
+{ncm:"15079011",prod:"Óleo vegetal",tags:["oleo","soja"]},
+{ncm:"22090000",prod:"Vinagre",tags:["vinagre"]},
+{ncm:"04072100",prod:"Ovos",tags:["ovo","ovos"]},
+{ncm:"02013000",prod:"Carne bovina",tags:["carne","bovina"]},
+{ncm:"20041000",prod:"Batata preparada",tags:["batata","palha"]},
 ];
 
-// ===== REGRA FISCAL CORRETA =====
-// Mercadorias em geral → 000001 / CST 000
-function regraFiscal(){
-  return {
-    cclass:"000001",
-    cst:"000"
-  };
-}
+/* ===== REGRA FISCAL CE (CORRETA) ===== */
+const cClassTrib = "000001";
+const descClass = "Tributação integral";
+const CST = "000";
 
-// ===== BUSCA PRINCIPAL =====
+/* ===== BUSCA ===== */
 function buscar(){
-  const termo = normalizar(document.getElementById("busca").value);
-  const res = document.getElementById("resultado");
-  const msg = document.getElementById("msg");
+ const termo = n(document.getElementById("busca").value);
+ const res = document.getElementById("resultado");
+ const msg = document.getElementById("msg");
+ res.innerHTML="";
+ msg.innerText="";
 
-  res.innerHTML="";
-  msg.innerText="";
+ if(termo.length<2) return;
 
-  if(termo.length < 2) return;
+ const achados = base.filter(p=>{
+   if(p.ncm.startsWith(termo.replace(/\D/g,""))) return true;
+   if(n(p.prod).includes(termo)) return true;
+   return p.tags.some(t=>termo.includes(t));
+ });
 
-  let filtroNCM = termo.replace(/\D/g,"");
+ if(!achados.length){
+   msg.innerText="Nenhum resultado encontrado";
+   return;
+ }
 
-  // Busca por nome comercial
-  if(!filtroNCM){
-    for(const c of comercial){
-      if(c.termos.every(t => termo.includes(t))){
-        filtroNCM = c.ncm;
-        break;
-      }
-    }
-  }
-
-  const achados = ncmData.filter(i =>
-    (filtroNCM && i.ncm.startsWith(filtroNCM)) ||
-    normalizar(i.descricao).includes(termo)
-  );
-
-  if(!achados.length){
-    msg.innerText = "Nenhum resultado encontrado";
-    return;
-  }
-
-  achados.slice(0,40).forEach(i=>{
-    const r = regraFiscal();
-    const descC = cclassData.find(c=>c.cclasstrib === r.cclass)?.descricao || "Tributação integral";
-
-    res.innerHTML += `
-      <tr>
-        <td>${i.ncm}</td>
-        <td>${i.descricao}</td>
-        <td>${r.cclass}</td>
-        <td>${descC}</td>
-        <td>${r.cst}</td>
-      </tr>
-    `;
-  });
+ achados.forEach(p=>{
+   res.innerHTML+=`
+   <tr>
+     <td>${p.ncm}</td>
+     <td>${p.prod}</td>
+     <td>${cClassTrib}</td>
+     <td>${descClass}</td>
+     <td>${CST}</td>
+   </tr>`;
+ });
 }
 </script>
 
