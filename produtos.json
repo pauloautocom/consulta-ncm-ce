@@ -1,0 +1,24 @@
+[
+  { "nome": "Água mineral", "termos": ["agua", "agua mineral"], "ncm": "22011000" },
+  { "nome": "Água mineral gaseificada", "termos": ["agua gaseificada"], "ncm": "22011100" },
+  { "nome": "Refrigerante", "termos": ["refrigerante", "coca cola", "guarana", "fanta"], "ncm": "22021000" },
+  { "nome": "Cerveja", "termos": ["cerveja"], "ncm": "22030000" },
+  { "nome": "Cachaça", "termos": ["cachaca", "cachaça"], "ncm": "22072020" },
+
+  { "nome": "Arroz", "termos": ["arroz"], "ncm": "10063021" },
+  { "nome": "Feijão", "termos": ["feijao", "feijão"], "ncm": "07133329" },
+  { "nome": "Óleo de soja", "termos": ["oleo", "óleo", "oleo de soja"], "ncm": "15079011" },
+  { "nome": "Biscoito", "termos": ["biscoito", "bolacha"], "ncm": "19053100" },
+  { "nome": "Vinagre", "termos": ["vinagre"], "ncm": "22090000" },
+  { "nome": "Ovos", "termos": ["ovo", "ovos"], "ncm": "04072100" },
+  { "nome": "Batata", "termos": ["batata"], "ncm": "07019000" },
+  { "nome": "Carne bovina", "termos": ["carne", "carne bovina"], "ncm": "02013000" },
+
+  { "nome": "Cabo USB", "termos": ["cabo usb", "usb"], "ncm": "85444200" },
+  { "nome": "Carregador", "termos": ["carregador"], "ncm": "85044090" },
+  { "nome": "Mouse", "termos": ["mouse"], "ncm": "84716053" },
+  { "nome": "Teclado", "termos": ["teclado"], "ncm": "84716052" },
+
+  { "nome": "Camisa de algodão", "termos": ["camisa", "camisa algodao"], "ncm": "61091000" },
+  { "nome": "Calça jeans", "termos": ["calca", "calça", "jeans"], "ncm": "62034200" }
+]
