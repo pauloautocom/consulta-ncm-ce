@@ -2,78 +2,107 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<title>Consulta NCM • cClassTrib • CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM CE</title>
-
 <style>
-body { font-family: Arial, sans-serif; background:#f4f6f8; padding:15px; }
-.card { background:#fff; max-width:720px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
-input, select, button { width:100%; padding:12px; margin-top:10px; font-size:16px; }
-button { background:#2563eb; color:#fff; border:none; border-radius:6px; }
-.resultado { margin-top:20px; padding:15px; background:#eef6ff; border-radius:8px; }
-.erro { margin-top:20px; padding:15px; background:#fee2e2; border-radius:8px; }
-.small { font-size:13px; color:#555; }
+body { font-family: Arial, sans-serif; padding: 15px; background: #f4f6f8; }
+h1 { text-align:center; font-size:22px; }
+input { width:100%; padding:12px; font-size:16px; border-radius:6px; border:1px solid #ccc; margin-bottom:12px; }
+table { width:100%; border-collapse:collapse; background:#fff; }
+th,td { padding:10px; border:1px solid #ddd; font-size:14px; }
+th { background:#2563eb; color:#fff; }
+tr:nth-child(even){ background:#eef2f7; }
+.msg { text-align:center; margin-top:10px; font-weight:bold; color:#b91c1c; }
+@media(max-width:600px){ th,td{ font-size:12px } }
 </style>
 </head>
 
 <body>
-<div class="card">
-<h2>Consulta NCM • Ceará</h2>
+<h1>Consulta NCM • cClassTrib • CST (CE)</h1>
 
-<input type="text" id="busca" placeholder="Digite produto ou NCM (ex: água, cerveja, 2201)">
+<input id="busca" placeholder="Digite produto ou NCM (ex: banana, 2201, camisa)" oninput="buscar()">
 
-<button onclick="consultar()">Consultar</button>
+<table>
+<thead>
+<tr>
+  <th>NCM</th>
+  <th>Produto</th>
+  <th>CST</th>
+  <th>cClassTrib</th>
+  <th>Descrição cClassTrib</th>
+</tr>
+</thead>
+<tbody id="resultado"></tbody>
+</table>
 
-<div id="saida"></div>
-</div>
+<div id="msg" class="msg"></div>
 
 <script>
-let produtos = [];
-let cclasstrib = [];
-
-fetch('produtos.json').then(r => r.json()).then(d => produtos = d);
-fetch('cclasstrib.json').then(r => r.json()).then(d => cclasstrib = d);
-
-function normalizar(t){
-  return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+async function carregarJSON(url){ 
+  const r = await fetch(url); 
+  return r.ok ? await r.json() : [];
 }
 
-function consultar(){
-  const termo = normalizar(document.getElementById('busca').value);
-  const out = document.getElementById('saida');
-  out.innerHTML = '';
+// normaliza texto
+function norm(t){
+  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
 
-  if(!termo) return;
+let produtos = [];
+let cclass = [];
 
-  let encontrado = produtos.find(p =>
-    p.ncm.startsWith(termo) ||
-    p.termos.some(t => normalizar(t).includes(termo) || termo.includes(normalizar(t)))
-  );
+// carrega dados
+(async()=>{
+  produtos = await carregarJSON("produtos.json");
+  cclass = await carregarJSON("cclasstrib.json");
+})();
 
-  if(!encontrado){
-    out.innerHTML = `<div class="erro">Nenhum resultado encontrado.</div>`;
+// regra padrão fiscal (CE)
+function regraFiscal(ncm){
+  // padrão mercantil
+  return {
+    cst: "000",
+    cclass: "000001"
+  };
+}
+
+function buscar(){
+  const termo = norm(document.getElementById("busca").value);
+  const res = document.getElementById("resultado");
+  const msg = document.getElementById("msg");
+  res.innerHTML = "";
+  msg.innerText = "";
+
+  if(termo.length < 2) return;
+
+  const num = termo.replace(/\D/g,"");
+  const achados = produtos.filter(p => {
+    return (
+      (num && p.ncm.startsWith(num)) ||
+      norm(p.nome).includes(termo)
+    );
+  });
+
+  if(!achados.length){
+    msg.innerText = "Nenhum resultado encontrado";
     return;
   }
 
-  // REGRA SIMPLIFICADA CE (corrigida)
-  let cclass = '000001'; // Tributação integral
-  let cst = '000';
+  achados.forEach(p => {
+    const regra = regraFiscal(p.ncm);
+    const desc = (cclass.find(c=>c.cclasstrib===regra.cclass) || {}).descricao || "";
 
-  if(encontrado.ncm.startsWith('22')){
-    cclass = '000010'; // Bebidas
-    cst = '010';
-  }
-
-  out.innerHTML = `
-    <div class="resultado">
-      <b>Produto:</b> ${encontrado.nome}<br>
-      <b>NCM:</b> ${encontrado.ncm}<br>
-      <b>CClassTrib (CE):</b> ${cclass}<br>
-      <b>CST para CClassTrib:</b> ${cst}<br><br>
-      <span class="small">Classificação estimada. Confirme com contador ou SEFAZ.</span>
-    </div>
-  `;
+    res.innerHTML += `
+<tr>
+  <td>${p.ncm}</td>
+  <td>${p.nome}</td>
+  <td>${regra.cst}</td>
+  <td>${regra.cclass}</td>
+  <td>${desc}</td>
+</tr>`;
+  });
 }
 </script>
+
 </body>
 </html>
