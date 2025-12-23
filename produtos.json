@@ -1,24 +1,37 @@
 [
   { "nome": "Água mineral", "termos": ["agua", "agua mineral"], "ncm": "22011000" },
   { "nome": "Água mineral gaseificada", "termos": ["agua gaseificada"], "ncm": "22011100" },
-  { "nome": "Refrigerante", "termos": ["refrigerante", "coca cola", "guarana", "fanta"], "ncm": "22021000" },
+  { "nome": "Refrigerante", "termos": ["refrigerante", "coca cola", "guarana"], "ncm": "22021000" },
   { "nome": "Cerveja", "termos": ["cerveja"], "ncm": "22030000" },
-  { "nome": "Cachaça", "termos": ["cachaca", "cachaça"], "ncm": "22072020" },
-
+  { "nome": "Cachaça", "termos": ["cachaca"], "ncm": "22072020" },
   { "nome": "Arroz", "termos": ["arroz"], "ncm": "10063021" },
   { "nome": "Feijão", "termos": ["feijao", "feijão"], "ncm": "07133329" },
-  { "nome": "Óleo de soja", "termos": ["oleo", "óleo", "oleo de soja"], "ncm": "15079011" },
+  { "nome": "Óleo de soja", "termos": ["oleo", "soja"], "ncm": "15079011" },
   { "nome": "Biscoito", "termos": ["biscoito", "bolacha"], "ncm": "19053100" },
   { "nome": "Vinagre", "termos": ["vinagre"], "ncm": "22090000" },
   { "nome": "Ovos", "termos": ["ovo", "ovos"], "ncm": "04072100" },
+
+  { "nome": "Banana", "termos": ["banana"], "ncm": "08039000" },
+  { "nome": "Maçã", "termos": ["maca", "maçã"], "ncm": "08081000" },
+  { "nome": "Laranja", "termos": ["laranja"], "ncm": "08051000" },
+  { "nome": "Melancia", "termos": ["melancia"], "ncm": "08071100" },
+  { "nome": "Tomate", "termos": ["tomate"], "ncm": "07020000" },
+  { "nome": "Alface", "termos": ["alface"], "ncm": "07051000" },
+  { "nome": "Cenoura", "termos": ["cenoura"], "ncm": "07061000" },
   { "nome": "Batata", "termos": ["batata"], "ncm": "07019000" },
-  { "nome": "Carne bovina", "termos": ["carne", "carne bovina"], "ncm": "02013000" },
+  { "nome": "Cebola", "termos": ["cebola"], "ncm": "07031000" },
+  { "nome": "Limão", "termos": ["limao", "limão"], "ncm": "08055000" },
 
   { "nome": "Cabo USB", "termos": ["cabo usb", "usb"], "ncm": "85444200" },
-  { "nome": "Carregador", "termos": ["carregador"], "ncm": "85044090" },
+  { "nome": "Carregador de celular", "termos": ["carregador"], "ncm": "85044090" },
   { "nome": "Mouse", "termos": ["mouse"], "ncm": "84716053" },
   { "nome": "Teclado", "termos": ["teclado"], "ncm": "84716052" },
+  { "nome": "Notebook", "termos": ["notebook"], "ncm": "84713012" },
 
-  { "nome": "Camisa de algodão", "termos": ["camisa", "camisa algodao"], "ncm": "61091000" },
-  { "nome": "Calça jeans", "termos": ["calca", "calça", "jeans"], "ncm": "62034200" }
+  { "nome": "Camisa de algodão", "termos": ["camisa", "camisa algodao"], "ncm": "61051000" },
+  { "nome": "Calça jeans", "termos": ["calca", "jeans"], "ncm": "62034200" },
+  { "nome": "Camiseta", "termos": ["camiseta"], "ncm": "61091000" },
+  { "nome": "Vestido", "termos": ["vestido"], "ncm": "61044300" },
+  { "nome": "Bermuda", "termos": ["bermuda"], "ncm": "62113300" },
+  { "nome": "Tênis", "termos": ["tenis"], "ncm": "64039990" }
 ]
