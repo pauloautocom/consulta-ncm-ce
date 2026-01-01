@@ -51,35 +51,35 @@ input {
 <body>
 <div class="card">
   <h1>Consulta NCM e CClassTrib – Ceará</h1>
-  <input id="busca" placeholder="Digite: arroz, caneta, coca cola ou NCM">
+  <input id="busca" placeholder="Digite: água mineral, arroz, caneta ou NCM">
   <div id="saida"></div>
 </div>
 
 <script>
 // =====================
-// BASE COMERCIAL (PROCURA FÁCIL)
+// BASE COMERCIAL (NOME AMIGÁVEL)
 // =====================
 const baseComercial = [
-  { termos:["arroz"], ncm:"10063021", tipo:"cesta" },
-  { termos:["feijao","feijão"], ncm:"07133329", tipo:"cesta" },
-  { termos:["oleo","óleo"], ncm:"15079011", tipo:"cesta" },
-  { termos:["acucar","açúcar"], ncm:"17019900", tipo:"cesta" },
+  { nome:"Arroz", termos:["arroz"], ncm:"10063021", tipo:"cesta" },
+  { nome:"Feijão", termos:["feijao","feijão"], ncm:"07133329", tipo:"cesta" },
+  { nome:"Óleo vegetal", termos:["oleo","óleo"], ncm:"15079011", tipo:"cesta" },
+  { nome:"Açúcar", termos:["acucar","açúcar"], ncm:"17019900", tipo:"cesta" },
 
-  { termos:["agua","agua mineral"], ncm:"22011000", tipo:"bebida" },
-  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", tipo:"bebida" },
-  { termos:["cerveja"], ncm:"22030000", tipo:"bebida" },
+  { nome:"Água mineral", termos:["agua","agua mineral"], ncm:"22011000", tipo:"bebida" },
+  { nome:"Refrigerante", termos:["refrigerante","coca","coca cola"], ncm:"22021000", tipo:"bebida" },
+  { nome:"Cerveja", termos:["cerveja"], ncm:"22030000", tipo:"bebida" },
 
-  { termos:["caneta"], ncm:"96081000", tipo:"comum" },
-  { termos:["lapis","lápis"], ncm:"96091000", tipo:"comum" },
+  { nome:"Caneta esferográfica", termos:["caneta"], ncm:"96081000", tipo:"comum" },
+  { nome:"Lápis", termos:["lapis","lápis"], ncm:"96091000", tipo:"comum" },
 
-  { termos:["camisa"], ncm:"61051000", tipo:"comum" },
-  { termos:["cabo usb","usb"], ncm:"85444200", tipo:"comum" },
-  { termos:["mouse"], ncm:"84716053", tipo:"comum" },
-  { termos:["teclado"], ncm:"84716052", tipo:"comum" }
+  { nome:"Camisa de algodão", termos:["camisa"], ncm:"61051000", tipo:"comum" },
+  { nome:"Cabo USB", termos:["cabo usb","usb"], ncm:"85444200", tipo:"comum" },
+  { nome:"Mouse", termos:["mouse"], ncm:"84716053", tipo:"comum" },
+  { nome:"Teclado", termos:["teclado"], ncm:"84716052", tipo:"comum" }
 ];
 
 // =====================
-// CLASSIFICAÇÃO CE OFICIAL
+// CLASSIFICAÇÃO CE
 // =====================
 function classificarCE(tipo) {
   if (tipo === "bebida") {
@@ -94,36 +94,21 @@ function normalizar(txt){
 }
 
 // =====================
-// CARREGA BASE OFICIAL
-// =====================
-let baseOficial = [];
-fetch("ncm.json")
-  .then(r => r.json())
-  .then(d => baseOficial = d)
-  .catch(()=>console.warn("Base oficial não carregada"));
-
-// =====================
 // BUSCA
 // =====================
 document.getElementById("busca").addEventListener("input", function(){
-  const q = normalizar(this.value.trim());
+  const qOriginal = this.value.trim();
+  const q = normalizar(qOriginal);
   const out = document.getElementById("saida");
   out.innerHTML = "";
-  if (q.length < 2) return;
 
-  let achado = null;
+  // ⛔ evita busca precoce
+  if (q.length < 3 && !/^\d{4,8}$/.test(q)) return;
 
-  // 1️⃣ Busca comercial
-  achado = baseComercial.find(p =>
+  let achado = baseComercial.find(p =>
     p.termos.some(t => normalizar(t).includes(q) || q.includes(normalizar(t))) ||
     p.ncm.startsWith(q)
   );
-
-  // 2️⃣ Busca oficial
-  if (!achado && /^\d{3,8}$/.test(q)) {
-    const n = baseOficial.find(o => o.ncm.startsWith(q));
-    if (n) achado = { ncm:n.ncm, desc:n.descricao, tipo:"comum" };
-  }
 
   if (!achado) {
     out.innerHTML = `<div class="erro"><b>Nenhum resultado encontrado</b></div>`;
@@ -134,8 +119,8 @@ document.getElementById("busca").addEventListener("input", function(){
 
   out.innerHTML = `
     <div class="resultado">
-      <b>NCM:</b> ${achado.ncm}<br>
-      <b>Descrição:</b> ${achado.desc || "Produto identificado"}<br><br>
+      <b>Produto:</b> ${achado.nome}<br>
+      <b>NCM:</b> ${achado.ncm}<br><br>
       <b>CClassTrib (CE):</b> ${trib.cclass}<br>
       <b>CST para CClassTrib:</b> ${trib.cst}<br>
       <span class="small">${trib.motivo}</span>
