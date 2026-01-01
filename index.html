@@ -13,7 +13,7 @@ body {
   padding: 15px;
 }
 .card {
-  max-width: 800px;
+  max-width: 900px;
   background: #fff;
   margin: auto;
   padding: 20px;
@@ -22,16 +22,11 @@ body {
 }
 h1 {
   font-size: 22px;
-  margin-bottom: 5px;
-}
-.small {
-  font-size: 13px;
-  color: #555;
 }
 input {
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 16px;
 }
 .resultado {
@@ -46,113 +41,87 @@ input {
   margin-top: 15px;
   border-radius: 8px;
 }
-@media (max-width:600px) {
-  h1 { font-size: 20px; }
+.small {
+  font-size: 12px;
+  color: #555;
 }
 </style>
 </head>
 
 <body>
-
 <div class="card">
-  <h1>Consulta NCM e CClassTrib</h1>
-  <p class="small">Estado do Ceará • Busca por nome comercial ou NCM</p>
-
-  <input id="busca" placeholder="Ex: água mineral, coca cola, cerveja, 22011000">
-
+  <h1>Consulta NCM e CClassTrib – Ceará</h1>
+  <input id="busca" placeholder="Ex: arroz, caneta, água mineral, 22011000">
   <div id="saida"></div>
 </div>
 
 <script>
-// ============================
-// BASE COMERCIAL (PROCURA FÁCIL)
-// ============================
-const baseComercial = [
-  { termos:["agua","agua mineral"], ncm:"22011000", desc:"Água mineral natural" },
-  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", desc:"Refrigerantes" },
-  { termos:["cerveja"], ncm:"22030000", desc:"Cerveja de malte" },
-  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado" },
-  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão comum" },
-  { termos:["oleo","óleo soja"], ncm:"15079011", desc:"Óleo de soja" },
-  { termos:["acucar","açucar","açúcar"], ncm:"17019900", desc:"Açúcar refinado" },
-  { termos:["biscoito","bolacha"], ncm:"19053100", desc:"Biscoitos" },
-  { termos:["vinagre"], ncm:"22090000", desc:"Vinagre" },
-  { termos:["ovo","ovos"], ncm:"04072100", desc:"Ovos de galinha" },
-  { termos:["banana"], ncm:"08039000", desc:"Banana" },
-  { termos:["batata"], ncm:"07019000", desc:"Batata" },
-  { termos:["carne bovina"], ncm:"02013000", desc:"Carne bovina" },
-  { termos:["caneta"], ncm:"96081000", desc:"Caneta esferográfica" },
-  { termos:["lapis","lápis"], ncm:"96091000", desc:"Lápis" },
-  { termos:["camisa","camisa algodao"], ncm:"61051000", desc:"Camisa de algodão" },
-  { termos:["cabo usb","usb"], ncm:"85444200", desc:"Cabo USB" },
-  { termos:["mouse"], ncm:"84716053", desc:"Mouse" },
-  { termos:["teclado"], ncm:"84716052", desc:"Teclado" }
+// =====================
+// BASE COMERCIAL AMPLIADA
+// =====================
+const base = [
+  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado", tipo:"cesta" },
+  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão comum", tipo:"cesta" },
+  { termos:["oleo","óleo"], ncm:"15079011", desc:"Óleo vegetal", tipo:"cesta" },
+  { termos:["acucar","açúcar"], ncm:"17019900", desc:"Açúcar", tipo:"cesta" },
+
+  { termos:["agua","agua mineral"], ncm:"22011000", desc:"Água mineral", tipo:"bebida" },
+  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", desc:"Refrigerante", tipo:"bebida" },
+  { termos:["cerveja"], ncm:"22030000", desc:"Cerveja", tipo:"bebida" },
+
+  { termos:["caneta"], ncm:"96081000", desc:"Caneta esferográfica", tipo:"comum" },
+  { termos:["lapis","lápis"], ncm:"96091000", desc:"Lápis", tipo:"comum" },
+
+  { termos:["camisa"], ncm:"61051000", desc:"Camisa de algodão", tipo:"comum" },
+  { termos:["cabo usb","usb"], ncm:"85444200", desc:"Cabo USB", tipo:"comum" }
 ];
 
-// ============================
-// CCLASSTRIB CE + CST
-// ============================
-function classificarCE(ncm) {
-  if (ncm.startsWith("22")) {
-    return { cclass:"000010", cst:"010", motivo:"Bebidas" };
+// =====================
+// CLASSIFICAÇÃO OFICIAL
+// =====================
+function classificar(produto) {
+  // REGRA BASEADA NA TABELA OFICIAL
+  if (produto.tipo === "bebida") {
+    return { cclass:"000001", cst:"010", motivo:"Bebidas – tributação integral" };
   }
-  if (["1006","0713","1507","1701","1905","0407"].some(p=>ncm.startsWith(p))) {
-    return { cclass:"000001", cst:"000", motivo:"Cesta básica" };
-  }
-  if (ncm.startsWith("61") || ncm.startsWith("62")) {
-    return { cclass:"000020", cst:"010", motivo:"Vestuário" };
-  }
-  return { cclass:"000000", cst:"000", motivo:"Tributação padrão" };
+
+  // Cesta básica e produtos comuns
+  return { cclass:"000001", cst:"000", motivo:"Tributação integral" };
 }
 
-// ============================
-// NORMALIZA TEXTO
-// ============================
-function norm(txt){
+// =====================
+function normalizar(txt){
   return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ============================
-// BUSCA
-// ============================
-document.getElementById("busca").addEventListener("input", buscar);
-
-function buscar() {
-  const q = norm(this.value.trim());
+document.getElementById("busca").addEventListener("input", function(){
+  const q = normalizar(this.value.trim());
   const out = document.getElementById("saida");
   out.innerHTML = "";
   if (q.length < 2) return;
 
-  let achou = null;
-
-  // Nome
-  achou = baseComercial.find(p =>
-    p.termos.some(t => norm(t).includes(q) || q.includes(norm(t)))
+  let p = base.find(b =>
+    b.termos.some(t => normalizar(t).includes(q)) ||
+    b.ncm.startsWith(q)
   );
 
-  // NCM
-  if (!achou && /^\d{3,8}$/.test(q)) {
-    achou = baseComercial.find(p => p.ncm.startsWith(q));
-  }
-
-  if (!achou) {
+  if (!p) {
     out.innerHTML = `<div class="erro"><b>Nenhum resultado encontrado</b></div>`;
     return;
   }
 
-  const trib = classificarCE(achou.ncm);
+  const trib = classificar(p);
 
   out.innerHTML = `
     <div class="resultado">
-      <b>Produto:</b> ${achou.desc}<br>
-      <b>NCM:</b> ${achou.ncm}<br><br>
+      <b>Produto:</b> ${p.desc}<br>
+      <b>NCM:</b> ${p.ncm}<br><br>
       <b>CClassTrib (CE):</b> ${trib.cclass}<br>
       <b>CST para CClassTrib:</b> ${trib.cst}<br>
       <span class="small">${trib.motivo}</span>
     </div>
   `;
-}
+});
 </script>
-
 </body>
 </html>
