@@ -17,8 +17,8 @@ body {
   background:#fff;
   margin:auto;
   padding:20px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.1);
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 h1 {
   font-size:22px;
@@ -26,24 +26,30 @@ h1 {
 input {
   width:100%;
   padding:14px;
-  margin-top:12px;
   font-size:16px;
+  margin-top:10px;
 }
-.resultado {
+.lista {
+  margin-top:15px;
+}
+.item {
   background:#eef6ff;
-  padding:15px;
-  margin-top:15px;
+  padding:12px;
   border-radius:8px;
+  margin-bottom:10px;
 }
-.erro {
-  background:#fee2e2;
-  padding:15px;
-  margin-top:15px;
-  border-radius:8px;
+.item b {
+  font-size:16px;
 }
 .small {
   font-size:12px;
   color:#555;
+}
+.erro {
+  background:#fee2e2;
+  padding:12px;
+  border-radius:8px;
+  margin-top:10px;
 }
 </style>
 </head>
@@ -51,81 +57,84 @@ input {
 <body>
 <div class="card">
   <h1>Consulta NCM e CClassTrib – Ceará</h1>
-  <input id="busca" placeholder="Digite: água mineral, arroz, caneta ou NCM">
-  <div id="saida"></div>
+  <input id="busca" placeholder="Digite: arroz, caneta, cerveja ou NCM">
+  <div id="saida" class="lista"></div>
 </div>
 
 <script>
-// =====================
-// BASE COMERCIAL (NOME AMIGÁVEL)
-// =====================
-const baseComercial = [
+// ================= BASE COMERCIAL =================
+const produtos = [
+  // CESTA BÁSICA
   { nome:"Arroz", termos:["arroz"], ncm:"10063021", tipo:"cesta" },
   { nome:"Feijão", termos:["feijao","feijão"], ncm:"07133329", tipo:"cesta" },
   { nome:"Óleo vegetal", termos:["oleo","óleo"], ncm:"15079011", tipo:"cesta" },
   { nome:"Açúcar", termos:["acucar","açúcar"], ncm:"17019900", tipo:"cesta" },
 
+  // BEBIDAS
   { nome:"Água mineral", termos:["agua","agua mineral"], ncm:"22011000", tipo:"bebida" },
   { nome:"Refrigerante", termos:["refrigerante","coca","coca cola"], ncm:"22021000", tipo:"bebida" },
   { nome:"Cerveja", termos:["cerveja"], ncm:"22030000", tipo:"bebida" },
 
+  // PAPELARIA
   { nome:"Caneta esferográfica", termos:["caneta"], ncm:"96081000", tipo:"comum" },
   { nome:"Lápis", termos:["lapis","lápis"], ncm:"96091000", tipo:"comum" },
 
-  { nome:"Camisa de algodão", termos:["camisa"], ncm:"61051000", tipo:"comum" },
+  // ELETRÔNICOS
   { nome:"Cabo USB", termos:["cabo usb","usb"], ncm:"85444200", tipo:"comum" },
   { nome:"Mouse", termos:["mouse"], ncm:"84716053", tipo:"comum" },
-  { nome:"Teclado", termos:["teclado"], ncm:"84716052", tipo:"comum" }
+  { nome:"Teclado", termos:["teclado"], ncm:"84716052", tipo:"comum" },
+
+  // VESTUÁRIO
+  { nome:"Camisa de algodão", termos:["camisa","camisa algodao"], ncm:"61051000", tipo:"comum" }
 ];
 
-// =====================
-// CLASSIFICAÇÃO CE
-// =====================
-function classificarCE(tipo) {
+// ================= CLASSIFICAÇÃO CE =================
+function classificarCE(tipo){
   if (tipo === "bebida") {
     return { cclass:"000001", cst:"010", motivo:"Bebidas – tributação integral" };
+  }
+  if (tipo === "cesta") {
+    return { cclass:"000004", cst:"000", motivo:"Cesta básica" };
   }
   return { cclass:"000001", cst:"000", motivo:"Tributação integral" };
 }
 
-// =====================
-function normalizar(txt){
+// ================= UTIL =================
+function norm(txt){
   return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// =====================
-// BUSCA
-// =====================
+// ================= BUSCA =================
 document.getElementById("busca").addEventListener("input", function(){
-  const qOriginal = this.value.trim();
-  const q = normalizar(qOriginal);
+  const qRaw = this.value.trim();
+  const q = norm(qRaw);
   const out = document.getElementById("saida");
   out.innerHTML = "";
 
-  // ⛔ evita busca precoce
-  if (q.length < 3 && !/^\d{4,8}$/.test(q)) return;
+  if (q.length < 2 && !/^\d{4,8}$/.test(q)) return;
 
-  let achado = baseComercial.find(p =>
-    p.termos.some(t => normalizar(t).includes(q) || q.includes(normalizar(t))) ||
+  let encontrados = produtos.filter(p =>
+    p.termos.some(t => norm(t).includes(q)) ||
     p.ncm.startsWith(q)
   );
 
-  if (!achado) {
+  if (!encontrados.length) {
     out.innerHTML = `<div class="erro"><b>Nenhum resultado encontrado</b></div>`;
     return;
   }
 
-  const trib = classificarCE(achado.tipo);
-
-  out.innerHTML = `
-    <div class="resultado">
-      <b>Produto:</b> ${achado.nome}<br>
-      <b>NCM:</b> ${achado.ncm}<br><br>
-      <b>CClassTrib (CE):</b> ${trib.cclass}<br>
-      <b>CST para CClassTrib:</b> ${trib.cst}<br>
-      <span class="small">${trib.motivo}</span>
-    </div>
-  `;
+  encontrados.slice(0, 20).forEach(p => {
+    const trib = classificarCE(p.tipo);
+    out.innerHTML += `
+      <div class="item">
+        <b>${p.nome}</b><br>
+        NCM: ${p.ncm}<br>
+        CClassTrib (CE): ${trib.cclass}<br>
+        CST: ${trib.cst}<br>
+        <span class="small">${trib.motivo}</span>
+      </div>
+    `;
+  });
 });
 </script>
 </body>
