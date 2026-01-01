@@ -8,42 +8,42 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f2f4f7;
-  margin: 0;
-  padding: 15px;
+  background:#f2f4f7;
+  margin:0;
+  padding:15px;
 }
 .card {
-  max-width: 900px;
-  background: #fff;
-  margin: auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  max-width:900px;
+  background:#fff;
+  margin:auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 h1 {
-  font-size: 22px;
+  font-size:22px;
 }
 input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  font-size: 16px;
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  font-size:16px;
 }
 .resultado {
-  background: #eef6ff;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
+  background:#eef6ff;
+  padding:15px;
+  margin-top:15px;
+  border-radius:8px;
 }
 .erro {
-  background: #fee2e2;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
+  background:#fee2e2;
+  padding:15px;
+  margin-top:15px;
+  border-radius:8px;
 }
 .small {
-  font-size: 12px;
-  color: #555;
+  font-size:12px;
+  color:#555;
 }
 </style>
 </head>
@@ -51,41 +51,40 @@ input {
 <body>
 <div class="card">
   <h1>Consulta NCM e CClassTrib – Ceará</h1>
-  <input id="busca" placeholder="Ex: arroz, caneta, água mineral, 22011000">
+  <input id="busca" placeholder="Digite: arroz, caneta, coca cola ou NCM">
   <div id="saida"></div>
 </div>
 
 <script>
 // =====================
-// BASE COMERCIAL AMPLIADA
+// BASE COMERCIAL (PROCURA FÁCIL)
 // =====================
-const base = [
-  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado", tipo:"cesta" },
-  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão comum", tipo:"cesta" },
-  { termos:["oleo","óleo"], ncm:"15079011", desc:"Óleo vegetal", tipo:"cesta" },
-  { termos:["acucar","açúcar"], ncm:"17019900", desc:"Açúcar", tipo:"cesta" },
+const baseComercial = [
+  { termos:["arroz"], ncm:"10063021", tipo:"cesta" },
+  { termos:["feijao","feijão"], ncm:"07133329", tipo:"cesta" },
+  { termos:["oleo","óleo"], ncm:"15079011", tipo:"cesta" },
+  { termos:["acucar","açúcar"], ncm:"17019900", tipo:"cesta" },
 
-  { termos:["agua","agua mineral"], ncm:"22011000", desc:"Água mineral", tipo:"bebida" },
-  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", desc:"Refrigerante", tipo:"bebida" },
-  { termos:["cerveja"], ncm:"22030000", desc:"Cerveja", tipo:"bebida" },
+  { termos:["agua","agua mineral"], ncm:"22011000", tipo:"bebida" },
+  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", tipo:"bebida" },
+  { termos:["cerveja"], ncm:"22030000", tipo:"bebida" },
 
-  { termos:["caneta"], ncm:"96081000", desc:"Caneta esferográfica", tipo:"comum" },
-  { termos:["lapis","lápis"], ncm:"96091000", desc:"Lápis", tipo:"comum" },
+  { termos:["caneta"], ncm:"96081000", tipo:"comum" },
+  { termos:["lapis","lápis"], ncm:"96091000", tipo:"comum" },
 
-  { termos:["camisa"], ncm:"61051000", desc:"Camisa de algodão", tipo:"comum" },
-  { termos:["cabo usb","usb"], ncm:"85444200", desc:"Cabo USB", tipo:"comum" }
+  { termos:["camisa"], ncm:"61051000", tipo:"comum" },
+  { termos:["cabo usb","usb"], ncm:"85444200", tipo:"comum" },
+  { termos:["mouse"], ncm:"84716053", tipo:"comum" },
+  { termos:["teclado"], ncm:"84716052", tipo:"comum" }
 ];
 
 // =====================
-// CLASSIFICAÇÃO OFICIAL
+// CLASSIFICAÇÃO CE OFICIAL
 // =====================
-function classificar(produto) {
-  // REGRA BASEADA NA TABELA OFICIAL
-  if (produto.tipo === "bebida") {
+function classificarCE(tipo) {
+  if (tipo === "bebida") {
     return { cclass:"000001", cst:"010", motivo:"Bebidas – tributação integral" };
   }
-
-  // Cesta básica e produtos comuns
   return { cclass:"000001", cst:"000", motivo:"Tributação integral" };
 }
 
@@ -94,28 +93,49 @@ function normalizar(txt){
   return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
+// =====================
+// CARREGA BASE OFICIAL
+// =====================
+let baseOficial = [];
+fetch("ncm.json")
+  .then(r => r.json())
+  .then(d => baseOficial = d)
+  .catch(()=>console.warn("Base oficial não carregada"));
+
+// =====================
+// BUSCA
+// =====================
 document.getElementById("busca").addEventListener("input", function(){
   const q = normalizar(this.value.trim());
   const out = document.getElementById("saida");
   out.innerHTML = "";
   if (q.length < 2) return;
 
-  let p = base.find(b =>
-    b.termos.some(t => normalizar(t).includes(q)) ||
-    b.ncm.startsWith(q)
+  let achado = null;
+
+  // 1️⃣ Busca comercial
+  achado = baseComercial.find(p =>
+    p.termos.some(t => normalizar(t).includes(q) || q.includes(normalizar(t))) ||
+    p.ncm.startsWith(q)
   );
 
-  if (!p) {
+  // 2️⃣ Busca oficial
+  if (!achado && /^\d{3,8}$/.test(q)) {
+    const n = baseOficial.find(o => o.ncm.startsWith(q));
+    if (n) achado = { ncm:n.ncm, desc:n.descricao, tipo:"comum" };
+  }
+
+  if (!achado) {
     out.innerHTML = `<div class="erro"><b>Nenhum resultado encontrado</b></div>`;
     return;
   }
 
-  const trib = classificar(p);
+  const trib = classificarCE(achado.tipo);
 
   out.innerHTML = `
     <div class="resultado">
-      <b>Produto:</b> ${p.desc}<br>
-      <b>NCM:</b> ${p.ncm}<br><br>
+      <b>NCM:</b> ${achado.ncm}<br>
+      <b>Descrição:</b> ${achado.desc || "Produto identificado"}<br><br>
       <b>CClassTrib (CE):</b> ${trib.cclass}<br>
       <b>CST para CClassTrib:</b> ${trib.cst}<br>
       <span class="small">${trib.motivo}</span>
