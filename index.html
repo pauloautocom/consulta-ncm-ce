@@ -2,187 +2,155 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • CClassTrib • CST – Ceará</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta NCM • CClassTrib CE</title>
 
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  background: #f2f4f7;
+  margin: 0;
   padding: 15px;
 }
+.card {
+  max-width: 800px;
+  background: #fff;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
 h1 {
-  text-align: center;
   font-size: 22px;
+  margin-bottom: 5px;
+}
+.small {
+  font-size: 13px;
+  color: #555;
 }
 input {
   width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-}
-th, td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-}
-th {
-  background: #2563eb;
-  color: #fff;
-}
-tr:nth-child(even) {
-  background: #eef2f7;
-}
-.msg {
-  text-align: center;
+  padding: 12px;
   margin-top: 10px;
-  font-weight: bold;
-  color: #b91c1c;
+  font-size: 16px;
 }
-@media (max-width: 600px) {
-  th, td {
-    font-size: 12px;
-  }
+.resultado {
+  background: #eef6ff;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+.erro {
+  background: #fee2e2;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+@media (max-width:600px) {
+  h1 { font-size: 20px; }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Consulta NCM • CClassTrib • CST (CE)</h1>
+<div class="card">
+  <h1>Consulta NCM e CClassTrib</h1>
+  <p class="small">Estado do Ceará • Busca por nome comercial ou NCM</p>
 
-<input
-  id="busca"
-  placeholder="Digite produto ou NCM (ex: arroz, banana, 2201, camisa)"
-  oninput="buscar()"
-/>
+  <input id="busca" placeholder="Ex: água mineral, coca cola, cerveja, 22011000">
 
-<table>
-<thead>
-<tr>
-  <th>NCM</th>
-  <th>Produto</th>
-  <th>CST</th>
-  <th>CClassTrib</th>
-  <th>Descrição</th>
-</tr>
-</thead>
-<tbody id="resultado"></tbody>
-</table>
-
-<div id="msg" class="msg"></div>
+  <div id="saida"></div>
+</div>
 
 <script>
-// ================= BASE DE PRODUTOS =================
-const produtos = [
-  // Bebidas
-  { nome: "Água mineral", termos:["agua","agua mineral"], ncm:"22011000" },
-  { nome: "Refrigerante", termos:["refrigerante","coca","coca cola"], ncm:"22021000" },
-  { nome: "Cerveja", termos:["cerveja"], ncm:"22030000" },
-  { nome: "Cachaça", termos:["cachaca","cachaça"], ncm:"22072020" },
-
-  // Cesta básica
-  { nome: "Arroz", termos:["arroz"], ncm:"10063021" },
-  { nome: "Feijão", termos:["feijao","feijão"], ncm:"07133329" },
-  { nome: "Óleo de soja", termos:["oleo","óleo"], ncm:"15079011" },
-  { nome: "Ovos", termos:["ovo","ovos"], ncm:"04072100" },
-
-  // Hortifruti
-  { nome: "Banana", termos:["banana"], ncm:"08039000" },
-  { nome: "Maçã", termos:["maca","maçã"], ncm:"08081000" },
-  { nome: "Laranja", termos:["laranja"], ncm:"08051000" },
-  { nome: "Tomate", termos:["tomate"], ncm:"07020000" },
-  { nome: "Batata", termos:["batata"], ncm:"07019000" },
-  { nome: "Cebola", termos:["cebola"], ncm:"07031000" },
-  { nome: "Alface", termos:["alface"], ncm:"07051000" },
-
-  // Eletrônicos
-  { nome: "Cabo USB", termos:["cabo usb","usb"], ncm:"85444200" },
-  { nome: "Carregador de celular", termos:["carregador"], ncm:"85044090" },
-  { nome: "Mouse", termos:["mouse"], ncm:"84716053" },
-  { nome: "Teclado", termos:["teclado"], ncm:"84716052" },
-
-  // Vestuário
-  { nome: "Camisa de algodão", termos:["camisa"], ncm:"61051000" },
-  { nome: "Calça jeans", termos:["calca","jeans"], ncm:"62034200" }
+// ============================
+// BASE COMERCIAL (PROCURA FÁCIL)
+// ============================
+const baseComercial = [
+  { termos:["agua","agua mineral"], ncm:"22011000", desc:"Água mineral natural" },
+  { termos:["refrigerante","coca","coca cola"], ncm:"22021000", desc:"Refrigerantes" },
+  { termos:["cerveja"], ncm:"22030000", desc:"Cerveja de malte" },
+  { termos:["arroz"], ncm:"10063021", desc:"Arroz beneficiado" },
+  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão comum" },
+  { termos:["oleo","óleo soja"], ncm:"15079011", desc:"Óleo de soja" },
+  { termos:["acucar","açucar","açúcar"], ncm:"17019900", desc:"Açúcar refinado" },
+  { termos:["biscoito","bolacha"], ncm:"19053100", desc:"Biscoitos" },
+  { termos:["vinagre"], ncm:"22090000", desc:"Vinagre" },
+  { termos:["ovo","ovos"], ncm:"04072100", desc:"Ovos de galinha" },
+  { termos:["banana"], ncm:"08039000", desc:"Banana" },
+  { termos:["batata"], ncm:"07019000", desc:"Batata" },
+  { termos:["carne bovina"], ncm:"02013000", desc:"Carne bovina" },
+  { termos:["caneta"], ncm:"96081000", desc:"Caneta esferográfica" },
+  { termos:["lapis","lápis"], ncm:"96091000", desc:"Lápis" },
+  { termos:["camisa","camisa algodao"], ncm:"61051000", desc:"Camisa de algodão" },
+  { termos:["cabo usb","usb"], ncm:"85444200", desc:"Cabo USB" },
+  { termos:["mouse"], ncm:"84716053", desc:"Mouse" },
+  { termos:["teclado"], ncm:"84716052", desc:"Teclado" }
 ];
 
-// ================= TABELA CCLASSTRIB =================
-const cclassTabela = {
-  "000001": "Tributação integral",
-  "200001": "Alíquota zero (cesta básica)",
-  "400001": "Isenção (hortifruti in natura)"
-};
-
-// ================= FUNÇÕES =================
-function normalizar(txt) {
-  return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+// ============================
+// CCLASSTRIB CE + CST
+// ============================
+function classificarCE(ncm) {
+  if (ncm.startsWith("22")) {
+    return { cclass:"000010", cst:"010", motivo:"Bebidas" };
+  }
+  if (["1006","0713","1507","1701","1905","0407"].some(p=>ncm.startsWith(p))) {
+    return { cclass:"000001", cst:"000", motivo:"Cesta básica" };
+  }
+  if (ncm.startsWith("61") || ncm.startsWith("62")) {
+    return { cclass:"000020", cst:"010", motivo:"Vestuário" };
+  }
+  return { cclass:"000000", cst:"000", motivo:"Tributação padrão" };
 }
 
-function regraFiscal(nome) {
-  const n = normalizar(nome);
-
-  const hortifruti = [
-    "banana","maca","maçã","laranja","tomate",
-    "batata","cebola","alface"
-  ];
-
-  const cestaBasica = [
-    "arroz","feijao","feijão","oleo","óleo","ovo","ovos"
-  ];
-
-  if (hortifruti.some(p => n.includes(p))) {
-    return { cst:"400", cclass:"400001" };
-  }
-
-  if (cestaBasica.some(p => n.includes(p))) {
-    return { cst:"200", cclass:"200001" };
-  }
-
-  return { cst:"000", cclass:"000001" };
+// ============================
+// NORMALIZA TEXTO
+// ============================
+function norm(txt){
+  return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
+
+// ============================
+// BUSCA
+// ============================
+document.getElementById("busca").addEventListener("input", buscar);
 
 function buscar() {
-  const termo = normalizar(document.getElementById("busca").value);
-  const num = termo.replace(/\D/g,"");
-  const res = document.getElementById("resultado");
-  const msg = document.getElementById("msg");
+  const q = norm(this.value.trim());
+  const out = document.getElementById("saida");
+  out.innerHTML = "";
+  if (q.length < 2) return;
 
-  res.innerHTML = "";
-  msg.innerText = "";
+  let achou = null;
 
-  if (termo.length < 2) return;
-
-  const achados = produtos.filter(p =>
-    (num && p.ncm.startsWith(num)) ||
-    normalizar(p.nome).includes(termo) ||
-    p.termos.some(t => normalizar(t).includes(termo))
+  // Nome
+  achou = baseComercial.find(p =>
+    p.termos.some(t => norm(t).includes(q) || q.includes(norm(t)))
   );
 
-  if (!achados.length) {
-    msg.innerText = "Nenhum resultado encontrado";
+  // NCM
+  if (!achou && /^\d{3,8}$/.test(q)) {
+    achou = baseComercial.find(p => p.ncm.startsWith(q));
+  }
+
+  if (!achou) {
+    out.innerHTML = `<div class="erro"><b>Nenhum resultado encontrado</b></div>`;
     return;
   }
 
-  achados.forEach(p => {
-    const regra = regraFiscal(p.nome);
-    res.innerHTML += `
-      <tr>
-        <td>${p.ncm}</td>
-        <td>${p.nome}</td>
-        <td>${regra.cst}</td>
-        <td>${regra.cclass}</td>
-        <td>${cclassTabela[regra.cclass]}</td>
-      </tr>
-    `;
-  });
+  const trib = classificarCE(achou.ncm);
+
+  out.innerHTML = `
+    <div class="resultado">
+      <b>Produto:</b> ${achou.desc}<br>
+      <b>NCM:</b> ${achou.ncm}<br><br>
+      <b>CClassTrib (CE):</b> ${trib.cclass}<br>
+      <b>CST para CClassTrib:</b> ${trib.cst}<br>
+      <span class="small">${trib.motivo}</span>
+    </div>
+  `;
 }
 </script>
 
