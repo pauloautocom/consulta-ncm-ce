@@ -19,10 +19,7 @@ body{
   border-radius:10px;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
-h1{
-  font-size:22px;
-  text-align:center;
-}
+h1{text-align:center;}
 input{
   width:100%;
   padding:12px;
@@ -43,10 +40,7 @@ input{
   border-radius:8px;
   display:none;
 }
-.small{
-  font-size:13px;
-  color:#555;
-}
+.small{font-size:13px;color:#555;}
 </style>
 </head>
 
@@ -54,70 +48,69 @@ input{
 <div class="container">
 <h1>Consulta NCM e CClassTrib • CE</h1>
 
-<input id="busca" placeholder="Digite o produto ou NCM (ex: arroz, café, 22011000)">
+<input id="busca" placeholder="Digite o produto ou NCM (ex: agulha, arroz, 22011000)">
 
 <div id="resultado" class="result"></div>
 <div id="erro" class="error"></div>
 </div>
 
 <script>
-// ================= BASE AMPLIADA MERCANTIL =================
 const produtos = [
- {nomes:["agua","agua mineral"], ncm:"22011000", produto:"Água mineral", cclass:"000010", cst:"010"},
- {nomes:["refrigerante","coca cola","guarana"], ncm:"22021000", produto:"Refrigerante", cclass:"000010", cst:"010"},
+ {nomes:["agua mineral","agua"], ncm:"22011000", produto:"Água mineral", cclass:"000010", cst:"010"},
+ {nomes:["refrigerante","coca cola"], ncm:"22021000", produto:"Refrigerante", cclass:"000010", cst:"010"},
  {nomes:["cerveja"], ncm:"22030000", produto:"Cerveja", cclass:"000010", cst:"010"},
  {nomes:["arroz"], ncm:"10063021", produto:"Arroz", cclass:"000001", cst:"000"},
- {nomes:["feijao","feijão"], ncm:"07133329", produto:"Feijão", cclass:"000001", cst:"000"},
  {nomes:["macarrao","macarrão"], ncm:"19021900", produto:"Macarrão", cclass:"000001", cst:"000"},
  {nomes:["cafe","café"], ncm:"09012100", produto:"Café", cclass:"000001", cst:"000"},
- {nomes:["biscoito","bolacha"], ncm:"19053100", produto:"Biscoito", cclass:"000001", cst:"000"},
- {nomes:["oleo","óleo"], ncm:"15079011", produto:"Óleo vegetal", cclass:"000001", cst:"000"},
- {nomes:["vinagre"], ncm:"22090000", produto:"Vinagre", cclass:"000001", cst:"000"},
- {nomes:["ovo","ovos"], ncm:"04072100", produto:"Ovos", cclass:"000001", cst:"000"},
- {nomes:["leite"], ncm:"04012010", produto:"Leite UHT", cclass:"000001", cst:"000"},
- {nomes:["absorvente"], ncm:"96190000", produto:"Absorvente higiênico", cclass:"000010", cst:"010"},
- {nomes:["papel higienico"], ncm:"48181000", produto:"Papel higiênico", cclass:"000010", cst:"010"},
- {nomes:["caneta"], ncm:"96081000", produto:"Caneta esferográfica", cclass:"000010", cst:"010"},
- {nomes:["lapis","lápis"], ncm:"96091000", produto:"Lápis", cclass:"000010", cst:"010"},
- {nomes:["cabo usb"], ncm:"85444200", produto:"Cabo USB", cclass:"000010", cst:"010"},
- {nomes:["camisa","camiseta"], ncm:"61091000", produto:"Camisa de algodão", cclass:"000010", cst:"010"},
- {nomes:["cachaca","cachaça"], ncm:"22072020", produto:"Cachaça", cclass:"000010", cst:"010"}
+ {nomes:["agulha"], ncm:"90183219", produto:"Agulha hipodérmica", cclass:"000010", cst:"010"},
+ {nomes:["caneta"], ncm:"96081000", produto:"Caneta esferográfica", cclass:"000010", cst:"010"}
 ];
 
-// ================= FUNÇÕES =================
 function normalizar(txt){
  return txt.toLowerCase()
  .normalize("NFD")
- .replace(/[\u0300-\u036f]/g,"");
+ .replace(/[\u0300-\u036f]/g,"")
+ .trim();
 }
 
 document.getElementById("busca").addEventListener("input", function(){
- const texto = normalizar(this.value.trim());
- const res = document.getElementById("resultado");
- const err = document.getElementById("erro");
- res.style.display="none";
- err.style.display="none";
+ const textoOriginal = this.value.trim();
+ const texto = normalizar(textoOriginal);
+ const resultado = document.getElementById("resultado");
+ const erro = document.getElementById("erro");
+
+ resultado.style.display="none";
+ erro.style.display="none";
 
  if(texto.length < 2) return;
 
- let achou = produtos.find(p =>
-   p.ncm.startsWith(texto.replace(/\D/g,"")) ||
-   p.nomes.some(n => texto.includes(normalizar(n)))
- );
+ let encontrado = null;
 
- if(!achou){
-   err.style.display="block";
-   err.innerHTML = "Nenhum resultado encontrado.";
+ // 🔎 BUSCA POR NCM
+ if(/^\d+$/.test(texto)){
+   encontrado = produtos.find(p => p.ncm.startsWith(texto));
+ }
+
+ // 🔎 BUSCA POR NOME (palavra inteira)
+ if(!encontrado){
+   encontrado = produtos.find(p =>
+     p.nomes.some(n => normalizar(n) === texto)
+   );
+ }
+
+ if(!encontrado){
+   erro.style.display="block";
+   erro.innerHTML = "Nenhum resultado encontrado.";
    return;
  }
 
- res.style.display="block";
- res.innerHTML = `
- <b>Produto identificado:</b> ${achou.produto}<br>
- <b>NCM:</b> ${achou.ncm}<br><br>
- <b>CClassTrib (CE):</b> ${achou.cclass}<br>
- <b>CST para CClassTrib:</b> ${achou.cst}<br><br>
- <span class="small">Classificação baseada em tabela do CE. Confirme com contador.</span>
+ resultado.style.display="block";
+ resultado.innerHTML = `
+ <b>Produto identificado:</b> ${encontrado.produto}<br>
+ <b>NCM:</b> ${encontrado.ncm}<br><br>
+ <b>CClassTrib (CE):</b> ${encontrado.cclass}<br>
+ <b>CST para CClassTrib:</b> ${encontrado.cst}<br>
+ <span class="small">Confirme sempre com contador.</span>
  `;
 });
 </script>
