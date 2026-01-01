@@ -2,25 +2,67 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • cClassTrib • CE</title>
+<title>Consulta NCM • CClassTrib • CST – Ceará</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body { font-family: Arial, sans-serif; padding: 15px; background: #f4f6f8; }
-h1 { text-align:center; font-size:22px; }
-input { width:100%; padding:12px; font-size:16px; border-radius:6px; border:1px solid #ccc; margin-bottom:12px; }
-table { width:100%; border-collapse:collapse; background:#fff; }
-th,td { padding:10px; border:1px solid #ddd; font-size:14px; }
-th { background:#2563eb; color:#fff; }
-tr:nth-child(even){ background:#eef2f7; }
-.msg { text-align:center; margin-top:10px; font-weight:bold; color:#b91c1c; }
-@media(max-width:600px){ th,td{ font-size:12px } }
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 15px;
+}
+h1 {
+  text-align: center;
+  font-size: 22px;
+}
+input {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+th {
+  background: #2563eb;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background: #eef2f7;
+}
+.msg {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #b91c1c;
+}
+@media (max-width: 600px) {
+  th, td {
+    font-size: 12px;
+  }
+}
 </style>
 </head>
 
 <body>
-<h1>Consulta NCM • cClassTrib • CST (CE)</h1>
 
-<input id="busca" placeholder="Digite produto ou NCM (ex: banana, 2201, camisa)" oninput="buscar()">
+<h1>Consulta NCM • CClassTrib • CST (CE)</h1>
+
+<input
+  id="busca"
+  placeholder="Digite produto ou NCM (ex: arroz, banana, 2201, camisa)"
+  oninput="buscar()"
+/>
 
 <table>
 <thead>
@@ -28,8 +70,8 @@ tr:nth-child(even){ background:#eef2f7; }
   <th>NCM</th>
   <th>Produto</th>
   <th>CST</th>
-  <th>cClassTrib</th>
-  <th>Descrição cClassTrib</th>
+  <th>CClassTrib</th>
+  <th>Descrição</th>
 </tr>
 </thead>
 <tbody id="resultado"></tbody>
@@ -38,68 +80,108 @@ tr:nth-child(even){ background:#eef2f7; }
 <div id="msg" class="msg"></div>
 
 <script>
-async function carregarJSON(url){ 
-  const r = await fetch(url); 
-  return r.ok ? await r.json() : [];
+// ================= BASE DE PRODUTOS =================
+const produtos = [
+  // Bebidas
+  { nome: "Água mineral", termos:["agua","agua mineral"], ncm:"22011000" },
+  { nome: "Refrigerante", termos:["refrigerante","coca","coca cola"], ncm:"22021000" },
+  { nome: "Cerveja", termos:["cerveja"], ncm:"22030000" },
+  { nome: "Cachaça", termos:["cachaca","cachaça"], ncm:"22072020" },
+
+  // Cesta básica
+  { nome: "Arroz", termos:["arroz"], ncm:"10063021" },
+  { nome: "Feijão", termos:["feijao","feijão"], ncm:"07133329" },
+  { nome: "Óleo de soja", termos:["oleo","óleo"], ncm:"15079011" },
+  { nome: "Ovos", termos:["ovo","ovos"], ncm:"04072100" },
+
+  // Hortifruti
+  { nome: "Banana", termos:["banana"], ncm:"08039000" },
+  { nome: "Maçã", termos:["maca","maçã"], ncm:"08081000" },
+  { nome: "Laranja", termos:["laranja"], ncm:"08051000" },
+  { nome: "Tomate", termos:["tomate"], ncm:"07020000" },
+  { nome: "Batata", termos:["batata"], ncm:"07019000" },
+  { nome: "Cebola", termos:["cebola"], ncm:"07031000" },
+  { nome: "Alface", termos:["alface"], ncm:"07051000" },
+
+  // Eletrônicos
+  { nome: "Cabo USB", termos:["cabo usb","usb"], ncm:"85444200" },
+  { nome: "Carregador de celular", termos:["carregador"], ncm:"85044090" },
+  { nome: "Mouse", termos:["mouse"], ncm:"84716053" },
+  { nome: "Teclado", termos:["teclado"], ncm:"84716052" },
+
+  // Vestuário
+  { nome: "Camisa de algodão", termos:["camisa"], ncm:"61051000" },
+  { nome: "Calça jeans", termos:["calca","jeans"], ncm:"62034200" }
+];
+
+// ================= TABELA CCLASSTRIB =================
+const cclassTabela = {
+  "000001": "Tributação integral",
+  "200001": "Alíquota zero (cesta básica)",
+  "400001": "Isenção (hortifruti in natura)"
+};
+
+// ================= FUNÇÕES =================
+function normalizar(txt) {
+  return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// normaliza texto
-function norm(t){
-  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function regraFiscal(nome) {
+  const n = normalizar(nome);
+
+  const hortifruti = [
+    "banana","maca","maçã","laranja","tomate",
+    "batata","cebola","alface"
+  ];
+
+  const cestaBasica = [
+    "arroz","feijao","feijão","oleo","óleo","ovo","ovos"
+  ];
+
+  if (hortifruti.some(p => n.includes(p))) {
+    return { cst:"400", cclass:"400001" };
+  }
+
+  if (cestaBasica.some(p => n.includes(p))) {
+    return { cst:"200", cclass:"200001" };
+  }
+
+  return { cst:"000", cclass:"000001" };
 }
 
-let produtos = [];
-let cclass = [];
-
-// carrega dados
-(async()=>{
-  produtos = await carregarJSON("produtos.json");
-  cclass = await carregarJSON("cclasstrib.json");
-})();
-
-// regra padrão fiscal (CE)
-function regraFiscal(ncm){
-  // padrão mercantil
-  return {
-    cst: "000",
-    cclass: "000001"
-  };
-}
-
-function buscar(){
-  const termo = norm(document.getElementById("busca").value);
+function buscar() {
+  const termo = normalizar(document.getElementById("busca").value);
+  const num = termo.replace(/\D/g,"");
   const res = document.getElementById("resultado");
   const msg = document.getElementById("msg");
+
   res.innerHTML = "";
   msg.innerText = "";
 
-  if(termo.length < 2) return;
+  if (termo.length < 2) return;
 
-  const num = termo.replace(/\D/g,"");
-  const achados = produtos.filter(p => {
-    return (
-      (num && p.ncm.startsWith(num)) ||
-      norm(p.nome).includes(termo)
-    );
-  });
+  const achados = produtos.filter(p =>
+    (num && p.ncm.startsWith(num)) ||
+    normalizar(p.nome).includes(termo) ||
+    p.termos.some(t => normalizar(t).includes(termo))
+  );
 
-  if(!achados.length){
+  if (!achados.length) {
     msg.innerText = "Nenhum resultado encontrado";
     return;
   }
 
   achados.forEach(p => {
-    const regra = regraFiscal(p.ncm);
-    const desc = (cclass.find(c=>c.cclasstrib===regra.cclass) || {}).descricao || "";
-
+    const regra = regraFiscal(p.nome);
     res.innerHTML += `
-<tr>
-  <td>${p.ncm}</td>
-  <td>${p.nome}</td>
-  <td>${regra.cst}</td>
-  <td>${regra.cclass}</td>
-  <td>${desc}</td>
-</tr>`;
+      <tr>
+        <td>${p.ncm}</td>
+        <td>${p.nome}</td>
+        <td>${regra.cst}</td>
+        <td>${regra.cclass}</td>
+        <td>${cclassTabela[regra.cclass]}</td>
+      </tr>
+    `;
   });
 }
 </script>
