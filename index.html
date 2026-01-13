@@ -9,7 +9,6 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f6f8;
-  margin: 0;
   padding: 15px;
 }
 
@@ -33,14 +32,8 @@ input {
   box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
-.card strong {
-  font-size: 16px;
-}
-
-.muted {
-  color: #666;
-  font-size: 14px;
-}
+.ok { color: green; font-weight: bold; }
+.warn { color: #666; font-size: 14px; }
 </style>
 </head>
 
@@ -50,7 +43,6 @@ input {
 
 <input
   id="busca"
-  type="text"
   placeholder="Digite nome do produto ou NCM (ex: arroz, cerveja, 22011000)"
   oninput="buscar()"
 />
@@ -58,96 +50,81 @@ input {
 <div id="resultado"></div>
 
 <script>
-// ============================
-// BASE FÁCIL (NOME COMERCIAL)
-// ============================
-const baseFacil = [
-  { nome: "Água mineral", ncm: "22011000", cclasstrib: "000010", cst: "010" },
-  { nome: "Refrigerante", ncm: "22021000", cclasstrib: "000010", cst: "010" },
-  { nome: "Cerveja", ncm: "22030000", cclasstrib: "000010", cst: "010" },
-  { nome: "Arroz", ncm: "10063021", cclasstrib: "000001", cst: "000" },
-  { nome: "Feijão", ncm: "07133399", cclasstrib: "000001", cst: "000" },
-  { nome: "Macarrão", ncm: "19021900", cclasstrib: "000001", cst: "000" },
-  { nome: "Biscoito", ncm: "19053100", cclasstrib: "000001", cst: "000" },
-  { nome: "Café", ncm: "09012100", cclasstrib: "000001", cst: "000" },
-  { nome: "Caneta esferográfica", ncm: "96081000", cclasstrib: "000003", cst: "000" },
-  { nome: "Lápis", ncm: "96091000", cclasstrib: "000003", cst: "000" },
-  { nome: "Cabo USB", ncm: "85444200", cclasstrib: "000003", cst: "000" },
-  { nome: "Camisa de algodão", ncm: "61051000", cclasstrib: "000003", cst: "000" }
+// =====================
+// BASE CE VALIDADA
+// =====================
+const baseCE = [
+  { nome:"Água mineral", ncm:"22011000", cclasstrib:"000010", cst:"010" },
+  { nome:"Refrigerante", ncm:"22021000", cclasstrib:"000010", cst:"010" },
+  { nome:"Cerveja", ncm:"22030000", cclasstrib:"000010", cst:"010" },
+  { nome:"Arroz", ncm:"10063021", cclasstrib:"000001", cst:"000" },
+  { nome:"Feijão", ncm:"07133399", cclasstrib:"000001", cst:"000" },
+  { nome:"Macarrão", ncm:"19021900", cclasstrib:"000001", cst:"000" },
+  { nome:"Biscoito", ncm:"19053100", cclasstrib:"000001", cst:"000" },
+  { nome:"Caneta esferográfica", ncm:"96081000", cclasstrib:"000003", cst:"000" },
+  { nome:"Cabo USB", ncm:"85444200", cclasstrib:"000003", cst:"000" }
 ];
 
-// ============================
+// =====================
 // TABELA NCM OFICIAL
-// ============================
+// =====================
 let tabelaNCM = [];
 
 fetch("tabelancm.json")
   .then(r => r.json())
-  .then(dados => tabelaNCM = dados);
+  .then(d => tabelaNCM = d);
 
-// ============================
-// FUNÇÕES
-// ============================
-function normalizar(txt) {
-  return txt
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+// =====================
+function norm(txt){
+  return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-function buscar() {
-  const termoOriginal = document.getElementById("busca").value.trim();
-  const termo = normalizar(termoOriginal);
-  const resultado = document.getElementById("resultado");
-  resultado.innerHTML = "";
+function buscar(){
+  const termo = document.getElementById("busca").value.trim();
+  const termoN = norm(termo);
+  const res = document.getElementById("resultado");
+  res.innerHTML = "";
 
-  // Não pesquisar enquanto digita pouco
   if (termo.length < 3) return;
 
-  // ============================
-  // 1️⃣ BUSCA NA BASE FÁCIL
-  // ============================
-  const achadosFacil = baseFacil.filter(p =>
-    normalizar(p.nome).includes(termo) ||
-    p.ncm.startsWith(termoOriginal)
+  // 1️⃣ BASE CE
+  const ce = baseCE.filter(p =>
+    norm(p.nome).includes(termoN) ||
+    p.ncm.includes(termo)
   );
 
-  if (achadosFacil.length) {
-    achadosFacil.forEach(p => {
-      resultado.innerHTML += `
-        <div class="card">
-          <strong>${p.nome}</strong><br>
-          NCM: ${p.ncm}<br>
-          CClassTrib (CE): ${p.cclasstrib}<br>
-          CST para CClassTrib: ${p.cst}
-        </div>
-      `;
+  if (ce.length){
+    ce.forEach(p=>{
+      res.innerHTML += `
+      <div class="card">
+        <strong>${p.nome}</strong><br>
+        NCM: ${p.ncm}<br>
+        CClassTrib (CE): <span class="ok">${p.cclasstrib}</span><br>
+        CST para CClassTrib: <span class="ok">${p.cst}</span>
+      </div>`;
     });
     return;
   }
 
-  // ============================
-  // 2️⃣ BUSCA NA TABELA OFICIAL
-  // ============================
-  const achadosNCM = tabelaNCM.filter(n =>
-    n.ncm.startsWith(termoOriginal) ||
-    normalizar(n.descricao).includes(termo)
-  );
+  // 2️⃣ TABELA OFICIAL
+  const oficiais = tabelaNCM.filter(n =>
+    n.ncm.includes(termo) ||
+    norm(n.descricao).includes(termoN)
+  ).slice(0, 40);
 
-  if (achadosNCM.length) {
-    achadosNCM.slice(0, 30).forEach(n => {
-      resultado.innerHTML += `
-        <div class="card">
-          <strong>${n.descricao}</strong><br>
-          NCM: ${n.ncm}<br>
-          <span class="muted">
-            Classificação tributária (CClassTrib / CST) depende do enquadramento no CE
-          </span>
-        </div>
-      `;
+  if (oficiais.length){
+    oficiais.forEach(n=>{
+      res.innerHTML += `
+      <div class="card">
+        <strong>${n.descricao}</strong><br>
+        NCM: ${n.ncm}<br>
+        <span class="warn">
+          Classificação tributária depende do enquadramento no CE
+        </span>
+      </div>`;
     });
   } else {
-    resultado.innerHTML = "Nenhum resultado encontrado.";
+    res.innerHTML = "Nenhum resultado encontrado.";
   }
 }
 </script>
