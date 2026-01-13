@@ -2,100 +2,155 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM • CClassTrib CE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta NCM + CClassTrib CE</title>
 
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:15px}
-.container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:10px}
-input{width:100%;padding:14px;font-size:16px;margin-top:10px}
-.result,.error{margin-top:20px;padding:15px;border-radius:8px;display:none}
-.result{background:#eef6ff}
-.error{background:#fee2e2}
-.small{font-size:12px;color:#555}
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 15px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card strong {
+  font-size: 16px;
+}
+
+.muted {
+  color: #666;
+  font-size: 14px;
+}
 </style>
 </head>
 
 <body>
-<div class="container">
-<h2>Consulta NCM e CClassTrib – Ceará</h2>
 
-<input id="busca" placeholder="Digite o produto ou NCM (ex: arroz, caneta, 22011000)">
+<h1>Consulta NCM e Classificação Tributária (CE)</h1>
 
-<div id="resultado" class="result"></div>
-<div id="erro" class="error"></div>
-</div>
+<input
+  id="busca"
+  type="text"
+  placeholder="Digite nome do produto ou NCM (ex: arroz, cerveja, 22011000)"
+  oninput="buscar()"
+/>
+
+<div id="resultado"></div>
 
 <script>
+// ============================
+// BASE FÁCIL (NOME COMERCIAL)
+// ============================
+const baseFacil = [
+  { nome: "Água mineral", ncm: "22011000", cclasstrib: "000010", cst: "010" },
+  { nome: "Refrigerante", ncm: "22021000", cclasstrib: "000010", cst: "010" },
+  { nome: "Cerveja", ncm: "22030000", cclasstrib: "000010", cst: "010" },
+  { nome: "Arroz", ncm: "10063021", cclasstrib: "000001", cst: "000" },
+  { nome: "Feijão", ncm: "07133399", cclasstrib: "000001", cst: "000" },
+  { nome: "Macarrão", ncm: "19021900", cclasstrib: "000001", cst: "000" },
+  { nome: "Biscoito", ncm: "19053100", cclasstrib: "000001", cst: "000" },
+  { nome: "Café", ncm: "09012100", cclasstrib: "000001", cst: "000" },
+  { nome: "Caneta esferográfica", ncm: "96081000", cclasstrib: "000003", cst: "000" },
+  { nome: "Lápis", ncm: "96091000", cclasstrib: "000003", cst: "000" },
+  { nome: "Cabo USB", ncm: "85444200", cclasstrib: "000003", cst: "000" },
+  { nome: "Camisa de algodão", ncm: "61051000", cclasstrib: "000003", cst: "000" }
+];
+
+// ============================
+// TABELA NCM OFICIAL
+// ============================
 let tabelaNCM = [];
-let tabelaCClass = [];
 
-// carregar bases
-Promise.all([
- fetch('tbelancm.json').then(r=>r.json()),
- fetch('cclasstrib.json').then(r=>r.json())
-]).then(([ncm, cclass])=>{
- tabelaNCM = ncm;
- tabelaCClass = cclass;
-});
+fetch("tabelancm.json")
+  .then(r => r.json())
+  .then(dados => tabelaNCM = dados);
 
-// normalizar texto
-function norm(t){
- return t.toLowerCase()
- .normalize("NFD")
- .replace(/[\u0300-\u036f]/g,"")
- .trim();
+// ============================
+// FUNÇÕES
+// ============================
+function normalizar(txt) {
+  return txt
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
-document.getElementById("busca").addEventListener("input", function(){
- const q = norm(this.value);
- const res = document.getElementById("resultado");
- const err = document.getElementById("erro");
+function buscar() {
+  const termoOriginal = document.getElementById("busca").value.trim();
+  const termo = normalizar(termoOriginal);
+  const resultado = document.getElementById("resultado");
+  resultado.innerHTML = "";
 
- res.style.display = err.style.display = "none";
- if(q.length < 3) return;
+  // Não pesquisar enquanto digita pouco
+  if (termo.length < 3) return;
 
- let produto = null;
+  // ============================
+  // 1️⃣ BUSCA NA BASE FÁCIL
+  // ============================
+  const achadosFacil = baseFacil.filter(p =>
+    normalizar(p.nome).includes(termo) ||
+    p.ncm.startsWith(termoOriginal)
+  );
 
- // 🔎 busca por NCM
- if(/^\d+$/.test(q)){
-   produto = tabelaNCM.find(n => n.codigo.startsWith(q));
- }
- // 🔎 busca por descrição
- else {
-   produto = tabelaNCM.find(n => norm(n.descricao).includes(q));
- }
+  if (achadosFacil.length) {
+    achadosFacil.forEach(p => {
+      resultado.innerHTML += `
+        <div class="card">
+          <strong>${p.nome}</strong><br>
+          NCM: ${p.ncm}<br>
+          CClassTrib (CE): ${p.cclasstrib}<br>
+          CST para CClassTrib: ${p.cst}
+        </div>
+      `;
+    });
+    return;
+  }
 
- if(!produto){
-   err.style.display = "block";
-   err.innerHTML = "Nenhum resultado encontrado.";
-   return;
- }
+  // ============================
+  // 2️⃣ BUSCA NA TABELA OFICIAL
+  // ============================
+  const achadosNCM = tabelaNCM.filter(n =>
+    n.ncm.startsWith(termoOriginal) ||
+    normalizar(n.descricao).includes(termo)
+  );
 
- // cruzar com CClassTrib
- let regra = tabelaCClass.find(c => produto.codigo.startsWith(c.ncm));
-
- let cclass = regra ? regra.cClassTrib : "000010";
-
- const mapaCST = {
-   "000001":"000",
-   "000010":"010",
-   "000020":"020",
-   "000030":"030",
-   "000040":"040"
- };
-
- let cst = mapaCST[cclass] || "010";
-
- res.style.display = "block";
- res.innerHTML = `
- <b>Produto:</b> ${produto.descricao}<br>
- <b>NCM:</b> ${produto.codigo}<br><br>
- <b>CClassTrib (CE):</b> ${cclass}<br>
- <b>CST para CClassTrib:</b> ${cst}<br>
- <span class="small">Base NCM oficial + CClassTrib CE</span>
- `;
-});
+  if (achadosNCM.length) {
+    achadosNCM.slice(0, 30).forEach(n => {
+      resultado.innerHTML += `
+        <div class="card">
+          <strong>${n.descricao}</strong><br>
+          NCM: ${n.ncm}<br>
+          <span class="muted">
+            Classificação tributária (CClassTrib / CST) depende do enquadramento no CE
+          </span>
+        </div>
+      `;
+    });
+  } else {
+    resultado.innerHTML = "Nenhum resultado encontrado.";
+  }
+}
 </script>
+
 </body>
 </html>
