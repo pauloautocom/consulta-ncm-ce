@@ -14,35 +14,37 @@ input { width:100%; padding:14px; font-size:16px; margin-bottom:10px; }
   margin-bottom:8px; box-shadow:0 2px 4px rgba(0,0,0,.1);
 }
 .ok { color:green; font-weight:bold; }
-.warn { font-size:13px; color:#555; }
-.small { font-size:13px; color:#777; }
+.warn { font-size:13px; color:#b45309; }
+.small { font-size:13px; color:#555; }
 </style>
 </head>
 
 <body>
 
-<h1>Consulta NCM – Ceará</h1>
+<h1>Consulta Fiscal – Ceará</h1>
 
 <input id="busca" placeholder="Produto ou NCM (ex: arroz, cerveja, 22011000)" />
 
 <div id="resultado" class="small">Digite para pesquisar.</div>
 
 <script>
-// ================= BASE CE (RÁPIDA) =================
+// ================= BASE CE (CLASSIFICADA) =================
 const baseCE = [
   { nome:"Água mineral", ncm:"22011000", cclasstrib:"000010", cst:"010" },
   { nome:"Refrigerante", ncm:"22021000", cclasstrib:"000010", cst:"010" },
   { nome:"Cerveja", ncm:"22030000", cclasstrib:"000010", cst:"010" },
+
   { nome:"Arroz", ncm:"10063021", cclasstrib:"000001", cst:"000" },
   { nome:"Feijão", ncm:"07133399", cclasstrib:"000001", cst:"000" },
   { nome:"Macarrão", ncm:"19021900", cclasstrib:"000001", cst:"000" },
   { nome:"Biscoito", ncm:"19053100", cclasstrib:"000001", cst:"000" },
+
   { nome:"Caneta esferográfica", ncm:"96081000", cclasstrib:"000003", cst:"000" },
   { nome:"Cabo USB", ncm:"85444200", cclasstrib:"000003", cst:"000" },
   { nome:"Camisa algodão", ncm:"61091000", cclasstrib:"000003", cst:"000" }
 ];
 
-// ================= TABELA OFICIAL =================
+// ================= TABELA NCM OFICIAL =================
 let tabelaNCM = [];
 let carregada = false;
 
@@ -83,14 +85,14 @@ function buscar(){
   const termoN = normalizar(termo);
   const termoNum = termo.replace(/\D/g,"");
 
-  // 🔹 1) BUSCA CE (SÓ SE HOUVER MATCH REAL)
-  const ceResultados = baseCE.filter(p =>
+  // 🔹 1) BUSCA CE (COM CLASSIFICAÇÃO)
+  const ce = baseCE.filter(p =>
     normalizar(p.nome).includes(termoN) ||
     (termoNum && p.ncm.startsWith(termoNum))
   );
 
-  if (ceResultados.length > 0){
-    ceResultados.forEach(p=>{
+  if (ce.length){
+    ce.forEach(p=>{
       res.innerHTML += `
       <div class="card">
         <strong>${p.nome}</strong><br>
@@ -99,10 +101,10 @@ function buscar(){
         CST para CClassTrib: <span class="ok">${p.cst}</span>
       </div>`;
     });
-    return; // ❗ NÃO continua
+    return;
   }
 
-  // 🔹 2) BUSCA TABELA OFICIAL
+  // 🔹 2) BUSCA TABELA OFICIAL (SEM INVENTAR)
   if (!carregada){
     res.innerHTML = "Carregando tabela oficial…";
     return;
@@ -113,13 +115,15 @@ function buscar(){
     normalizar(n.descricao).includes(termoN)
   ).slice(0, 30);
 
-  if (oficiais.length > 0){
+  if (oficiais.length){
     oficiais.forEach(n=>{
       res.innerHTML += `
       <div class="card">
         <strong>${n.descricao}</strong><br>
         NCM: ${n.ncm}<br>
-        <span class="warn">Classificação tributária depende do enquadramento no CE</span>
+        <span class="warn">
+          ⚠️ Classificação tributária (CClassTrib/CST) depende do enquadramento no Ceará
+        </span>
       </div>`;
     });
   } else {
