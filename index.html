@@ -3,134 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM e CClassTrib – CE</title>
+<title>Consulta NCM e CClassTrib - CE</title>
 
 <style>
-body { font-family: Arial, sans-serif; background:#f4f6f8; padding:10px; }
-h1 { text-align:center; font-size:20px; }
-input { width:100%; padding:14px; font-size:16px; margin-bottom:10px; }
-.card {
-  background:#fff; padding:12px; border-radius:6px;
-  margin-bottom:8px; box-shadow:0 2px 4px rgba(0,0,0,.1);
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 15px;
 }
-.ok { color:green; font-weight:bold; }
-.warn { font-size:13px; color:#b45309; }
-.small { font-size:13px; color:#555; }
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.result {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+.result:last-child {
+  border-bottom: none;
+}
+.label {
+  font-weight: bold;
+}
+.loading {
+  color: #555;
+  font-style: italic;
+}
+.notfound {
+  color: red;
+}
 </style>
 </head>
 
 <body>
+<div class="container">
+<h1>Consulta NCM / CClassTrib – Ceará</h1>
 
-<h1>Consulta Fiscal – Ceará</h1>
+<input type="text" id="search" placeholder="Digite nome do produto ou NCM (ex: água mineral, cerveja, 22011000)">
 
-<input id="busca" placeholder="Produto ou NCM (ex: arroz, cerveja, 22011000)" />
-
-<div id="resultado" class="small">Digite para pesquisar.</div>
+<div id="status" class="loading">Carregando bases…</div>
+<div id="results"></div>
+</div>
 
 <script>
-// ================= BASE CE (CLASSIFICADA) =================
-const baseCE = [
-  { nome:"Água mineral", ncm:"22011000", cclasstrib:"000010", cst:"010" },
-  { nome:"Refrigerante", ncm:"22021000", cclasstrib:"000010", cst:"010" },
-  { nome:"Cerveja", ncm:"22030000", cclasstrib:"000010", cst:"010" },
+let ncmBase = [];
+let cclassBase = [];
+let indexBusca = [];
 
-  { nome:"Arroz", ncm:"10063021", cclasstrib:"000001", cst:"000" },
-  { nome:"Feijão", ncm:"07133399", cclasstrib:"000001", cst:"000" },
-  { nome:"Macarrão", ncm:"19021900", cclasstrib:"000001", cst:"000" },
-  { nome:"Biscoito", ncm:"19053100", cclasstrib:"000001", cst:"000" },
+const CST_MAP = {
+  "000": "Tributação integral",
+  "010": "Tributação com alíquota uniforme",
+  "020": "Tributação com redução de base",
+  "030": "Isenta",
+  "040": "Não tributada",
+  "050": "Suspensão",
+  "060": "Diferimento"
+};
 
-  { nome:"Caneta esferográfica", ncm:"96081000", cclasstrib:"000003", cst:"000" },
-  { nome:"Cabo USB", ncm:"85444200", cclasstrib:"000003", cst:"000" },
-  { nome:"Camisa algodão", ncm:"61091000", cclasstrib:"000003", cst:"000" }
+// 🔹 Base de nomes fáceis (mercantil)
+const aliases = [
+  { nome: "água mineral", ncm: "22011000" },
+  { nome: "refrigerante", ncm: "22021000" },
+  { nome: "coca cola", ncm: "22021000" },
+  { nome: "cerveja", ncm: "22030000" },
+  { nome: "arroz", ncm: "10063021" },
+  { nome: "feijão", ncm: "07133329" },
+  { nome: "macarrão", ncm: "19021900" },
+  { nome: "biscoito", ncm: "19053100" },
+  { nome: "café", ncm: "09012100" },
+  { nome: "óleo de soja", ncm: "15071000" },
+  { nome: "caneta esferográfica", ncm: "96081000" },
+  { nome: "lápis", ncm: "96091000" },
+  { nome: "cabo usb", ncm: "85444200" },
+  { nome: "camisa algodão", ncm: "61051000" }
 ];
 
-// ================= TABELA NCM OFICIAL =================
-let tabelaNCM = [];
-let carregada = false;
+async function carregarDados() {
+  try {
+    const ncmResp = await fetch("tabelancm.json");
+    ncmBase = await ncmResp.json();
 
-fetch("tabelancm.json")
-  .then(r => r.json())
-  .then(d => {
-    tabelaNCM = d.map(n => ({
-      ncm: String(n.ncm).replace(/\D/g,""),
-      descricao: n.descricao || ""
-    }));
-    carregada = true;
+    const cclassResp = await fetch("cclasstrib.json");
+    cclassBase = await cclassResp.json();
+
+    montarIndice();
+
+    document.getElementById("status").innerText =
+      "Bases carregadas. Digite para pesquisar.";
+  } catch (e) {
+    document.getElementById("status").innerText =
+      "Erro ao carregar arquivos JSON.";
+  }
+}
+
+function montarIndice() {
+  indexBusca = [];
+
+  ncmBase.forEach(item => {
+    indexBusca.push({
+      nome: item.descricao.toLowerCase(),
+      ncm: item.ncm
+    });
   });
 
-// ================= UTIL =================
-function normalizar(txt){
-  return txt.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"");
+  aliases.forEach(a => {
+    indexBusca.push({
+      nome: a.nome.toLowerCase(),
+      ncm: a.ncm
+    });
+  });
 }
 
-// ================= BUSCA =================
-let timer;
-document.getElementById("busca").addEventListener("input", () => {
-  clearTimeout(timer);
-  timer = setTimeout(buscar, 300);
-});
+function buscar() {
+  const termo = document.getElementById("search").value.trim().toLowerCase();
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
 
-function buscar(){
-  const termo = document.getElementById("busca").value.trim();
-  const res = document.getElementById("resultado");
-  res.innerHTML = "";
+  if (termo.length < 2) return;
 
-  if (termo.length < 2){
-    res.innerHTML = "Digite pelo menos 2 caracteres.";
+  const encontrados = indexBusca.filter(item =>
+    item.nome.includes(termo) || item.ncm.startsWith(termo)
+  ).slice(0, 20);
+
+  if (encontrados.length === 0) {
+    resultsDiv.innerHTML =
+      "<div class='notfound'>Nenhum resultado encontrado</div>";
     return;
   }
 
-  const termoN = normalizar(termo);
-  const termoNum = termo.replace(/\D/g,"");
+  encontrados.forEach(item => {
+    const ncmInfo = ncmBase.find(n => n.ncm === item.ncm);
+    const cclass = cclassBase.find(c => item.ncm.startsWith(c.ncm_inicio));
 
-  // 🔹 1) BUSCA CE (COM CLASSIFICAÇÃO)
-  const ce = baseCE.filter(p =>
-    normalizar(p.nome).includes(termoN) ||
-    (termoNum && p.ncm.startsWith(termoNum))
-  );
+    const cclassCod = cclass ? cclass.cclasstrib : "—";
+    const cst = cclass ? cclass.cst : "—";
+    const cstDesc = CST_MAP[cst] || "";
 
-  if (ce.length){
-    ce.forEach(p=>{
-      res.innerHTML += `
-      <div class="card">
-        <strong>${p.nome}</strong><br>
-        NCM: ${p.ncm}<br>
-        CClassTrib (CE): <span class="ok">${p.cclasstrib}</span><br>
-        CST para CClassTrib: <span class="ok">${p.cst}</span>
-      </div>`;
-    });
-    return;
-  }
-
-  // 🔹 2) BUSCA TABELA OFICIAL (SEM INVENTAR)
-  if (!carregada){
-    res.innerHTML = "Carregando tabela oficial…";
-    return;
-  }
-
-  const oficiais = tabelaNCM.filter(n =>
-    (termoNum && n.ncm.startsWith(termoNum)) ||
-    normalizar(n.descricao).includes(termoN)
-  ).slice(0, 30);
-
-  if (oficiais.length){
-    oficiais.forEach(n=>{
-      res.innerHTML += `
-      <div class="card">
-        <strong>${n.descricao}</strong><br>
-        NCM: ${n.ncm}<br>
-        <span class="warn">
-          ⚠️ Classificação tributária (CClassTrib/CST) depende do enquadramento no Ceará
-        </span>
-      </div>`;
-    });
-  } else {
-    res.innerHTML = "Nenhum resultado encontrado.";
-  }
+    const div = document.createElement("div");
+    div.className = "result";
+    div.innerHTML = `
+      <div><span class="label">Produto:</span> ${ncmInfo ? ncmInfo.descricao : item.nome}</div>
+      <div><span class="label">NCM:</span> ${item.ncm}</div>
+      <div><span class="label">CClassTrib (CE):</span> ${cclassCod}</div>
+      <div><span class="label">CST p/ CClassTrib:</span> ${cst} ${cstDesc}</div>
+    `;
+    resultsDiv.appendChild(div);
+  });
 }
+
+document.getElementById("search").addEventListener("input", buscar);
+carregarDados();
 </script>
-
 </body>
 </html>
