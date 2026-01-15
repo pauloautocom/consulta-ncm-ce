@@ -2,171 +2,150 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM e CClassTrib - CE</title>
+<title>Consulta NCM + CClassTrib (CE)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 15px;
+body { font-family: Arial, sans-serif; background:#f4f6f8; padding:15px; }
+.card {
+  max-width:760px; margin:auto; background:#fff;
+  padding:20px; border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
-.container {
-  max-width: 900px;
-  margin: auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
-h1 {
-  text-align: center;
-  margin-bottom: 15px;
-}
+h1 { font-size:20px; }
 input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  margin-bottom: 15px;
+  width:100%; padding:12px; font-size:16px; margin-top:10px;
 }
-.result {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+.resultado { margin-top:15px; }
+.item {
+  padding:10px; border-bottom:1px solid #ddd;
 }
-.result:last-child {
-  border-bottom: none;
+.badge {
+  display:inline-block; padding:4px 8px;
+  background:#2563eb; color:#fff;
+  border-radius:6px; font-size:12px;
+  margin-right:6px;
 }
-.label {
-  font-weight: bold;
-}
-.loading {
-  color: #555;
-  font-style: italic;
-}
-.notfound {
-  color: red;
-}
+.nao { background:#999; }
+.small { font-size:12px; color:#666; }
 </style>
 </head>
 
 <body>
-<div class="container">
-<h1>Consulta NCM / CClassTrib – Ceará</h1>
 
-<input type="text" id="search" placeholder="Digite nome do produto ou NCM (ex: água mineral, cerveja, 22011000)">
+<div class="card">
+<h1>Consulta Fiscal – Ceará</h1>
+<p class="small">Busca por nome ou NCM • Base oficial + nomes fáceis</p>
 
-<div id="status" class="loading">Carregando bases…</div>
-<div id="results"></div>
+<input id="busca" placeholder="Ex: água mineral, cerveja, arroz, 22011000">
+
+<div id="resultado" class="resultado"></div>
 </div>
 
 <script>
-let ncmBase = [];
-let cclassBase = [];
-let indexBusca = [];
-
-const CST_MAP = {
-  "000": "Tributação integral",
-  "010": "Tributação com alíquota uniforme",
-  "020": "Tributação com redução de base",
-  "030": "Isenta",
-  "040": "Não tributada",
-  "050": "Suspensão",
-  "060": "Diferimento"
-};
-
-// 🔹 Base de nomes fáceis (mercantil)
-const aliases = [
-  { nome: "água mineral", ncm: "22011000" },
-  { nome: "refrigerante", ncm: "22021000" },
-  { nome: "coca cola", ncm: "22021000" },
-  { nome: "cerveja", ncm: "22030000" },
-  { nome: "arroz", ncm: "10063021" },
-  { nome: "feijão", ncm: "07133329" },
-  { nome: "macarrão", ncm: "19021900" },
-  { nome: "biscoito", ncm: "19053100" },
-  { nome: "café", ncm: "09012100" },
-  { nome: "óleo de soja", ncm: "15071000" },
-  { nome: "caneta esferográfica", ncm: "96081000" },
-  { nome: "lápis", ncm: "96091000" },
-  { nome: "cabo usb", ncm: "85444200" },
-  { nome: "camisa algodão", ncm: "61051000" }
+// ========================
+// BASE FÁCIL (nomes comerciais)
+// ========================
+const baseFacil = [
+  { ncm:"22011000", nomes:["agua","agua mineral","água mineral"], produto:"Água mineral" },
+  { ncm:"22021000", nomes:["refrigerante","coca cola","coca-cola","guarana"], produto:"Refrigerante" },
+  { ncm:"22030000", nomes:["cerveja"], produto:"Cerveja" },
+  { ncm:"10063021", nomes:["arroz"], produto:"Arroz" },
+  { ncm:"07133329", nomes:["feijao","feijão"], produto:"Feijão" },
+  { ncm:"19021900", nomes:["macarrao","macarrão"], produto:"Macarrão" },
+  { ncm:"09012100", nomes:["cafe","café"], produto:"Café" },
+  { ncm:"96081000", nomes:["caneta"], produto:"Caneta esferográfica" },
+  { ncm:"85444200", nomes:["cabo usb","usb"], produto:"Cabo USB" }
 ];
 
-async function carregarDados() {
-  try {
-    const ncmResp = await fetch("tabelancm.json");
-    ncmBase = await ncmResp.json();
+// ========================
+// CCLASSTRIB – CE (modelo correto)
+// ========================
+const regrasCE = [
+  { inicio:"2201", cclasstrib:"000010", cst:"010", desc:"Água mineral" },
+  { inicio:"2202", cclasstrib:"000020", cst:"000", desc:"Bebidas – ST" },
+  { inicio:"2203", cclasstrib:"000020", cst:"000", desc:"Cervejas – ST" },
+  { inicio:"1006", cclasstrib:"000030", cst:"010", desc:"Cesta básica" },
+  { inicio:"0713", cclasstrib:"000030", cst:"010", desc:"Cesta básica" }
+];
 
-    const cclassResp = await fetch("cclasstrib.json");
-    cclassBase = await cclassResp.json();
+let tabelaNCM = [];
 
-    montarIndice();
+// ========================
+// CARREGA TABELA OFICIAL
+// ========================
+fetch("tabelancm.json")
+  .then(r => r.json())
+  .then(d => tabelaNCM = d)
+  .catch(() => console.warn("Tabela NCM não carregada"));
 
-    document.getElementById("status").innerText =
-      "Bases carregadas. Digite para pesquisar.";
-  } catch (e) {
-    document.getElementById("status").innerText =
-      "Erro ao carregar arquivos JSON.";
+// ========================
+function normalizar(t){
+  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+// ========================
+document.getElementById("busca").addEventListener("input", e => {
+  const q = normalizar(e.target.value.trim());
+  const div = document.getElementById("resultado");
+  div.innerHTML = "";
+
+  if(q.length < 2) return;
+
+  let resultados = [];
+
+  // 1️⃣ BASE FÁCIL
+  baseFacil.forEach(p => {
+    if (
+      p.ncm.startsWith(q) ||
+      p.nomes.some(n => normalizar(n).includes(q))
+    ) {
+      resultados.push({
+        produto:p.produto,
+        ncm:p.ncm
+      });
+    }
+  });
+
+  // 2️⃣ BASE OFICIAL (se não achou nada)
+  if(resultados.length === 0 && tabelaNCM.length){
+    tabelaNCM.forEach(p => {
+      if (
+        p.codigo.replace(/\D/g,"").startsWith(q) ||
+        normalizar(p.descricao).includes(q)
+      ) {
+        resultados.push({
+          produto:p.descricao,
+          ncm:p.codigo
+        });
+      }
+    });
   }
-}
 
-function montarIndice() {
-  indexBusca = [];
-
-  ncmBase.forEach(item => {
-    indexBusca.push({
-      nome: item.descricao.toLowerCase(),
-      ncm: item.ncm
-    });
-  });
-
-  aliases.forEach(a => {
-    indexBusca.push({
-      nome: a.nome.toLowerCase(),
-      ncm: a.ncm
-    });
-  });
-}
-
-function buscar() {
-  const termo = document.getElementById("search").value.trim().toLowerCase();
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
-
-  if (termo.length < 2) return;
-
-  const encontrados = indexBusca.filter(item =>
-    item.nome.includes(termo) || item.ncm.startsWith(termo)
-  ).slice(0, 20);
-
-  if (encontrados.length === 0) {
-    resultsDiv.innerHTML =
-      "<div class='notfound'>Nenhum resultado encontrado</div>";
+  if(resultados.length === 0){
+    div.innerHTML = "<p class='small'>Nenhum resultado encontrado.</p>";
     return;
   }
 
-  encontrados.forEach(item => {
-    const ncmInfo = ncmBase.find(n => n.ncm === item.ncm);
-    const cclass = cclassBase.find(c => item.ncm.startsWith(c.ncm_inicio));
+  resultados.slice(0,20).forEach(p => {
+    const regra = regrasCE.find(r => p.ncm.startsWith(r.inicio));
 
-    const cclassCod = cclass ? cclass.cclasstrib : "—";
-    const cst = cclass ? cclass.cst : "—";
-    const cstDesc = CST_MAP[cst] || "";
-
-    const div = document.createElement("div");
-    div.className = "result";
-    div.innerHTML = `
-      <div><span class="label">Produto:</span> ${ncmInfo ? ncmInfo.descricao : item.nome}</div>
-      <div><span class="label">NCM:</span> ${item.ncm}</div>
-      <div><span class="label">CClassTrib (CE):</span> ${cclassCod}</div>
-      <div><span class="label">CST p/ CClassTrib:</span> ${cst} ${cstDesc}</div>
+    div.innerHTML += `
+      <div class="item">
+        <b>${p.produto}</b><br>
+        NCM: ${p.ncm}<br>
+        <span class="badge">
+          CClassTrib: ${regra ? regra.cclasstrib : "Não definido"}
+        </span>
+        <span class="badge ${regra ? "" : "nao"}">
+          CST: ${regra ? regra.cst : "—"}
+        </span>
+        <div class="small">${regra ? regra.desc : "Sem regra específica CE"}</div>
+      </div>
     `;
-    resultsDiv.appendChild(div);
   });
-}
-
-document.getElementById("search").addEventListener("input", buscar);
-carregarDados();
+});
 </script>
+
 </body>
 </html>
