@@ -2,19 +2,20 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM + Classificação Tributária (CE)</title>
+<title>Consulta NCM e Classificação Tributária – CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body { font-family: Arial, sans-serif; background:#f3f4f6; padding:15px; }
+body { font-family: Arial, sans-serif; background:#f4f6f8; padding:15px; }
 .card {
-  max-width:820px; margin:auto; background:#fff;
+  max-width:900px; margin:auto; background:#fff;
   padding:20px; border-radius:10px;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 h1 { font-size:20px; }
 input {
-  width:100%; padding:12px; font-size:16px; margin-top:10px;
+  width:100%; padding:12px; font-size:16px;
+  margin-top:10px;
 }
 .resultado { margin-top:15px; }
 .item {
@@ -26,7 +27,6 @@ input {
   border-radius:6px; font-size:12px;
   margin-right:6px;
 }
-.cinza { background:#6b7280; }
 .small { font-size:12px; color:#555; margin-top:4px; }
 </style>
 </head>
@@ -35,7 +35,7 @@ input {
 
 <div class="card">
 <h1>Consulta Fiscal – Ceará</h1>
-<p class="small">Busca por nome ou NCM • Base oficial NCM + regras CE</p>
+<p class="small">Busca por nome ou NCM • Classificação automática por grupo tributário</p>
 
 <input id="busca" placeholder="Ex: arroz, cerveja, caneta, 22011000">
 
@@ -43,9 +43,9 @@ input {
 </div>
 
 <script>
-// ==========================
-// BASE FÁCIL (nome comercial)
-// ==========================
+// =====================
+// BASE FÁCIL (nomes)
+// =====================
 const baseFacil = [
   { ncm:"22011000", termos:["agua","agua mineral","água mineral"], nome:"Água mineral" },
   { ncm:"22021000", termos:["refrigerante","coca cola","guarana"], nome:"Refrigerante" },
@@ -56,38 +56,38 @@ const baseFacil = [
   { ncm:"09012100", termos:["cafe","café"], nome:"Café" },
   { ncm:"96081000", termos:["caneta"], nome:"Caneta esferográfica" },
   { ncm:"85444200", termos:["cabo usb","usb"], nome:"Cabo USB" },
-  { ncm:"61091000", termos:["camisa","camiseta"], nome:"Camiseta de algodão" }
+  { ncm:"61091000", termos:["camisa","camiseta"], nome:"Camiseta" }
 ];
 
-// ==========================
-// REGRAS CCLASSTRIB – CE
-// (classificação por FAIXA)
-// ==========================
-const regrasCE = [
-  { ini:"01", fim:"21", cclass:"000030", cst:"010", desc:"Cesta básica / alimentos" },
-  { ini:"22", fim:"22", cclass:"000020", cst:"000", desc:"Bebidas – Substituição Tributária" },
-  { ini:"30", fim:"30", cclass:"000040", cst:"000", desc:"Medicamentos" },
-  { ini:"61", fim:"63", cclass:"000050", cst:"010", desc:"Vestuário" },
-  { ini:"84", fim:"85", cclass:"000060", cst:"000", desc:"Eletrônicos / elétricos" },
-  { ini:"90", fim:"97", cclass:"000070", cst:"000", desc:"Diversos / papelaria / utilidades" }
+// =====================
+// GRUPOS TRIBUTÁRIOS CE
+// =====================
+const gruposCE = [
+  { ini:1, fim:21, cclass:"000030", cst:"010", desc:"Alimentos / Cesta básica" },
+  { ini:22, fim:24, cclass:"000020", cst:"000", desc:"Bebidas / Fumo (ST)" },
+  { ini:25, fim:27, cclass:"000080", cst:"000", desc:"Combustíveis / minerais" },
+  { ini:28, fim:38, cclass:"000090", cst:"000", desc:"Produtos químicos" },
+  { ini:39, fim:49, cclass:"000070", cst:"000", desc:"Plástico / papel / borracha" },
+  { ini:50, fim:67, cclass:"000050", cst:"010", desc:"Têxteis / vestuário / calçados" },
+  { ini:68, fim:83, cclass:"000070", cst:"000", desc:"Construção / metais" },
+  { ini:84, fim:85, cclass:"000060", cst:"000", desc:"Máquinas / eletrônicos" },
+  { ini:86, fim:89, cclass:"000060", cst:"000", desc:"Transportes" },
+  { ini:90, fim:97, cclass:"000070", cst:"000", desc:"Diversos / papelaria" }
 ];
 
 let tabelaNCM = [];
 
-// ==========================
-// CARREGA TABELA OFICIAL
-// ==========================
+// =====================
 fetch("tabelancm.json")
   .then(r => r.json())
-  .then(d => tabelaNCM = d)
-  .catch(() => console.warn("Erro ao carregar tabelancm.json"));
+  .then(d => tabelaNCM = d);
 
-// ==========================
+// =====================
 function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ==========================
+// =====================
 document.getElementById("busca").addEventListener("input", e => {
   const q = norm(e.target.value.trim());
   const res = document.getElementById("resultado");
@@ -96,14 +96,12 @@ document.getElementById("busca").addEventListener("input", e => {
 
   let achados = [];
 
-  // BASE FÁCIL
   baseFacil.forEach(p => {
     if(p.ncm.startsWith(q) || p.termos.some(t => norm(t).includes(q))){
       achados.push({ nome:p.nome, ncm:p.ncm });
     }
   });
 
-  // BASE OFICIAL
   tabelaNCM.forEach(p => {
     const ncm = String(p.ncm || p.codigo || "").replace(/\D/g,"");
     const desc = norm(p.descricao || "");
@@ -112,22 +110,17 @@ document.getElementById("busca").addEventListener("input", e => {
     }
   });
 
-  if(achados.length === 0){
-    res.innerHTML = "<p class='small'>Nenhum resultado encontrado.</p>";
-    return;
-  }
-
   achados.slice(0,25).forEach(p => {
-    const cap = p.ncm.substring(0,2);
-    const regra = regrasCE.find(r => cap >= r.ini && cap <= r.fim);
+    const cap = parseInt(p.ncm.substring(0,2));
+    const g = gruposCE.find(x => cap >= x.ini && cap <= x.fim);
 
     res.innerHTML += `
       <div class="item">
         <b>${p.nome}</b><br>
         NCM: ${p.ncm}<br>
-        <span class="badge">CClassTrib: ${regra ? regra.cclass : "Não definido"}</span>
-        <span class="badge ${regra ? "" : "cinza"}">CST: ${regra ? regra.cst : "—"}</span>
-        <div class="small">${regra ? regra.desc : "Sem regra específica CE"}</div>
+        <span class="badge">CClassTrib: ${g.cclass}</span>
+        <span class="badge">CST: ${g.cst}</span>
+        <div class="small">${g.desc}</div>
       </div>
     `;
   });
