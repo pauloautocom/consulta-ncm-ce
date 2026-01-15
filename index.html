@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta NCM + CClassTrib CE</title>
+<title>Consulta NCM e CClassTrib – CE</title>
 
 <style>
 body {
@@ -34,6 +34,7 @@ input {
 
 .ok { color: green; font-weight: bold; }
 .warn { color: #666; font-size: 14px; }
+.loading { color: #999; }
 </style>
 </head>
 
@@ -43,15 +44,15 @@ input {
 
 <input
   id="busca"
-  placeholder="Digite nome do produto ou NCM (ex: arroz, cerveja, 22011000)"
+  placeholder="Digite nome do produto ou NCM (ex: arroz, congelados, 03075200)"
   oninput="buscar()"
 />
 
-<div id="resultado"></div>
+<div id="resultado" class="loading">Carregando tabela oficial…</div>
 
 <script>
 // =====================
-// BASE CE VALIDADA
+// BASE CE (VALIDADA)
 // =====================
 const baseCE = [
   { nome:"Água mineral", ncm:"22011000", cclasstrib:"000010", cst:"010" },
@@ -61,36 +62,50 @@ const baseCE = [
   { nome:"Feijão", ncm:"07133399", cclasstrib:"000001", cst:"000" },
   { nome:"Macarrão", ncm:"19021900", cclasstrib:"000001", cst:"000" },
   { nome:"Biscoito", ncm:"19053100", cclasstrib:"000001", cst:"000" },
-  { nome:"Caneta esferográfica", ncm:"96081000", cclasstrib:"000003", cst:"000" },
-  { nome:"Cabo USB", ncm:"85444200", cclasstrib:"000003", cst:"000" }
+  { nome:"Caneta esferográfica", ncm:"96081000", cclasstrib:"000003", cst:"000" }
 ];
 
 // =====================
 // TABELA NCM OFICIAL
 // =====================
 let tabelaNCM = [];
+let carregado = false;
 
 fetch("tabelancm.json")
   .then(r => r.json())
-  .then(d => tabelaNCM = d);
+  .then(d => {
+    tabelaNCM = d.map(n => ({
+      ncm: n.ncm.replace(/\D/g, ""),
+      descricao: n.descricao
+    }));
+    carregado = true;
+    document.getElementById("resultado").innerHTML = "";
+  });
 
 // =====================
-function norm(txt){
+function normalizar(txt){
   return txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
 function buscar(){
   const termo = document.getElementById("busca").value.trim();
-  const termoN = norm(termo);
   const res = document.getElementById("resultado");
   res.innerHTML = "";
 
-  if (termo.length < 3) return;
+  if (!carregado){
+    res.innerHTML = "Carregando tabela NCM…";
+    return;
+  }
+
+  if (termo.length < 2) return;
+
+  const termoN = normalizar(termo);
+  const termoNum = termo.replace(/\D/g,"");
 
   // 1️⃣ BASE CE
   const ce = baseCE.filter(p =>
-    norm(p.nome).includes(termoN) ||
-    p.ncm.includes(termo)
+    normalizar(p.nome).includes(termoN) ||
+    p.ncm.includes(termoNum)
   );
 
   if (ce.length){
@@ -108,9 +123,9 @@ function buscar(){
 
   // 2️⃣ TABELA OFICIAL
   const oficiais = tabelaNCM.filter(n =>
-    n.ncm.includes(termo) ||
-    norm(n.descricao).includes(termoN)
-  ).slice(0, 40);
+    (termoNum && n.ncm.includes(termoNum)) ||
+    normalizar(n.descricao).includes(termoN)
+  ).slice(0, 50);
 
   if (oficiais.length){
     oficiais.forEach(n=>{
