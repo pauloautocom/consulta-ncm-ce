@@ -1,132 +1,109 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Motor Tributário Inteligente – CE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body { font-family: Arial; background:#f4f6f8; padding:15px; }
-.card {
-  max-width:900px; margin:auto; background:#fff;
-  padding:20px; border-radius:10px;
-}
-input, select {
-  width:100%; padding:12px; margin-top:10px;
-}
-.item {
-  padding:12px; border-bottom:1px solid #ddd;
-}
-.badge {
-  background:#2563eb; color:#fff;
-  padding:4px 8px; border-radius:6px;
-  font-size:12px; margin-right:5px;
-}
-.small { font-size:12px; color:#555; }
-</style>
-</head>
-
-<body>
-
-<div class="card">
-<h2>Motor Tributário Automático – Ceará</h2>
-
-<input id="busca" placeholder="Digite produto ou NCM">
-
-<select id="operacao">
-  <option value="normal">Venda normal</option>
-  <option value="exportacao">Exportação</option>
-  <option value="isento">Isento</option>
-</select>
-
-<div id="resultado"></div>
-</div>
-
 <script>
+// =====================
+// CARREGA BASE
+// =====================
 let tabelaNCM = [];
 
 fetch("tabelancm.json")
   .then(r => r.json())
-  .then(d => tabelaNCM = d);
+  .then(d => {
+    tabelaNCM = d.map(p => ({
+      ncm: formatarNCM(p.ncm || p.codigo),
+      descricao: p.descricao || ""
+    }));
+  });
 
-// ==========================
-// MOTOR DE REGRAS INTELIGENTE
-// ==========================
-function classificarProduto(ncm, operacao){
+// =====================
+// FORMATAR NCM CORRETAMENTE (8 dígitos)
+// =====================
+function formatarNCM(ncm){
+  return String(ncm).replace(/\D/g,"").padStart(8,"0");
+}
+
+// =====================
+// NORMALIZA TEXTO
+// =====================
+function norm(txt){
+  return txt
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/s\b/g,"") // remove plural simples
+    .trim();
+}
+
+// =====================
+// MOTOR TRIBUTÁRIO (mantido)
+// =====================
+function classificarProduto(ncm, op){
 
   const cap = parseInt(ncm.substring(0,2));
 
-  // 🔹 EXPORTAÇÃO (prioridade)
-  if(operacao === "exportacao"){
+  if(op === "exportacao")
     return { cclass:"410004", cst:"410", desc:"Exportação" };
-  }
 
-  // 🔹 ISENTO
-  if(operacao === "isento"){
+  if(op === "isento")
     return { cclass:"040001", cst:"040", desc:"Isento" };
-  }
 
-  // 🔹 BEBIDAS (NCM 22)
-  if(cap === 22){
-    return { cclass:"000020", cst:"000", desc:"Bebidas – Substituição Tributária" };
-  }
+  if(cap === 22)
+    return { cclass:"000020", cst:"000", desc:"Bebidas – ST" };
 
-  // 🔹 CESTA BÁSICA
-  if(cap >= 1 && cap <= 21){
-    return { cclass:"000030", cst:"010", desc:"Cesta básica / alimento essencial" };
-  }
+  if(cap >= 1 && cap <= 21)
+    return { cclass:"000030", cst:"010", desc:"Alimentos / cesta básica" };
 
-  // 🔹 ELETRÔNICOS
-  if(cap === 84 || cap === 85){
-    return { cclass:"000001", cst:"000", desc:"Tributação normal – eletrônicos" };
-  }
+  if(cap === 84 || cap === 85)
+    return { cclass:"000001", cst:"000", desc:"Eletrônicos" };
 
-  // 🔹 VESTUÁRIO
-  if(cap >= 61 && cap <= 63){
-    return { cclass:"000001", cst:"000", desc:"Tributação normal – vestuário" };
-  }
-
-  // 🔹 PADRÃO
-  return { cclass:"000001", cst:"000", desc:"Tributação integral" };
+  return { cclass:"000001", cst:"000", desc:"Tributação normal" };
 }
 
-// ==========================
-function norm(t){
-  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-}
-
-// ==========================
+// =====================
+// BUSCA CORRIGIDA
+// =====================
 function buscar(){
-  const q = norm(document.getElementById("busca").value.trim());
+
+  const qOriginal = document.getElementById("busca").value.trim();
+  const q = norm(qOriginal);
   const op = document.getElementById("operacao").value;
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
+
   if(q.length < 2) return;
 
-  let achados = [];
+  const qNCM = qOriginal.replace(/\D/g,"").padStart(8,"0");
+
+  let resultados = [];
 
   tabelaNCM.forEach(p => {
-    const ncm = String(p.ncm || p.codigo || "").replace(/\D/g,"");
-    const desc = norm(p.descricao || "");
 
-    if(ncm.startsWith(q) || desc.includes(q)){
-      achados.push({ nome:p.descricao, ncm });
+    const desc = norm(p.descricao);
+
+    // 🔹 busca por NCM (corrigida)
+    if(p.ncm.startsWith(qNCM)){
+      resultados.push(p);
+      return;
     }
+
+    // 🔹 busca por nome (corrigida)
+    if(desc.includes(q)){
+      resultados.push(p);
+    }
+
   });
 
-  if(achados.length === 0){
+  if(resultados.length === 0){
     res.innerHTML = "<p>Nenhum resultado encontrado</p>";
     return;
   }
 
-  achados.slice(0,25).forEach(p => {
+  resultados.slice(0,25).forEach(p => {
 
     const trib = classificarProduto(p.ncm, op);
 
     res.innerHTML += `
       <div class="item">
-        <b>${p.nome}</b><br>
+        <b>${p.descricao}</b><br>
         NCM: ${p.ncm}<br>
         <span class="badge">CClassTrib: ${trib.cclass}</span>
         <span class="badge">CST: ${trib.cst}</span>
@@ -136,9 +113,7 @@ function buscar(){
   });
 }
 
+// =====================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
 </script>
-
-</body>
-</html>
