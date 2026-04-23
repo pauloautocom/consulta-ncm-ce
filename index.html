@@ -75,11 +75,10 @@ fetch("tabelancm.json")
       ncm: formatarNCM(p.ncm || p.codigo),
       descricao: p.descricao || ""
     }));
-  })
-  .catch(() => console.warn("Erro ao carregar tabelancm.json"));
+  });
 
 // ========================
-// FORMATAR NCM (8 dígitos)
+// FORMATAR NCM
 // ========================
 function formatarNCM(ncm){
   return String(ncm).replace(/\D/g,"").padStart(8,"0");
@@ -93,18 +92,17 @@ function norm(txt){
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/s\b/g,"") // remove plural simples
+    .replace(/s\b/g,"")
     .trim();
 }
 
 // ========================
-// MOTOR TRIBUTÁRIO CORRETO
+// CLASSIFICAÇÃO
 // ========================
 function classificarProduto(ncm, operacao){
 
   const cap = parseInt(ncm.substring(0,2));
 
-  // prioridade operação
   if(operacao === "exportacao")
     return { cclass:"410004", cst:"410", desc:"Exportação" };
 
@@ -114,7 +112,6 @@ function classificarProduto(ncm, operacao){
   if(operacao === "diferimento")
     return { cclass:"510001", cst:"510", desc:"Diferimento" };
 
-  // regras por produto (automáticas)
   if(cap === 22)
     return { cclass:"000020", cst:"000", desc:"Bebidas – ST" };
 
@@ -127,12 +124,11 @@ function classificarProduto(ncm, operacao){
   if(cap >= 61 && cap <= 63)
     return { cclass:"000001", cst:"000", desc:"Vestuário" };
 
-  // padrão
   return { cclass:"000001", cst:"000", desc:"Tributação integral" };
 }
 
 // ========================
-// BUSCA PRINCIPAL
+// BUSCA COM RANKING
 // ========================
 function buscar(){
 
@@ -153,15 +149,33 @@ function buscar(){
 
     const desc = norm(p.descricao);
 
-    // busca por NCM (corrigida)
-    if(p.ncm.startsWith(qNCM)){
-      resultados.push(p);
-      return;
-    }
+    let score = 0;
 
-    // busca por nome (corrigida)
-    if(desc.includes(q)){
-      resultados.push(p);
+    // NCM exato
+    if(p.ncm === qNCM) score += 100;
+
+    // NCM parcial
+    else if(p.ncm.startsWith(qNCM)) score += 80;
+
+    // Nome exato
+    if(desc === q) score += 100;
+
+    // Começa com
+    else if(desc.startsWith(q)) score += 70;
+
+    // Contém
+    else if(desc.includes(q)) score += 40;
+
+    // BOOST inteligente
+    if(desc.includes("agua mineral") && q.includes("agua")) score += 60;
+    if(desc.includes("cafe") && q.includes("cafe")) score += 60;
+    if(desc.includes("arroz") && q.includes("arroz")) score += 60;
+
+    if(score > 0){
+      resultados.push({
+        ...p,
+        score
+      });
     }
 
   });
@@ -170,6 +184,8 @@ function buscar(){
     res.innerHTML = "<p>Nenhum resultado encontrado</p>";
     return;
   }
+
+  resultados.sort((a,b) => b.score - a.score);
 
   resultados.slice(0,25).forEach(p => {
 
