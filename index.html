@@ -2,20 +2,21 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta Fiscal Inteligente – CE</title>
+<title>Motor Tributário Inteligente – CE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body { font-family: Arial; background:#f4f6f8; padding:15px; }
 .card {
-  max-width:800px; margin:auto; background:#fff;
+  max-width:900px; margin:auto; background:#fff;
   padding:20px; border-radius:10px;
 }
 input, select {
   width:100%; padding:12px; margin-top:10px;
 }
-.resultado { margin-top:15px; }
-.item { padding:10px; border-bottom:1px solid #ddd; }
+.item {
+  padding:12px; border-bottom:1px solid #ddd;
+}
 .badge {
   background:#2563eb; color:#fff;
   padding:4px 8px; border-radius:6px;
@@ -28,16 +29,14 @@ input, select {
 <body>
 
 <div class="card">
-<h2>Consulta Fiscal – Automática</h2>
+<h2>Motor Tributário Automático – Ceará</h2>
 
-<input id="busca" placeholder="Produto ou NCM (ex: arroz, 22011000)">
+<input id="busca" placeholder="Digite produto ou NCM">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
-  <option value="isento">Isento</option>
   <option value="exportacao">Exportação</option>
-  <option value="diferimento">Diferimento</option>
-  <option value="suspensao">Suspensão</option>
+  <option value="isento">Isento</option>
 </select>
 
 <div id="resultado"></div>
@@ -46,35 +45,57 @@ input, select {
 <script>
 let tabelaNCM = [];
 
-// 🔹 carregar base
 fetch("tabelancm.json")
   .then(r => r.json())
   .then(d => tabelaNCM = d);
 
-// 🔹 regras corretas SVRS
-function obterTributacao(op){
-  switch(op){
-    case "normal":
-      return { cclass:"000001", cst:"000", desc:"Tributação integral" };
-    case "isento":
-      return { cclass:"040001", cst:"040", desc:"Isento" };
-    case "exportacao":
-      return { cclass:"410004", cst:"410", desc:"Exportação" };
-    case "diferimento":
-      return { cclass:"510001", cst:"510", desc:"Diferimento" };
-    case "suspensao":
-      return { cclass:"550001", cst:"550", desc:"Suspensão" };
-    default:
-      return { cclass:"000001", cst:"000", desc:"Tributação integral" };
+// ==========================
+// MOTOR DE REGRAS INTELIGENTE
+// ==========================
+function classificarProduto(ncm, operacao){
+
+  const cap = parseInt(ncm.substring(0,2));
+
+  // 🔹 EXPORTAÇÃO (prioridade)
+  if(operacao === "exportacao"){
+    return { cclass:"410004", cst:"410", desc:"Exportação" };
   }
+
+  // 🔹 ISENTO
+  if(operacao === "isento"){
+    return { cclass:"040001", cst:"040", desc:"Isento" };
+  }
+
+  // 🔹 BEBIDAS (NCM 22)
+  if(cap === 22){
+    return { cclass:"000020", cst:"000", desc:"Bebidas – Substituição Tributária" };
+  }
+
+  // 🔹 CESTA BÁSICA
+  if(cap >= 1 && cap <= 21){
+    return { cclass:"000030", cst:"010", desc:"Cesta básica / alimento essencial" };
+  }
+
+  // 🔹 ELETRÔNICOS
+  if(cap === 84 || cap === 85){
+    return { cclass:"000001", cst:"000", desc:"Tributação normal – eletrônicos" };
+  }
+
+  // 🔹 VESTUÁRIO
+  if(cap >= 61 && cap <= 63){
+    return { cclass:"000001", cst:"000", desc:"Tributação normal – vestuário" };
+  }
+
+  // 🔹 PADRÃO
+  return { cclass:"000001", cst:"000", desc:"Tributação integral" };
 }
 
-// 🔹 normalizar texto
+// ==========================
 function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// 🔹 busca
+// ==========================
 function buscar(){
   const q = norm(document.getElementById("busca").value.trim());
   const op = document.getElementById("operacao").value;
@@ -82,8 +103,6 @@ function buscar(){
 
   res.innerHTML = "";
   if(q.length < 2) return;
-
-  const trib = obterTributacao(op);
 
   let achados = [];
 
@@ -97,11 +116,14 @@ function buscar(){
   });
 
   if(achados.length === 0){
-    res.innerHTML = "<p>Nenhum resultado</p>";
+    res.innerHTML = "<p>Nenhum resultado encontrado</p>";
     return;
   }
 
-  achados.slice(0,20).forEach(p => {
+  achados.slice(0,25).forEach(p => {
+
+    const trib = classificarProduto(p.ncm, op);
+
     res.innerHTML += `
       <div class="item">
         <b>${p.nome}</b><br>
