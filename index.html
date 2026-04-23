@@ -1,35 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Consulta Fiscal Inteligente – CE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body { font-family: Arial; background:#f4f6f8; padding:15px; }
+.card {
+  max-width:800px; margin:auto; background:#fff;
+  padding:20px; border-radius:10px;
+}
+input, select {
+  width:100%; padding:12px; margin-top:10px;
+}
+.resultado { margin-top:15px; }
+.item { padding:10px; border-bottom:1px solid #ddd; }
+.badge {
+  background:#2563eb; color:#fff;
+  padding:4px 8px; border-radius:6px;
+  font-size:12px; margin-right:5px;
+}
+.small { font-size:12px; color:#555; }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>Consulta Fiscal – Automática</h2>
+
+<input id="busca" placeholder="Produto ou NCM (ex: arroz, 22011000)">
+
+<select id="operacao">
+  <option value="normal">Venda normal</option>
+  <option value="isento">Isento</option>
+  <option value="exportacao">Exportação</option>
+  <option value="diferimento">Diferimento</option>
+  <option value="suspensao">Suspensão</option>
+</select>
+
+<div id="resultado"></div>
+</div>
+
 <script>
-// ========================
-// BASE NCM (continua igual)
-// ========================
 let tabelaNCM = [];
 
+// 🔹 carregar base
 fetch("tabelancm.json")
   .then(r => r.json())
   .then(d => tabelaNCM = d);
 
-// ========================
-// CLASSIFICAÇÃO TRIBUTÁRIA REAL (SVRS)
-// ========================
-const cclassTribTabela = [
-  { codigo:"000001", cst:"000", desc:"Tributação integral" },
-  { codigo:"410004", cst:"410", desc:"Exportação" },
-  { codigo:"510001", cst:"510", desc:"Diferimento" },
-  { codigo:"550001", cst:"550", desc:"Suspensão" },
-  { codigo:"620001", cst:"620", desc:"Monofásico combustíveis" }
-];
+// 🔹 regras corretas SVRS
+function obterTributacao(op){
+  switch(op){
+    case "normal":
+      return { cclass:"000001", cst:"000", desc:"Tributação integral" };
+    case "isento":
+      return { cclass:"040001", cst:"040", desc:"Isento" };
+    case "exportacao":
+      return { cclass:"410004", cst:"410", desc:"Exportação" };
+    case "diferimento":
+      return { cclass:"510001", cst:"510", desc:"Diferimento" };
+    case "suspensao":
+      return { cclass:"550001", cst:"550", desc:"Suspensão" };
+    default:
+      return { cclass:"000001", cst:"000", desc:"Tributação integral" };
+  }
+}
 
-// ========================
+// 🔹 normalizar texto
 function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ========================
-document.getElementById("busca").addEventListener("input", e => {
-  const q = norm(e.target.value.trim());
+// 🔹 busca
+function buscar(){
+  const q = norm(document.getElementById("busca").value.trim());
+  const op = document.getElementById("operacao").value;
   const res = document.getElementById("resultado");
+
   res.innerHTML = "";
   if(q.length < 2) return;
+
+  const trib = obterTributacao(op);
 
   let achados = [];
 
@@ -43,24 +97,26 @@ document.getElementById("busca").addEventListener("input", e => {
   });
 
   if(achados.length === 0){
-    res.innerHTML = "<p>Nenhum resultado encontrado</p>";
+    res.innerHTML = "<p>Nenhum resultado</p>";
     return;
   }
 
   achados.slice(0,20).forEach(p => {
-
-    // 🔹 PADRÃO: tributação normal
-    const trib = cclassTribTabela[0];
-
     res.innerHTML += `
       <div class="item">
         <b>${p.nome}</b><br>
         NCM: ${p.ncm}<br>
-        <span class="badge">CClassTrib: ${trib.codigo}</span>
+        <span class="badge">CClassTrib: ${trib.cclass}</span>
         <span class="badge">CST: ${trib.cst}</span>
         <div class="small">${trib.desc}</div>
       </div>
     `;
   });
-});
+}
+
+document.getElementById("busca").addEventListener("input", buscar);
+document.getElementById("operacao").addEventListener("change", buscar);
 </script>
+
+</body>
+</html>
