@@ -1,7 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Consulta NCM + Classificação Tributária</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  padding:15px;
+}
+.card {
+  max-width:900px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+h1 { font-size:20px; }
+input, select {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+}
+.item {
+  padding:12px;
+  border-bottom:1px solid #ddd;
+}
+.badge {
+  background:#2563eb;
+  color:#fff;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:12px;
+  margin-right:6px;
+}
+.small {
+  font-size:12px;
+  color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>Consulta Fiscal Inteligente</h1>
+
+<input id="busca" placeholder="Digite produto ou NCM (ex: água, café, 09011110)">
+
+<select id="operacao">
+  <option value="normal">Venda normal</option>
+  <option value="isento">Isento</option>
+  <option value="exportacao">Exportação</option>
+  <option value="diferimento">Diferimento</option>
+</select>
+
+<div id="resultado"></div>
+</div>
+
 <script>
-// =====================
-// CARREGA BASE
-// =====================
+// ========================
+// CARREGAR BASE NCM
+// ========================
 let tabelaNCM = [];
 
 fetch("tabelancm.json")
@@ -11,18 +75,19 @@ fetch("tabelancm.json")
       ncm: formatarNCM(p.ncm || p.codigo),
       descricao: p.descricao || ""
     }));
-  });
+  })
+  .catch(() => console.warn("Erro ao carregar tabelancm.json"));
 
-// =====================
-// FORMATAR NCM CORRETAMENTE (8 dígitos)
-// =====================
+// ========================
+// FORMATAR NCM (8 dígitos)
+// ========================
 function formatarNCM(ncm){
   return String(ncm).replace(/\D/g,"").padStart(8,"0");
 }
 
-// =====================
-// NORMALIZA TEXTO
-// =====================
+// ========================
+// NORMALIZAR TEXTO
+// ========================
 function norm(txt){
   return txt
     .toLowerCase()
@@ -32,19 +97,24 @@ function norm(txt){
     .trim();
 }
 
-// =====================
-// MOTOR TRIBUTÁRIO (mantido)
-// =====================
-function classificarProduto(ncm, op){
+// ========================
+// MOTOR TRIBUTÁRIO CORRETO
+// ========================
+function classificarProduto(ncm, operacao){
 
   const cap = parseInt(ncm.substring(0,2));
 
-  if(op === "exportacao")
+  // prioridade operação
+  if(operacao === "exportacao")
     return { cclass:"410004", cst:"410", desc:"Exportação" };
 
-  if(op === "isento")
+  if(operacao === "isento")
     return { cclass:"040001", cst:"040", desc:"Isento" };
 
+  if(operacao === "diferimento")
+    return { cclass:"510001", cst:"510", desc:"Diferimento" };
+
+  // regras por produto (automáticas)
   if(cap === 22)
     return { cclass:"000020", cst:"000", desc:"Bebidas – ST" };
 
@@ -54,16 +124,20 @@ function classificarProduto(ncm, op){
   if(cap === 84 || cap === 85)
     return { cclass:"000001", cst:"000", desc:"Eletrônicos" };
 
-  return { cclass:"000001", cst:"000", desc:"Tributação normal" };
+  if(cap >= 61 && cap <= 63)
+    return { cclass:"000001", cst:"000", desc:"Vestuário" };
+
+  // padrão
+  return { cclass:"000001", cst:"000", desc:"Tributação integral" };
 }
 
-// =====================
-// BUSCA CORRIGIDA
-// =====================
+// ========================
+// BUSCA PRINCIPAL
+// ========================
 function buscar(){
 
-  const qOriginal = document.getElementById("busca").value.trim();
-  const q = norm(qOriginal);
+  const texto = document.getElementById("busca").value.trim();
+  const q = norm(texto);
   const op = document.getElementById("operacao").value;
   const res = document.getElementById("resultado");
 
@@ -71,7 +145,7 @@ function buscar(){
 
   if(q.length < 2) return;
 
-  const qNCM = qOriginal.replace(/\D/g,"").padStart(8,"0");
+  const qNCM = texto.replace(/\D/g,"").padStart(8,"0");
 
   let resultados = [];
 
@@ -79,13 +153,13 @@ function buscar(){
 
     const desc = norm(p.descricao);
 
-    // 🔹 busca por NCM (corrigida)
+    // busca por NCM (corrigida)
     if(p.ncm.startsWith(qNCM)){
       resultados.push(p);
       return;
     }
 
-    // 🔹 busca por nome (corrigida)
+    // busca por nome (corrigida)
     if(desc.includes(q)){
       resultados.push(p);
     }
@@ -113,7 +187,10 @@ function buscar(){
   });
 }
 
-// =====================
+// ========================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
 </script>
+
+</body>
+</html>
