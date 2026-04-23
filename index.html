@@ -1,93 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Consulta NCM e Classificação Tributária – CE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body { font-family: Arial, sans-serif; background:#f4f6f8; padding:15px; }
-.card {
-  max-width:900px; margin:auto; background:#fff;
-  padding:20px; border-radius:10px;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-h1 { font-size:20px; }
-input {
-  width:100%; padding:12px; font-size:16px;
-  margin-top:10px;
-}
-.resultado { margin-top:15px; }
-.item {
-  padding:12px; border-bottom:1px solid #ddd;
-}
-.badge {
-  display:inline-block; padding:4px 8px;
-  background:#2563eb; color:#fff;
-  border-radius:6px; font-size:12px;
-  margin-right:6px;
-}
-.small { font-size:12px; color:#555; margin-top:4px; }
-</style>
-</head>
-
-<body>
-
-<div class="card">
-<h1>Consulta Fiscal – Ceará</h1>
-<p class="small">Busca por nome ou NCM • Classificação automática por grupo tributário</p>
-
-<input id="busca" placeholder="Ex: arroz, cerveja, caneta, 22011000">
-
-<div id="resultado" class="resultado"></div>
-</div>
-
 <script>
-// =====================
-// BASE FÁCIL (nomes)
-// =====================
-const baseFacil = [
-  { ncm:"22011000", termos:["agua","agua mineral","água mineral"], nome:"Água mineral" },
-  { ncm:"22021000", termos:["refrigerante","coca cola","guarana"], nome:"Refrigerante" },
-  { ncm:"22030000", termos:["cerveja"], nome:"Cerveja" },
-  { ncm:"10063021", termos:["arroz"], nome:"Arroz" },
-  { ncm:"07133329", termos:["feijao","feijão"], nome:"Feijão" },
-  { ncm:"19021900", termos:["macarrao","macarrão"], nome:"Macarrão" },
-  { ncm:"09012100", termos:["cafe","café"], nome:"Café" },
-  { ncm:"96081000", termos:["caneta"], nome:"Caneta esferográfica" },
-  { ncm:"85444200", termos:["cabo usb","usb"], nome:"Cabo USB" },
-  { ncm:"61091000", termos:["camisa","camiseta"], nome:"Camiseta" }
-];
-
-// =====================
-// GRUPOS TRIBUTÁRIOS CE
-// =====================
-const gruposCE = [
-  { ini:1, fim:21, cclass:"000030", cst:"010", desc:"Alimentos / Cesta básica" },
-  { ini:22, fim:24, cclass:"000020", cst:"000", desc:"Bebidas / Fumo (ST)" },
-  { ini:25, fim:27, cclass:"000080", cst:"000", desc:"Combustíveis / minerais" },
-  { ini:28, fim:38, cclass:"000090", cst:"000", desc:"Produtos químicos" },
-  { ini:39, fim:49, cclass:"000070", cst:"000", desc:"Plástico / papel / borracha" },
-  { ini:50, fim:67, cclass:"000050", cst:"010", desc:"Têxteis / vestuário / calçados" },
-  { ini:68, fim:83, cclass:"000070", cst:"000", desc:"Construção / metais" },
-  { ini:84, fim:85, cclass:"000060", cst:"000", desc:"Máquinas / eletrônicos" },
-  { ini:86, fim:89, cclass:"000060", cst:"000", desc:"Transportes" },
-  { ini:90, fim:97, cclass:"000070", cst:"000", desc:"Diversos / papelaria" }
-];
-
+// ========================
+// BASE NCM (continua igual)
+// ========================
 let tabelaNCM = [];
 
-// =====================
 fetch("tabelancm.json")
   .then(r => r.json())
   .then(d => tabelaNCM = d);
 
-// =====================
+// ========================
+// CLASSIFICAÇÃO TRIBUTÁRIA REAL (SVRS)
+// ========================
+const cclassTribTabela = [
+  { codigo:"000001", cst:"000", desc:"Tributação integral" },
+  { codigo:"410004", cst:"410", desc:"Exportação" },
+  { codigo:"510001", cst:"510", desc:"Diferimento" },
+  { codigo:"550001", cst:"550", desc:"Suspensão" },
+  { codigo:"620001", cst:"620", desc:"Monofásico combustíveis" }
+];
+
+// ========================
 function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// =====================
+// ========================
 document.getElementById("busca").addEventListener("input", e => {
   const q = norm(e.target.value.trim());
   const res = document.getElementById("resultado");
@@ -96,36 +33,34 @@ document.getElementById("busca").addEventListener("input", e => {
 
   let achados = [];
 
-  baseFacil.forEach(p => {
-    if(p.ncm.startsWith(q) || p.termos.some(t => norm(t).includes(q))){
-      achados.push({ nome:p.nome, ncm:p.ncm });
-    }
-  });
-
   tabelaNCM.forEach(p => {
     const ncm = String(p.ncm || p.codigo || "").replace(/\D/g,"");
     const desc = norm(p.descricao || "");
+
     if(ncm.startsWith(q) || desc.includes(q)){
       achados.push({ nome:p.descricao, ncm });
     }
   });
 
-  achados.slice(0,25).forEach(p => {
-    const cap = parseInt(p.ncm.substring(0,2));
-    const g = gruposCE.find(x => cap >= x.ini && cap <= x.fim);
+  if(achados.length === 0){
+    res.innerHTML = "<p>Nenhum resultado encontrado</p>";
+    return;
+  }
+
+  achados.slice(0,20).forEach(p => {
+
+    // 🔹 PADRÃO: tributação normal
+    const trib = cclassTribTabela[0];
 
     res.innerHTML += `
       <div class="item">
         <b>${p.nome}</b><br>
         NCM: ${p.ncm}<br>
-        <span class="badge">CClassTrib: ${g.cclass}</span>
-        <span class="badge">CST: ${g.cst}</span>
-        <div class="small">${g.desc}</div>
+        <span class="badge">CClassTrib: ${trib.codigo}</span>
+        <span class="badge">CST: ${trib.cst}</span>
+        <div class="small">${trib.desc}</div>
       </div>
     `;
   });
 });
 </script>
-
-</body>
-</html>
