@@ -4,11 +4,11 @@
   { "ncm": "9619", "cclass": "200013", "cst": "200", "desc": "Absorventes" },
 
   { "ncm": "22011000", "cclass": "000010", "cst": "010", "desc": "Água mineral" },
-  { "ncm": "22030000", "cclass": "000020", "cst": "060", "desc": "Cerveja" },
+  { "ncm": "22030000", "cclass": "000020", "cst": "060", "desc": "Cerveja (ST)" },
 
-  { "ncm": "09011110", "cclass": "040001", "cst": "040", "desc": "Café (isento CE)" },
-  { "ncm": "10063021", "cclass": "040001", "cst": "040", "desc": "Arroz (cesta básica)" },
-  { "ncm": "07133329", "cclass": "040001", "cst": "040", "desc": "Feijão (cesta básica)" },
-  { "ncm": "19021100", "cclass": "040001", "cst": "040", "desc": "Macarrão (cesta básica)" },
-  { "ncm": "04012010", "cclass": "040001", "cst": "040", "desc": "Leite (cesta básica)" }
+  { "ncm": "09011110", "cclass": "040001", "cst": "040", "desc": "Café" },
+  { "ncm": "10063021", "cclass": "040001", "cst": "040", "desc": "Arroz" },
+  { "ncm": "07133329", "cclass": "040001", "cst": "040", "desc": "Feijão" },
+  { "ncm": "19021100", "cclass": "040001", "cst": "040", "desc": "Macarrão" },
+  { "ncm": "04012010", "cclass": "040001", "cst": "040", "desc": "Leite" }
 ]
