@@ -2,24 +2,19 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta NCM + Classificação Tributária</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta NCM e Classificação Tributária</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  padding:15px;
-}
+body { font-family: Arial; background:#f4f6f8; padding:20px; }
 .card {
-  max-width:900px;
+  max-width:800px;
   margin:auto;
   background:#fff;
   padding:20px;
   border-radius:10px;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
-h1 { font-size:20px; }
 input, select {
   width:100%;
   padding:12px;
@@ -38,163 +33,143 @@ input, select {
   font-size:12px;
   margin-right:6px;
 }
-.small {
-  font-size:12px;
-  color:#555;
-}
+.small { font-size:12px; color:#555; }
+.erro { color:red; margin-top:15px; }
 </style>
 </head>
 
 <body>
 
 <div class="card">
-<h1>Consulta Fiscal Inteligente</h1>
+<h2>Consulta Fiscal Inteligente</h2>
 
-<input id="busca" placeholder="Digite produto ou NCM (ex: água, café, 09011110)">
+<input id="busca" placeholder="Digite produto ou NCM (água, café, ovo, 22011000)">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
   <option value="isento">Isento</option>
   <option value="exportacao">Exportação</option>
-  <option value="diferimento">Diferimento</option>
 </select>
 
 <div id="resultado"></div>
+<div id="erro" class="erro"></div>
 </div>
 
 <script>
-// ========================
-// CARREGAR BASE NCM
-// ========================
-let tabelaNCM = [];
-
-fetch("tabelancm.json")
-  .then(r => r.json())
-  .then(d => {
-    tabelaNCM = d.map(p => ({
-      ncm: formatarNCM(p.ncm || p.codigo),
-      descricao: p.descricao || ""
-    }));
-  });
 
 // ========================
-// FORMATAR NCM
+// BASE DE PRODUTOS (AJUSTADA)
 // ========================
-function formatarNCM(ncm){
-  return String(ncm).replace(/\D/g,"").padStart(8,"0");
-}
+const baseProdutos = [
+  { termos:["agua","agua mineral"], ncm:"22011000", desc:"Água mineral" },
+  { termos:["refrigerante"], ncm:"22021000", desc:"Refrigerante" },
+  { termos:["cafe","café"], ncm:"09011110", desc:"Café" },
+  { termos:["arroz"], ncm:"10063021", desc:"Arroz" },
+  { termos:["feijao","feijão"], ncm:"07133329", desc:"Feijão" },
+  { termos:["ovo","ovos"], ncm:"04072100", desc:"Ovos de galinha" }
+];
 
 // ========================
 // NORMALIZAR TEXTO
 // ========================
-function norm(txt){
-  return txt
-    .toLowerCase()
+function norm(t){
+  return t.toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/s\b/g,"")
-    .trim();
+    .replace(/[\u0300-\u036f]/g,"");
 }
 
 // ========================
-// CLASSIFICAÇÃO
+// FORMATAR NCM
 // ========================
-function classificarProduto(ncm, operacao){
+function formatarNCM(n){
+  return String(n).replace(/\D/g,"").padStart(8,"0");
+}
 
-  const cap = parseInt(ncm.substring(0,2));
+// ========================
+// CLASSIFICAÇÃO CORRETA
+// ========================
+function classificar(ncm, op){
 
-  if(operacao === "exportacao")
+  // EXPORTAÇÃO
+  if(op === "exportacao"){
     return { cclass:"410004", cst:"410", desc:"Exportação" };
+  }
 
-  if(operacao === "isento")
+  // ISENTO
+  if(op === "isento"){
     return { cclass:"040001", cst:"040", desc:"Isento" };
+  }
 
-  if(operacao === "diferimento")
-    return { cclass:"510001", cst:"510", desc:"Diferimento" };
+  // OVOS (REGRA CORRETA)
+  if(ncm.startsWith("0407")){
+    return { cclass:"200014", cst:"200", desc:"Cesta básica - ovos" };
+  }
 
-  if(cap === 22)
-    return { cclass:"000020", cst:"000", desc:"Bebidas – ST" };
+  // BEBIDAS (água, refri)
+  if(ncm.startsWith("22")){
+    return { cclass:"000001", cst:"000", desc:"Tributação normal" };
+  }
 
-  if(cap >= 1 && cap <= 21)
-    return { cclass:"000030", cst:"010", desc:"Alimentos / cesta básica" };
+  // ALIMENTOS GERAIS
+  if(ncm.startsWith("07") || ncm.startsWith("10")){
+    return { cclass:"000001", cst:"000", desc:"Tributação normal" };
+  }
 
-  if(cap === 84 || cap === 85)
-    return { cclass:"000001", cst:"000", desc:"Eletrônicos" };
-
-  if(cap >= 61 && cap <= 63)
-    return { cclass:"000001", cst:"000", desc:"Vestuário" };
-
+  // PADRÃO
   return { cclass:"000001", cst:"000", desc:"Tributação integral" };
 }
 
 // ========================
-// BUSCA COM RANKING
+// BUSCA
 // ========================
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
-  const q = norm(texto);
+  const termo = norm(texto);
   const op = document.getElementById("operacao").value;
   const res = document.getElementById("resultado");
+  const erro = document.getElementById("erro");
 
   res.innerHTML = "";
+  erro.innerHTML = "";
 
-  if(q.length < 2) return;
+  if(termo.length < 2) return;
 
-  const qNCM = texto.replace(/\D/g,"").padStart(8,"0");
+  const ncmBusca = texto.replace(/\D/g,"");
 
   let resultados = [];
 
-  tabelaNCM.forEach(p => {
+  baseProdutos.forEach(p => {
 
-    const desc = norm(p.descricao);
+    const ncm = formatarNCM(p.ncm);
 
-    let score = 0;
+    // busca por NCM
+    if(ncmBusca && ncm.startsWith(ncmBusca)){
+      resultados.push(p);
+      return;
+    }
 
-    // NCM exato
-    if(p.ncm === qNCM) score += 100;
-
-    // NCM parcial
-    else if(p.ncm.startsWith(qNCM)) score += 80;
-
-    // Nome exato
-    if(desc === q) score += 100;
-
-    // Começa com
-    else if(desc.startsWith(q)) score += 70;
-
-    // Contém
-    else if(desc.includes(q)) score += 40;
-
-    // BOOST inteligente
-    if(desc.includes("agua mineral") && q.includes("agua")) score += 60;
-    if(desc.includes("cafe") && q.includes("cafe")) score += 60;
-    if(desc.includes("arroz") && q.includes("arroz")) score += 60;
-
-    if(score > 0){
-      resultados.push({
-        ...p,
-        score
-      });
+    // busca por nome
+    if(p.termos.some(t => termo.includes(norm(t)))){
+      resultados.push(p);
     }
 
   });
 
   if(resultados.length === 0){
-    res.innerHTML = "<p>Nenhum resultado encontrado</p>";
+    erro.innerHTML = "Produto não encontrado";
     return;
   }
 
-  resultados.sort((a,b) => b.score - a.score);
+  resultados.forEach(p => {
 
-  resultados.slice(0,25).forEach(p => {
-
-    const trib = classificarProduto(p.ncm, op);
+    const ncm = formatarNCM(p.ncm);
+    const trib = classificar(ncm, op);
 
     res.innerHTML += `
       <div class="item">
-        <b>${p.descricao}</b><br>
-        NCM: ${p.ncm}<br>
+        <b>${p.desc}</b><br>
+        NCM: ${ncm}<br>
         <span class="badge">CClassTrib: ${trib.cclass}</span>
         <span class="badge">CST: ${trib.cst}</span>
         <div class="small">${trib.desc}</div>
@@ -206,6 +181,7 @@ function buscar(){
 // ========================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
+
 </script>
 
 </body>
