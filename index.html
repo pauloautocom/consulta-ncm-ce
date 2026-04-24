@@ -3,34 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta Fiscal Inteligente</title>
+<title>Consulta Fiscal CE (Profissional)</title>
 
 <style>
 body { font-family: Arial; background:#f4f6f8; padding:20px; }
-.card {
-  max-width:900px;
-  margin:auto;
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-}
-input, select {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-}
-.item {
-  padding:12px;
-  border-bottom:1px solid #ddd;
-}
-.badge {
-  background:#2563eb;
-  color:#fff;
-  padding:4px 8px;
-  border-radius:6px;
-  font-size:12px;
-  margin-right:5px;
-}
+.card { max-width:900px; margin:auto; background:#fff; padding:20px; border-radius:10px; }
+input, select { width:100%; padding:12px; margin-top:10px; }
+.item { padding:12px; border-bottom:1px solid #ddd; }
+.badge { background:#2563eb; color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; margin-right:5px; }
 .small { font-size:12px; color:#555; }
 </style>
 </head>
@@ -38,9 +18,9 @@ input, select {
 <body>
 
 <div class="card">
-<h2>Consulta Fiscal Inteligente</h2>
+<h2>Consulta Fiscal Inteligente - CE</h2>
 
-<input id="busca" placeholder="Digite produto ou NCM (água, cerveja, leite...)">
+<input id="busca" placeholder="Digite produto ou NCM">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
@@ -53,58 +33,55 @@ input, select {
 
 <script>
 
-// ======================
-// BASE COMPLETA
-// ======================
 let tabelaNCM = [];
+let regrasCE = [];
 
+// carregar base NCM
 fetch("tabelancm.json")
   .then(r => r.json())
-  .then(d => {
-    tabelaNCM = d.map(p => ({
-      ncm: formatarNCM(p.ncm || p.codigo),
-      descricao: p.descricao || ""
-    }));
-  });
+  .then(d => tabelaNCM = d);
 
-// ======================
+// carregar regras CE
+fetch("regras_ce.json")
+  .then(r => r.json())
+  .then(d => regrasCE = d);
+
 function formatarNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
 
-// ======================
 function norm(t){
-  return t.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"");
+  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ======================
-// CLASSIFICAÇÃO SEGURA
-// ======================
+// 🔥 CLASSIFICAÇÃO REAL
 function classificar(ncm, op){
 
   if(op === "exportacao")
-    return { cclass:"410004", cst:"410", desc:"Exportação" };
+    return { cclass:"410004", cst:"410" };
 
   if(op === "isento")
-    return { cclass:"040001", cst:"040", desc:"Isento" };
+    return { cclass:"040001", cst:"040" };
 
-  // OVOS (corrigido)
-  if(ncm.startsWith("0407"))
-    return { cclass:"200014", cst:"200", desc:"Ovos - CE" };
+  // busca regra oficial
+  const regra = regrasCE.find(r => r.ncm === ncm);
 
-  // BEBIDAS
-  if(ncm.startsWith("22"))
-    return { cclass:"000001", cst:"000", desc:"Tributação normal" };
+  if(regra){
+    return {
+      cclass: regra.cclass,
+      cst: regra.cst,
+      desc: regra.descricao
+    };
+  }
 
-  // PADRÃO
-  return { cclass:"000001", cst:"000", desc:"Tributação normal" };
+  return {
+    cclass:"000001",
+    cst:"000",
+    desc:"Tributação padrão"
+  };
 }
 
-// ======================
-// BUSCA MELHORADA
-// ======================
+// 🔍 BUSCA
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
@@ -121,37 +98,26 @@ function buscar(){
 
   tabelaNCM.forEach(p => {
 
-    const desc = norm(p.descricao);
+    const ncm = formatarNCM(p.ncm || p.codigo);
+    const desc = norm(p.descricao || "");
+
     let score = 0;
 
-    // NCM
-    if(qNCM && p.ncm.startsWith(qNCM)) score += 100;
-
-    // Nome começa com
+    if(qNCM && ncm.startsWith(qNCM)) score += 100;
     if(desc.startsWith(q)) score += 80;
-
-    // Nome contém
     else if(desc.includes(q)) score += 50;
 
-    // BOOST importante
-    if(q.includes("agua") && desc.includes("agua mineral")) score += 50;
-    if(q.includes("cerveja") && desc.includes("cerveja")) score += 50;
-    if(q.includes("leite") && desc.includes("leite")) score += 50;
-    if(q.includes("macarrao") && desc.includes("massa")) score += 40;
-
     if(score > 0){
-      resultados.push({ ...p, score });
+      resultados.push({
+        ncm,
+        descricao: p.descricao,
+        score
+      });
     }
 
   });
 
-  if(resultados.length === 0){
-    res.innerHTML = "<p>Nenhum resultado encontrado</p>";
-    return;
-  }
-
-  // ordenar melhor resultado primeiro
-  resultados.sort((a,b) => b.score - a.score);
+  resultados.sort((a,b)=>b.score-a.score);
 
   resultados.slice(0,25).forEach(p => {
 
@@ -163,13 +129,12 @@ function buscar(){
         NCM: ${p.ncm}<br>
         <span class="badge">CClassTrib: ${trib.cclass}</span>
         <span class="badge">CST: ${trib.cst}</span>
-        <div class="small">${trib.desc}</div>
+        <div class="small">${trib.desc || ""}</div>
       </div>
     `;
   });
 }
 
-// ======================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
 
