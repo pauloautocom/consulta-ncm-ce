@@ -1,58 +1,13 @@
 [
-  {
-    "ncm": "22011000",
-    "descricao": "Água mineral",
-    "cclass": "000010",
-    "cst": "010",
-    "tipo": "bebida"
-  },
-  {
-    "ncm": "22030000",
-    "descricao": "Cerveja",
-    "cclass": "000020",
-    "cst": "060",
-    "tipo": "bebida_st"
-  },
-  {
-    "ncm": "09011110",
-    "descricao": "Café",
-    "cclass": "000030",
-    "cst": "010",
-    "tipo": "cesta_basica"
-  },
-  {
-    "ncm": "10063021",
-    "descricao": "Arroz",
-    "cclass": "000030",
-    "cst": "010",
-    "tipo": "cesta_basica"
-  },
-  {
-    "ncm": "07133329",
-    "descricao": "Feijão",
-    "cclass": "000030",
-    "cst": "010",
-    "tipo": "cesta_basica"
-  },
-  {
-    "ncm": "04072100",
-    "descricao": "Ovos",
-    "cclass": "200014",
-    "cst": "200",
-    "tipo": "cesta_basica_ce"
-  },
-  {
-    "ncm": "19021100",
-    "descricao": "Macarrão",
-    "cclass": "000030",
-    "cst": "010",
-    "tipo": "cesta_basica"
-  },
-  {
-    "ncm": "04012010",
-    "descricao": "Leite",
-    "cclass": "000030",
-    "cst": "010",
-    "tipo": "cesta_basica"
-  }
+  { "ncm": "0407", "cclass": "200014", "cst": "200", "desc": "Ovos - CE" },
+  { "ncm": "4902", "cclass": "040001", "cst": "040", "desc": "Jornais e periódicos - isento" },
+  { "ncm": "9619", "cclass": "200013", "cst": "200", "desc": "Absorventes - redução" },
+
+  { "ncm": "22011000", "cclass": "000010", "cst": "010", "desc": "Água mineral" },
+  { "ncm": "22030000", "cclass": "000020", "cst": "060", "desc": "Cerveja - ST" },
+  { "ncm": "09011110", "cclass": "000030", "cst": "010", "desc": "Café" },
+  { "ncm": "10063021", "cclass": "000030", "cst": "010", "desc": "Arroz" },
+  { "ncm": "07133329", "cclass": "000030", "cst": "010", "desc": "Feijão" },
+  { "ncm": "19021100", "cclass": "000030", "cst": "010", "desc": "Macarrão" },
+  { "ncm": "04012010", "cclass": "000030", "cst": "010", "desc": "Leite" }
 ]
