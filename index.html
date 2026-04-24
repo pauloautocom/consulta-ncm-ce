@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta Fiscal CE (Profissional)</title>
+<title>Consulta Fiscal CE</title>
 
 <style>
 body { font-family: Arial; background:#f4f6f8; padding:20px; }
@@ -20,7 +20,7 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 <div class="card">
 <h2>Consulta Fiscal Inteligente - CE</h2>
 
-<input id="busca" placeholder="Digite produto ou NCM">
+<input id="busca" placeholder="Digite produto ou NCM (água, ovo, café...)">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
@@ -33,10 +33,13 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 
 <script>
 
+// ======================
+// BASES
+// ======================
 let tabelaNCM = [];
 let regrasCE = [];
 
-// carregar base NCM
+// carregar NCM
 fetch("tabelancm.json")
   .then(r => r.json())
   .then(d => tabelaNCM = d);
@@ -46,34 +49,46 @@ fetch("regras_ce.json")
   .then(r => r.json())
   .then(d => regrasCE = d);
 
+// ======================
 function formatarNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
 
 function norm(t){
-  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  return t.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"");
 }
 
-// 🔥 CLASSIFICAÇÃO REAL
+// ======================
+// 🔥 CLASSIFICAÇÃO CORRETA
+// ======================
 function classificar(ncm, op){
 
-  if(op === "exportacao")
-    return { cclass:"410004", cst:"410" };
-
-  if(op === "isento")
-    return { cclass:"040001", cst:"040" };
-
-  // busca regra oficial
-  const regra = regrasCE.find(r => r.ncm === ncm);
-
-  if(regra){
-    return {
-      cclass: regra.cclass,
-      cst: regra.cst,
-      desc: regra.descricao
-    };
+  // operação primeiro
+  if(op === "exportacao"){
+    return { cclass:"410004", cst:"410", desc:"Exportação" };
   }
 
+  if(op === "isento"){
+    return { cclass:"040001", cst:"040", desc:"Isento" };
+  }
+
+  // 1️⃣ NCM exato
+  let regra = regrasCE.find(r => r.ncm === ncm);
+
+  if(regra){
+    return regra;
+  }
+
+  // 2️⃣ prefixo (capítulo)
+  regra = regrasCE.find(r => ncm.startsWith(r.ncm));
+
+  if(regra){
+    return regra;
+  }
+
+  // 3️⃣ fallback
   return {
     cclass:"000001",
     cst:"000",
@@ -81,7 +96,9 @@ function classificar(ncm, op){
   };
 }
 
-// 🔍 BUSCA
+// ======================
+// 🔎 BUSCA (MANTIDA BOA)
+// ======================
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
@@ -90,6 +107,7 @@ function buscar(){
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
+
   if(q.length < 2) return;
 
   const qNCM = texto.replace(/\D/g,"");
@@ -135,6 +153,7 @@ function buscar(){
   });
 }
 
+// ======================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
 
