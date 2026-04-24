@@ -20,7 +20,7 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 <div class="card">
 <h2>Consulta Fiscal Inteligente - CE</h2>
 
-<input id="busca" placeholder="Digite produto ou NCM (água, ovo, café...)">
+<input id="busca" placeholder="Digite produto ou NCM (ex: água, café, jornal...)">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
@@ -33,9 +33,6 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 
 <script>
 
-// ======================
-// BASES
-// ======================
 let tabelaNCM = [];
 let regrasCE = [];
 
@@ -49,7 +46,6 @@ fetch("regras_ce.json")
   .then(r => r.json())
   .then(d => regrasCE = d);
 
-// ======================
 function formatarNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
@@ -61,11 +57,10 @@ function norm(t){
 }
 
 // ======================
-// 🔥 CLASSIFICAÇÃO CORRETA
+// CLASSIFICAÇÃO CORRETA
 // ======================
 function classificar(ncm, op){
 
-  // operação primeiro
   if(op === "exportacao"){
     return { cclass:"410004", cst:"410", desc:"Exportação" };
   }
@@ -74,30 +69,19 @@ function classificar(ncm, op){
     return { cclass:"040001", cst:"040", desc:"Isento" };
   }
 
-  // 1️⃣ NCM exato
+  // NCM exato
   let regra = regrasCE.find(r => r.ncm === ncm);
+  if(regra) return regra;
 
-  if(regra){
-    return regra;
-  }
-
-  // 2️⃣ prefixo (capítulo)
+  // prefixo
   regra = regrasCE.find(r => ncm.startsWith(r.ncm));
+  if(regra) return regra;
 
-  if(regra){
-    return regra;
-  }
-
-  // 3️⃣ fallback
-  return {
-    cclass:"000001",
-    cst:"000",
-    desc:"Tributação padrão"
-  };
+  return { cclass:"000001", cst:"000", desc:"Tributação padrão" };
 }
 
 // ======================
-// 🔎 BUSCA (MANTIDA BOA)
+// BUSCA INTELIGENTE
 // ======================
 function buscar(){
 
@@ -125,12 +109,14 @@ function buscar(){
     if(desc.startsWith(q)) score += 80;
     else if(desc.includes(q)) score += 50;
 
+    // sinônimos
+    if(q.includes("jornal") && desc.includes("periodic")) score += 80;
+    if(q.includes("cafe") && desc.includes("cafe")) score += 60;
+    if(q.includes("macarrao") && desc.includes("massa")) score += 60;
+    if(q.includes("leite") && desc.includes("leite")) score += 60;
+
     if(score > 0){
-      resultados.push({
-        ncm,
-        descricao: p.descricao,
-        score
-      });
+      resultados.push({ ncm, descricao:p.descricao, score });
     }
 
   });
@@ -153,7 +139,6 @@ function buscar(){
   });
 }
 
-// ======================
 document.getElementById("busca").addEventListener("input", buscar);
 document.getElementById("operacao").addEventListener("change", buscar);
 
