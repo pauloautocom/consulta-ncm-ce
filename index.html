@@ -24,8 +24,6 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
-  <option value="isento">Isento</option>
-  <option value="exportacao">Exportação</option>
 </select>
 
 <div id="resultado"></div>
@@ -47,13 +45,10 @@ function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// CLASSIFICAÇÃO PROFISSIONAL
-function classificar(ncm, op){
+// 🔥 MOTOR CORRIGIDO (ERRO RESOLVIDO AQUI)
+function classificar(ncm){
 
-  if(op === "exportacao") return { cclass:"410004", cst:"410" };
-  if(op === "isento") return { cclass:"040001", cst:"040" };
-
-  // ordenar por maior NCM primeiro (CRUCIAL)
+  // 🔥 NÃO usar sort direto (bug anterior)
   let regrasOrdenadas = [...regrasCE].sort((a,b)=>b.ncm.length - a.ncm.length);
 
   for(let r of regrasOrdenadas){
@@ -62,18 +57,17 @@ function classificar(ncm, op){
     }
   }
 
-  return { cclass:"000001", cst:"000", desc:"Tributação padrão" };
+  return { cclass:"000001", cst:"000" };
 }
 
-// BUSCA
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
   const q = norm(texto);
-  const op = document.getElementById("operacao").value;
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
+
   if(q.length < 2) return;
 
   const qNCM = texto.replace(/\D/g,"");
@@ -88,12 +82,7 @@ function buscar(){
     let score = 0;
 
     if(qNCM && ncm.startsWith(qNCM)) score += 100;
-    if(desc.startsWith(q)) score += 80;
-    else if(desc.includes(q)) score += 50;
-
-    if(q.includes("jornal") && desc.includes("periodic")) score += 80;
-    if(q.includes("cafe") && desc.includes("cafe")) score += 60;
-    if(q.includes("macarrao") && desc.includes("massa")) score += 60;
+    if(desc.includes(q)) score += 50;
 
     if(score > 0){
       resultados.push({ ncm, descricao:p.descricao, score });
@@ -103,9 +92,9 @@ function buscar(){
 
   resultados.sort((a,b)=>b.score-a.score);
 
-  resultados.slice(0,25).forEach(p => {
+  resultados.slice(0,30).forEach(p => {
 
-    const trib = classificar(p.ncm, op);
+    const trib = classificar(p.ncm);
 
     res.innerHTML += `
       <div class="item">
@@ -113,14 +102,12 @@ function buscar(){
         NCM: ${p.ncm}<br>
         <span class="badge">CClassTrib: ${trib.cclass}</span>
         <span class="badge">CST: ${trib.cst}</span>
-        <div class="small">${trib.desc || ""}</div>
       </div>
     `;
   });
 }
 
 document.getElementById("busca").addEventListener("input", buscar);
-document.getElementById("operacao").addEventListener("change", buscar);
 
 </script>
 
