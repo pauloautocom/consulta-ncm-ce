@@ -12,7 +12,6 @@ input { width:100%; padding:12px; margin-top:10px; }
 .item { padding:12px; border-bottom:1px solid #ddd; }
 .badge { background:#2563eb; color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; margin-right:5px; }
 .small { font-size:12px; color:#666; }
-.erro { color:red; font-size:12px; }
 </style>
 </head>
 
@@ -32,38 +31,47 @@ input { width:100%; padding:12px; margin-top:10px; }
 let tabelaNCM = [];
 let regrasCE = [];
 
-// ============================
-// 🔥 CARREGAMENTO CORRETO
-// ============================
+// =========================
+// NORMALIZAR TEXTO (remove acento)
+function normalizar(txt){
+  return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+// =========================
+// LIMPAR NCM
+function limparNCM(n){
+  return String(n).replace(/\D/g,"").padStart(8,"0");
+}
+
+// =========================
+// CARREGAR DADOS
 async function carregarDados(){
 
   const status = document.getElementById("status");
 
   try {
-
     const resNCM = await fetch("tabelancm.json");
     const jsonNCM = await resNCM.json();
 
     tabelaNCM = jsonNCM.map(p => ({
       ncm: limparNCM(p.ncm || p.codigo || ""),
-      descricao: (p.descricao || "").toLowerCase()
+      descricao: p.descricao || "",
+      descBusca: normalizar(p.descricao || "")
     }));
 
     status.innerHTML = "Base NCM: " + tabelaNCM.length;
 
   } catch(e){
-    status.innerHTML = "<span class='erro'>Erro NCM</span>";
+    status.innerHTML = "Erro ao carregar NCM";
     console.error(e);
   }
 
   try {
-
     const resRegras = await fetch("regras_ce.json");
     const jsonRegras = await resRegras.json();
 
-    // 🔥 CORREÇÃO PRINCIPAL AQUI
     regrasCE = jsonRegras.map(r => ({
-      ncm: String(r.ncm).replace(/\D/g,""), // SEM PADSTART
+      ncm: String(r.ncm).replace(/\D/g,""),
       cclass: r.cclass,
       cst: r.cst
     }));
@@ -71,21 +79,14 @@ async function carregarDados(){
     status.innerHTML += " | Regras: " + regrasCE.length;
 
   } catch(e){
-    status.innerHTML += " | <span class='erro'>Erro regras</span>";
+    status.innerHTML += " | Erro regras";
     console.error(e);
   }
 
 }
 
-// ============================
-// 🔧 FUNÇÕES
-// ============================
-
-function limparNCM(n){
-  return String(n).replace(/\D/g,"").padStart(8,"0");
-}
-
-// 🔥 CLASSIFICAÇÃO CORRETA
+// =========================
+// CLASSIFICAÇÃO
 function classificar(ncm){
 
   ncm = limparNCM(ncm);
@@ -101,32 +102,41 @@ function classificar(ncm){
   return { cclass:"000001", cst:"000" };
 }
 
-// 🔎 BUSCA
+// =========================
+// BUSCA INTELIGENTE
 function buscar(){
 
-  const texto = document.getElementById("busca").value.toLowerCase().trim();
+  const textoOriginal = document.getElementById("busca").value.trim();
+  const texto = normalizar(textoOriginal);
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
 
   if(texto.length < 2) return;
 
-  const buscaNCM = texto.replace(/\D/g,"");
+  const buscaNCM = textoOriginal.replace(/\D/g,"");
 
   let encontrados = [];
 
   for(let p of tabelaNCM){
 
-    if(!p.ncm || !p.descricao) continue;
+    let score = 0;
 
-    if(
-      (buscaNCM && p.ncm.startsWith(buscaNCM)) ||
-      p.descricao.includes(texto)
-    ){
-      encontrados.push(p);
+    if(buscaNCM && p.ncm.startsWith(buscaNCM)) score += 200;
+
+    if(p.descBusca.startsWith(texto)) score += 100;
+
+    if(p.descBusca.includes(" " + texto)) score += 50;
+
+    if(p.descBusca.includes(texto)) score += 10;
+
+    if(score > 0){
+      encontrados.push({ ...p, score });
     }
 
   }
+
+  encontrados.sort((a,b)=>b.score - a.score);
 
   if(encontrados.length === 0){
     res.innerHTML = "<div class='small'>Nenhum produto encontrado</div>";
