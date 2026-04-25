@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta Fiscal CE</title>
+<title>Consulta Fiscal Inteligente - CE</title>
 
 <style>
 body { font-family: Arial; background:#f4f6f8; padding:20px; }
@@ -32,7 +32,9 @@ input { width:100%; padding:12px; margin-top:10px; }
 let tabelaNCM = [];
 let regrasCE = [];
 
-// 🔥 CARREGAMENTO COM DEBUG
+// ============================
+// 🔥 CARREGAMENTO CORRETO
+// ============================
 async function carregarDados(){
 
   const status = document.getElementById("status");
@@ -40,8 +42,6 @@ async function carregarDados(){
   try {
 
     const resNCM = await fetch("tabelancm.json");
-    if(!resNCM.ok) throw new Error("Erro ao carregar tabelancm.json");
-
     const jsonNCM = await resNCM.json();
 
     tabelaNCM = jsonNCM.map(p => ({
@@ -49,39 +49,43 @@ async function carregarDados(){
       descricao: (p.descricao || "").toLowerCase()
     }));
 
-    status.innerHTML = "Base NCM carregada: " + tabelaNCM.length + " itens";
+    status.innerHTML = "Base NCM: " + tabelaNCM.length;
 
   } catch(e){
-    status.innerHTML = "<span class='erro'>ERRO NCM: " + e.message + "</span>";
+    status.innerHTML = "<span class='erro'>Erro NCM</span>";
     console.error(e);
   }
 
   try {
 
     const resRegras = await fetch("regras_ce.json");
-    if(!resRegras.ok) throw new Error("Erro ao carregar regras_ce.json");
-
     const jsonRegras = await resRegras.json();
 
+    // 🔥 CORREÇÃO PRINCIPAL AQUI
     regrasCE = jsonRegras.map(r => ({
-      ncm: limparNCM(r.ncm),
+      ncm: String(r.ncm).replace(/\D/g,""), // SEM PADSTART
       cclass: r.cclass,
       cst: r.cst
     }));
 
-    status.innerHTML += "<br>Regras carregadas: " + regrasCE.length;
+    status.innerHTML += " | Regras: " + regrasCE.length;
 
   } catch(e){
-    status.innerHTML += "<br><span class='erro'>ERRO REGRAS: " + e.message + "</span>";
+    status.innerHTML += " | <span class='erro'>Erro regras</span>";
     console.error(e);
   }
 
 }
 
+// ============================
+// 🔧 FUNÇÕES
+// ============================
+
 function limparNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
 
+// 🔥 CLASSIFICAÇÃO CORRETA
 function classificar(ncm){
 
   ncm = limparNCM(ncm);
@@ -97,6 +101,7 @@ function classificar(ncm){
   return { cclass:"000001", cst:"000" };
 }
 
+// 🔎 BUSCA
 function buscar(){
 
   const texto = document.getElementById("busca").value.toLowerCase().trim();
