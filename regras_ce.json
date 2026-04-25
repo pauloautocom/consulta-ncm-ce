@@ -1,59 +1,33 @@
 [
   { "ncm": "0407", "cclass": "200014", "cst": "200", "desc": "Ovos" },
-  { "ncm": "4902", "cclass": "040001", "cst": "040", "desc": "Jornais e periódicos" },
+  { "ncm": "4902", "cclass": "040001", "cst": "040", "desc": "Jornais" },
   { "ncm": "9619", "cclass": "200013", "cst": "200", "desc": "Absorventes" },
 
   { "ncm": "22011000", "cclass": "000010", "cst": "010", "desc": "Água mineral" },
   { "ncm": "22030000", "cclass": "000020", "cst": "060", "desc": "Cerveja (ST)" },
 
-  // ======================
-  // 🔥 CESTA BÁSICA CE (CST 200 / CCLASS 200003)
-  // ======================
+  // =====================
+  // CESTA BÁSICA REAL CE
+  // =====================
 
-  { "ncm": "1006", "cclass": "200003", "cst": "200", "desc": "Arroz" },
-  { "ncm": "0401", "cclass": "200003", "cst": "200", "desc": "Leite líquido" },
-  { "ncm": "0402", "cclass": "200003", "cst": "200", "desc": "Leite em pó" },
-  { "ncm": "1901", "cclass": "200003", "cst": "200", "desc": "Fórmulas alimentares" },
-  { "ncm": "21069090", "cclass": "200003", "cst": "200", "desc": "Fórmulas especiais" },
+  { "ncm": "1006", "cclass": "040001", "cst": "040", "desc": "Arroz - isento CE" },
+  { "ncm": "0713", "cclass": "040001", "cst": "040", "desc": "Feijão - isento CE" },
+  { "ncm": "1902", "cclass": "040001", "cst": "040", "desc": "Macarrão - isento CE" },
+  { "ncm": "0401", "cclass": "040001", "cst": "040", "desc": "Leite - isento CE" },
+  { "ncm": "0402", "cclass": "040001", "cst": "040", "desc": "Leite em pó - isento CE" },
 
-  { "ncm": "04051000", "cclass": "200003", "cst": "200", "desc": "Manteiga" },
-  { "ncm": "15171000", "cclass": "200003", "cst": "200", "desc": "Margarina" },
+  { "ncm": "0901", "cclass": "200003", "cst": "200", "desc": "Café - redução CE" },
 
-  { "ncm": "0713", "cclass": "200003", "cst": "200", "desc": "Feijões" },
-  { "ncm": "0901", "cclass": "200003", "cst": "200", "desc": "Café" },
-  { "ncm": "2101", "cclass": "200003", "cst": "200", "desc": "Preparações de café" },
+  { "ncm": "1701", "cclass": "040001", "cst": "040", "desc": "Açúcar - isento CE" },
 
-  { "ncm": "15132120", "cclass": "200003", "cst": "200", "desc": "Óleo de babaçu" },
+  { "ncm": "1101", "cclass": "040001", "cst": "040", "desc": "Farinha trigo - isento CE" },
+  { "ncm": "1102", "cclass": "040001", "cst": "040", "desc": "Farinha milho - isento CE" },
+  { "ncm": "1106", "cclass": "040001", "cst": "040", "desc": "Farinha mandioca - isento CE" },
 
-  { "ncm": "11062000", "cclass": "200003", "cst": "200", "desc": "Farinha de mandioca" },
-  { "ncm": "19030000", "cclass": "200003", "cst": "200", "desc": "Tapioca" },
+  { "ncm": "02", "cclass": "200003", "cst": "200", "desc": "Carnes - redução CE" },
+  { "ncm": "03", "cclass": "200003", "cst": "200", "desc": "Peixes - redução CE" },
 
-  { "ncm": "11022000", "cclass": "200003", "cst": "200", "desc": "Farinha de milho" },
-  { "ncm": "11031300", "cclass": "200003", "cst": "200", "desc": "Sêmola de milho" },
+  { "ncm": "0406", "cclass": "200003", "cst": "200", "desc": "Queijos - redução CE" },
 
-  { "ncm": "1104", "cclass": "200003", "cst": "200", "desc": "Grãos e aveia" },
-
-  { "ncm": "11010010", "cclass": "200003", "cst": "200", "desc": "Farinha de trigo" },
-
-  { "ncm": "17011400", "cclass": "200003", "cst": "200", "desc": "Açúcar" },
-  { "ncm": "17019900", "cclass": "200003", "cst": "200", "desc": "Açúcar" },
-
-  { "ncm": "1902", "cclass": "200003", "cst": "200", "desc": "Massas alimentícias" },
-
-  { "ncm": "19059090", "cclass": "200003", "cst": "200", "desc": "Pão" },
-  { "ncm": "19012010", "cclass": "200003", "cst": "200", "desc": "Pré-mistura pão" },
-  { "ncm": "19012090", "cclass": "200003", "cst": "200", "desc": "Pré-mistura pão" },
-
-  { "ncm": "02", "cclass": "200003", "cst": "200", "desc": "Carnes" },
-  { "ncm": "03", "cclass": "200003", "cst": "200", "desc": "Peixes" },
-
-  { "ncm": "0406", "cclass": "200003", "cst": "200", "desc": "Queijos" },
-
-  { "ncm": "2501", "cclass": "200003", "cst": "200", "desc": "Sal" },
-
-  { "ncm": "0903", "cclass": "200003", "cst": "200", "desc": "Erva-mate" },
-
-  { "ncm": "19019090", "cclass": "200003", "cst": "200", "desc": "Farinhas especiais" },
-
-  { "ncm": "19021900", "cclass": "200003", "cst": "200", "desc": "Massas especiais" }
+  { "ncm": "2501", "cclass": "040001", "cst": "040", "desc": "Sal - isento CE" }
 ]
