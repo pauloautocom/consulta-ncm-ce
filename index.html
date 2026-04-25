@@ -12,6 +12,7 @@ input { width:100%; padding:12px; margin-top:10px; }
 .item { padding:12px; border-bottom:1px solid #ddd; }
 .badge { background:#2563eb; color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; margin-right:5px; }
 .small { font-size:12px; color:#666; }
+.erro { color:red; font-size:12px; }
 </style>
 </head>
 
@@ -22,6 +23,7 @@ input { width:100%; padding:12px; margin-top:10px; }
 
 <input id="busca" placeholder="Digite produto ou NCM">
 
+<div id="status" class="small">Carregando base...</div>
 <div id="resultado"></div>
 </div>
 
@@ -30,32 +32,56 @@ input { width:100%; padding:12px; margin-top:10px; }
 let tabelaNCM = [];
 let regrasCE = [];
 
-// 🔥 CARREGAMENTO ROBUSTO
-Promise.all([
-  fetch("tabelancm.json").then(r=>r.json()),
-  fetch("regras_ce.json").then(r=>r.json())
-]).then(([ncm, regras])=>{
+// 🔥 CARREGAMENTO COM DEBUG
+async function carregarDados(){
 
-  // 🔥 ACEITA QUALQUER FORMATO DE NCM
-  tabelaNCM = ncm.map(p => ({
-    ncm: limparNCM(p.ncm || p.codigo || ""),
-    descricao: p.descricao || p.descricao_completa || "SEM DESCRIÇÃO"
-  }));
+  const status = document.getElementById("status");
 
-  regrasCE = regras.map(r => ({
-    ncm: limparNCM(r.ncm),
-    cclass: r.cclass,
-    cst: r.cst
-  }));
+  try {
 
-});
+    const resNCM = await fetch("tabelancm.json");
+    if(!resNCM.ok) throw new Error("Erro ao carregar tabelancm.json");
 
-// 🔧 NORMALIZA NCM
+    const jsonNCM = await resNCM.json();
+
+    tabelaNCM = jsonNCM.map(p => ({
+      ncm: limparNCM(p.ncm || p.codigo || ""),
+      descricao: (p.descricao || "").toLowerCase()
+    }));
+
+    status.innerHTML = "Base NCM carregada: " + tabelaNCM.length + " itens";
+
+  } catch(e){
+    status.innerHTML = "<span class='erro'>ERRO NCM: " + e.message + "</span>";
+    console.error(e);
+  }
+
+  try {
+
+    const resRegras = await fetch("regras_ce.json");
+    if(!resRegras.ok) throw new Error("Erro ao carregar regras_ce.json");
+
+    const jsonRegras = await resRegras.json();
+
+    regrasCE = jsonRegras.map(r => ({
+      ncm: limparNCM(r.ncm),
+      cclass: r.cclass,
+      cst: r.cst
+    }));
+
+    status.innerHTML += "<br>Regras carregadas: " + regrasCE.length;
+
+  } catch(e){
+    status.innerHTML += "<br><span class='erro'>ERRO REGRAS: " + e.message + "</span>";
+    console.error(e);
+  }
+
+}
+
 function limparNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
 
-// 🔥 CLASSIFICAÇÃO CORRETA
 function classificar(ncm){
 
   ncm = limparNCM(ncm);
@@ -71,51 +97,38 @@ function classificar(ncm){
   return { cclass:"000001", cst:"000" };
 }
 
-// 🔎 BUSCA INTELIGENTE
 function buscar(){
 
-  const texto = document.getElementById("busca").value.trim().toLowerCase();
+  const texto = document.getElementById("busca").value.toLowerCase().trim();
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
+
   if(texto.length < 2) return;
 
   const buscaNCM = texto.replace(/\D/g,"");
 
-  let resultados = [];
+  let encontrados = [];
 
-  tabelaNCM.forEach(p => {
+  for(let p of tabelaNCM){
 
-    const desc = p.descricao.toLowerCase();
+    if(!p.ncm || !p.descricao) continue;
 
-    let score = 0;
-
-    // 🔥 BUSCA POR NCM
-    if(buscaNCM && p.ncm.startsWith(buscaNCM)) score += 100;
-
-    // 🔥 BUSCA POR TEXTO FLEXÍVEL
-    if(desc.includes(texto)) score += 60;
-
-    // 🔥 SINÔNIMOS IMPORTANTES
-    if(texto.includes("agua") && desc.includes("mineral")) score += 80;
-    if(texto.includes("cafe") && desc.includes("cafe")) score += 80;
-    if(texto.includes("macarrao") && desc.includes("massa")) score += 80;
-    if(texto.includes("jornal") && desc.includes("periodic")) score += 80;
-
-    if(score > 0){
-      resultados.push({ ...p, score });
+    if(
+      (buscaNCM && p.ncm.startsWith(buscaNCM)) ||
+      p.descricao.includes(texto)
+    ){
+      encontrados.push(p);
     }
 
-  });
+  }
 
-  resultados.sort((a,b)=>b.score - a.score);
-
-  if(resultados.length === 0){
+  if(encontrados.length === 0){
     res.innerHTML = "<div class='small'>Nenhum produto encontrado</div>";
     return;
   }
 
-  resultados.slice(0,30).forEach(p => {
+  encontrados.slice(0,30).forEach(p => {
 
     const trib = classificar(p.ncm);
 
@@ -131,6 +144,8 @@ function buscar(){
 }
 
 document.getElementById("busca").addEventListener("input", buscar);
+
+carregarDados();
 
 </script>
 
