@@ -47,15 +47,14 @@ function norm(t){
   return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// 🔥 CLASSIFICAÇÃO PROFISSIONAL
+// CLASSIFICAÇÃO PROFISSIONAL
 function classificar(ncm, op){
 
   if(op === "exportacao") return { cclass:"410004", cst:"410" };
   if(op === "isento") return { cclass:"040001", cst:"040" };
 
-  // 🔥 ORDEM CORRETA:
-  // 1. MAIOR NCM (mais específico primeiro)
-  let regrasOrdenadas = regrasCE.sort((a,b)=>b.ncm.length - a.ncm.length);
+  // ordenar por maior NCM primeiro (CRUCIAL)
+  let regrasOrdenadas = [...regrasCE].sort((a,b)=>b.ncm.length - a.ncm.length);
 
   for(let r of regrasOrdenadas){
     if(ncm.startsWith(r.ncm)){
@@ -66,7 +65,7 @@ function classificar(ncm, op){
   return { cclass:"000001", cst:"000", desc:"Tributação padrão" };
 }
 
-// 🔎 BUSCA
+// BUSCA
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
@@ -92,7 +91,6 @@ function buscar(){
     if(desc.startsWith(q)) score += 80;
     else if(desc.includes(q)) score += 50;
 
-    // sinônimos
     if(q.includes("jornal") && desc.includes("periodic")) score += 80;
     if(q.includes("cafe") && desc.includes("cafe")) score += 60;
     if(q.includes("macarrao") && desc.includes("massa")) score += 60;
