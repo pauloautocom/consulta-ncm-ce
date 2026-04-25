@@ -20,7 +20,7 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 <div class="card">
 <h2>Consulta Fiscal Inteligente - CE</h2>
 
-<input id="busca" placeholder="Digite produto ou NCM (ex: água, café, jornal...)">
+<input id="busca" placeholder="Digite produto ou NCM">
 
 <select id="operacao">
   <option value="normal">Venda normal</option>
@@ -36,53 +36,37 @@ input, select { width:100%; padding:12px; margin-top:10px; }
 let tabelaNCM = [];
 let regrasCE = [];
 
-// carregar NCM
-fetch("tabelancm.json")
-  .then(r => r.json())
-  .then(d => tabelaNCM = d);
-
-// carregar regras CE
-fetch("regras_ce.json")
-  .then(r => r.json())
-  .then(d => regrasCE = d);
+fetch("tabelancm.json").then(r=>r.json()).then(d=>tabelaNCM=d);
+fetch("regras_ce.json").then(r=>r.json()).then(d=>regrasCE=d);
 
 function formatarNCM(n){
   return String(n).replace(/\D/g,"").padStart(8,"0");
 }
 
 function norm(t){
-  return t.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"");
+  return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-// ======================
-// CLASSIFICAÇÃO CORRETA
-// ======================
+// 🔥 CLASSIFICAÇÃO PROFISSIONAL
 function classificar(ncm, op){
 
-  if(op === "exportacao"){
-    return { cclass:"410004", cst:"410", desc:"Exportação" };
+  if(op === "exportacao") return { cclass:"410004", cst:"410" };
+  if(op === "isento") return { cclass:"040001", cst:"040" };
+
+  // 🔥 ORDEM CORRETA:
+  // 1. MAIOR NCM (mais específico primeiro)
+  let regrasOrdenadas = regrasCE.sort((a,b)=>b.ncm.length - a.ncm.length);
+
+  for(let r of regrasOrdenadas){
+    if(ncm.startsWith(r.ncm)){
+      return r;
+    }
   }
-
-  if(op === "isento"){
-    return { cclass:"040001", cst:"040", desc:"Isento" };
-  }
-
-  // NCM exato
-  let regra = regrasCE.find(r => r.ncm === ncm);
-  if(regra) return regra;
-
-  // prefixo
-  regra = regrasCE.find(r => ncm.startsWith(r.ncm));
-  if(regra) return regra;
 
   return { cclass:"000001", cst:"000", desc:"Tributação padrão" };
 }
 
-// ======================
-// BUSCA INTELIGENTE
-// ======================
+// 🔎 BUSCA
 function buscar(){
 
   const texto = document.getElementById("busca").value.trim();
@@ -91,7 +75,6 @@ function buscar(){
   const res = document.getElementById("resultado");
 
   res.innerHTML = "";
-
   if(q.length < 2) return;
 
   const qNCM = texto.replace(/\D/g,"");
@@ -113,7 +96,6 @@ function buscar(){
     if(q.includes("jornal") && desc.includes("periodic")) score += 80;
     if(q.includes("cafe") && desc.includes("cafe")) score += 60;
     if(q.includes("macarrao") && desc.includes("massa")) score += 60;
-    if(q.includes("leite") && desc.includes("leite")) score += 60;
 
     if(score > 0){
       resultados.push({ ncm, descricao:p.descricao, score });
